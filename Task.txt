@@ -40,4 +40,4 @@ Main flow
  14.Проект должен быть multiproject. Структура такая
  main
  |-backend
- |-client (edited)
+ |-client

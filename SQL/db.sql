@@ -57,8 +57,8 @@ CREATE TABLE "service_operation" (
                                      "issue_description" character varying NOT NULL,
                                      "start_date" DATE NOT NULL,
                                      "end_date" DATE,
-                                     "description" character varying,
-                                     "equipment_item_id" DATE NOT NULL,
+                                     "comments" character varying,
+                                     "equipment_item_id" int NOT NULL,
                                      CONSTRAINT "service_operation_pk" PRIMARY KEY ("id")
 ) WITH (
       OIDS=FALSE
@@ -72,7 +72,7 @@ CREATE TABLE "client_account" (
                                   "name" character varying NOT NULL,
                                   "updated" TIMESTAMP NOT NULL,
                                   "created" TIMESTAMP NOT NULL,
-                                  "addres" character varying NOT NULL,
+                                  "address" character varying NOT NULL,
                                   "rating" int NOT NULL,
                                   "comments" character varying,
                                   CONSTRAINT "client_account_pk" PRIMARY KEY ("id")
@@ -93,7 +93,7 @@ CREATE TABLE "rent_operation" (
                                   "comments" character varying,
                                   "updated" TIMESTAMP NOT NULL,
                                   "created" TIMESTAMP NOT NULL,
-                                  "sharing_status_id" int NOT NULL,
+                                  "rent_status_id" int NOT NULL,
                                   CONSTRAINT "rent_operation_pk" PRIMARY KEY ("id")
 ) WITH (
       OIDS=FALSE
@@ -124,4 +124,4 @@ ALTER TABLE "service_operation" ADD CONSTRAINT "service_operation_fk1" FOREIGN K
 
 ALTER TABLE "rent_operation" ADD CONSTRAINT "rent_operation_fk0" FOREIGN KEY ("equipment_item_id") REFERENCES "equipment_item"("id");
 ALTER TABLE "rent_operation" ADD CONSTRAINT "rent_operation_fk1" FOREIGN KEY ("client_account_id") REFERENCES "client_account"("id");
-ALTER TABLE "rent_operation" ADD CONSTRAINT "rent_operation_fk2" FOREIGN KEY ("sharing_status_id") REFERENCES "rent_status"("id");
+ALTER TABLE "rent_operation" ADD CONSTRAINT "rent_operation_fk2" FOREIGN KEY ("rent_status_id") REFERENCES "rent_status"("id");

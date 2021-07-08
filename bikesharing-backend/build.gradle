@@ -1,0 +1,34 @@
+plugins {
+    id 'org.springframework.boot'
+}
+
+ext {
+    jsonVersion = '20210307'
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    implementation("org.liquibase:liquibase-core")
+
+    // Swagger
+    implementation "io.springfox:springfox-swagger2:${springfoxVersion}"
+    implementation "io.springfox:springfox-swagger-ui:${springfoxVersion}"
+    implementation "io.swagger.parser.v3:swagger-parser:${swaggerParserVersion}"
+
+    implementation "org.json:json:${jsonVersion}"
+
+    //      Database
+    runtimeOnly 'org.postgresql:postgresql'
+
+    //      Test
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}

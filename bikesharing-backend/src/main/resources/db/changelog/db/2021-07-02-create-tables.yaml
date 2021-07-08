@@ -1,0 +1,447 @@
+databaseChangeLog:
+  - changeSet:
+      id: addTable-1
+      author: app
+      changes:
+        - createTable:
+            tableName: equipment_group
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: code
+                  type: character varying(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: character varying(100)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: addTable-2
+      author: app
+      changes:
+        - createTable:
+            tableName: equipment_status
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: code
+                  type: character varying(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: character varying(100)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: addTable-3
+      author: app
+      changes:
+        - createTable:
+            tableName: equipment_item
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: registration_number
+                  type: character varying(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: name
+                  type: character varying(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: equipment_group_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: equipment_status_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: factory_number
+                  type: character varying(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: purchase_date
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: comments
+                  type: character varying(200)
+              - column:
+                  name: updated
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: addTable-4
+      author: app
+      changes:
+        - createTable:
+            tableName: service_type
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: code
+                  type: character varying(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: character varying(100)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: addTable-5
+      author: app
+      changes:
+        - createTable:
+            tableName: rent_status
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: code
+                  type: character varying(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: character varying(100)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: addTable-6
+      author: app
+      changes:
+        - createTable:
+            tableName: service_operation
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: issue_description
+                  type: character varying(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: service_type_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: equipment_item_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: start_date
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_date
+                  type: DATE
+              - column:
+                  name: comments
+                  type: character varying(200)
+              - column:
+                  name: updated
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: addTable-7
+      author: app
+      changes:
+        - createTable:
+            tableName: rent_operation
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: rent_status_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: equipment_item_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: client_account_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: total_cost
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: deposit
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: start_time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: comments
+                  type: character varying(200)
+              - column:
+                  name: updated
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: addTable-8
+      author: app
+      changes:
+        - createTable:
+            tableName: client_account
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: phone_number
+                  type: character varying(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: character varying(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address
+                  type: character varying(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rating
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: comments
+                  type: character varying(200)
+              - column:
+                  name: updated
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: addForeignKeyConstraint-1
+      author: app
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: equipment_group_id
+            baseTableCatalogName: bikesharing
+            baseTableName: equipment_item
+            baseTableSchemaName: public
+            constraintName: equipment_item_fk0
+            deferrable: true
+            initiallyDeferred: true
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableCatalogName: bikesharing
+            referencedTableName: equipment_group
+            referencedTableSchemaName: public
+            validate: true
+  - changeSet:
+      id: addForeignKeyConstraint-2
+      author: app
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: equipment_status_id
+            baseTableCatalogName: bikesharing
+            baseTableName: equipment_item
+            baseTableSchemaName: public
+            constraintName: equipment_item_fk1
+            deferrable: true
+            initiallyDeferred: true
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableCatalogName: bikesharing
+            referencedTableName: equipment_status
+            referencedTableSchemaName: public
+            validate: true
+  - changeSet:
+      id: addForeignKeyConstraint-3
+      author: app
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: service_type_id
+            baseTableCatalogName: bikesharing
+            baseTableName: service_operation
+            baseTableSchemaName: public
+            constraintName: service_operation_fk0
+            deferrable: true
+            initiallyDeferred: true
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableCatalogName: bikesharing
+            referencedTableName: service_type
+            referencedTableSchemaName: public
+            validate: true
+  - changeSet:
+      id: addForeignKeyConstraint-4
+      author: app
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: equipment_item_id
+            baseTableCatalogName: bikesharing
+            baseTableName: service_operation
+            baseTableSchemaName: public
+            constraintName: service_operation_fk1
+            deferrable: true
+            initiallyDeferred: true
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableCatalogName: bikesharing
+            referencedTableName: equipment_item
+            referencedTableSchemaName: public
+            validate: true
+  - changeSet:
+      id: addForeignKeyConstraint-5
+      author: app
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: equipment_item_id
+            baseTableCatalogName: bikesharing
+            baseTableName: rent_operation
+            baseTableSchemaName: public
+            constraintName: rent_operation_fk0
+            deferrable: true
+            initiallyDeferred: true
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableCatalogName: bikesharing
+            referencedTableName: equipment_item
+            referencedTableSchemaName: public
+            validate: true
+  - changeSet:
+      id: addForeignKeyConstraint-6
+      author: app
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: client_account_id
+            baseTableCatalogName: bikesharing
+            baseTableName: rent_operation
+            baseTableSchemaName: public
+            constraintName: rent_operation_fk1
+            deferrable: true
+            initiallyDeferred: true
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableCatalogName: bikesharing
+            referencedTableName: client_account
+            referencedTableSchemaName: public
+            validate: true
+  - changeSet:
+      id: addForeignKeyConstraint-7
+      author: app
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: rent_status_id
+            baseTableCatalogName: bikesharing
+            baseTableName: rent_operation
+            baseTableSchemaName: public
+            constraintName: rent_operation_fk2
+            deferrable: true
+            initiallyDeferred: true
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableCatalogName: bikesharing
+            referencedTableName: rent_status
+            referencedTableSchemaName: public
+            validate: true

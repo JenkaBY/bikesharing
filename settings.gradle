@@ -1,0 +1,4 @@
+rootProject.name = 'bikesharing'
+
+include 'bikesharing-backend', 'bikesharing-client'
+

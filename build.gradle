@@ -1,32 +1,46 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.1'
+    //  the 'base' plugin allows to clean the root project and provide the base tasks
+    id 'base'
+    id 'checkstyle'
+    id 'org.springframework.boot' version '2.5.1' apply false
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
-group = 'com.godeltech'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+allprojects {
+    apply plugin: 'checkstyle'
 
-repositories {
-    mavenCentral()
+    checkstyle {
+        toolVersion = '8.29'
+        ignoreFailures = false
+        maxWarnings = 0
+        configDirectory = file("$rootProject.projectDir/config/checkstyle")
+    }
 }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+subprojects {
+    apply plugin: 'java'
 
-    //      Database
-    runtimeOnly 'org.postgresql:postgresql'
+    group = 'com.godeltech'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = JavaVersion.VERSION_11
 
-    //      Lombok
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    testCompileOnly "org.projectlombok:lombok"
-    testAnnotationProcessor "org.projectlombok:lombok"
-}
+    repositories {
+        mavenCentral()
+    }
 
-test {
-    useJUnitPlatform()
+    ext {
+        springfoxVersion = '2.9.2'
+        swaggerParserVersion = '2.0.23'
+
+        apply plugin: 'io.spring.dependency-management'
+        dependencies {
+//      Lombok
+            compileOnly 'org.projectlombok:lombok'
+            annotationProcessor 'org.projectlombok:lombok'
+            testCompileOnly "org.projectlombok:lombok"
+            testAnnotationProcessor "org.projectlombok:lombok"
+        }
+
+    }
 }
