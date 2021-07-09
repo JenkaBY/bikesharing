@@ -3,7 +3,7 @@ plugins {
 }
 
 ext {
-
+    mapstructVersion = '1.4.2.Final'
 }
 
 dependencies {
@@ -11,7 +11,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     implementation("org.liquibase:liquibase-core")
 
     // Swagger
@@ -26,6 +27,11 @@ dependencies {
     //      Test
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+compileJava {
+    options.compilerArgs += "-Amapstruct.defaultComponentModel=spring"
+    options.compilerArgs += "-Amapstruct.unmappedTargetPolicy=IGNORE"
 }
 
 test {
