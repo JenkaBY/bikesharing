@@ -1,7 +1,6 @@
 code,name
 SERVICE,equipment been serviced
 BROKEN,equipment is broken
-BOOKED,equipment is booked
 IN_USE,equipment is in-use
 FREE,equipment is free
 BOOKED,equipment is booked
