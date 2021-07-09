@@ -10,7 +10,7 @@ services:
     ports:
       - "5433:5432"
     environment:
-      - POSTGRES_DB=bikesharing
+      - POSTGRES_DB=com.godeltech.bikesharing
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
@@ -22,7 +22,7 @@ services:
       dockerfile: Dockerfile.development
     environment:
       - PORT=8080
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/bikesharing
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/com.godeltech.bikesharing
     image: 'app'
     ports:
       - 8080:8080

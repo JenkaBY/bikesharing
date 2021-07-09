@@ -3,7 +3,7 @@ plugins {
 }
 
 ext {
-    jsonVersion = '20210307'
+
 }
 
 dependencies {
@@ -15,11 +15,10 @@ dependencies {
     implementation("org.liquibase:liquibase-core")
 
     // Swagger
-    implementation "io.springfox:springfox-swagger2:${springfoxVersion}"
+    implementation "io.springfox:springfox-boot-starter:${springfoxVersion}"
     implementation "io.springfox:springfox-swagger-ui:${springfoxVersion}"
     implementation "io.swagger.parser.v3:swagger-parser:${swaggerParserVersion}"
 
-    implementation "org.json:json:${jsonVersion}"
 
     //      Database
     runtimeOnly 'org.postgresql:postgresql'

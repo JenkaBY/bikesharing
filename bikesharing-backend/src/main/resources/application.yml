@@ -2,7 +2,7 @@ server:
   port: ${PORT:8080}
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/bikesharing}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/com.godeltech.bikesharing}
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver

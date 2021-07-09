@@ -322,7 +322,7 @@ databaseChangeLog:
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: equipment_group_id
-            baseTableCatalogName: bikesharing
+            baseTableCatalogName: com.godeltech.bikesharing
             baseTableName: equipment_item
             baseTableSchemaName: public
             constraintName: equipment_item_fk0
@@ -331,7 +331,7 @@ databaseChangeLog:
             onDelete: CASCADE
             onUpdate: RESTRICT
             referencedColumnNames: id
-            referencedTableCatalogName: bikesharing
+            referencedTableCatalogName: com.godeltech.bikesharing
             referencedTableName: equipment_group
             referencedTableSchemaName: public
             validate: true
@@ -341,7 +341,7 @@ databaseChangeLog:
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: equipment_status_id
-            baseTableCatalogName: bikesharing
+            baseTableCatalogName: com.godeltech.bikesharing
             baseTableName: equipment_item
             baseTableSchemaName: public
             constraintName: equipment_item_fk1
@@ -350,7 +350,7 @@ databaseChangeLog:
             onDelete: CASCADE
             onUpdate: RESTRICT
             referencedColumnNames: id
-            referencedTableCatalogName: bikesharing
+            referencedTableCatalogName: com.godeltech.bikesharing
             referencedTableName: equipment_status
             referencedTableSchemaName: public
             validate: true
@@ -360,7 +360,7 @@ databaseChangeLog:
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: service_type_id
-            baseTableCatalogName: bikesharing
+            baseTableCatalogName: com.godeltech.bikesharing
             baseTableName: service_operation
             baseTableSchemaName: public
             constraintName: service_operation_fk0
@@ -369,7 +369,7 @@ databaseChangeLog:
             onDelete: CASCADE
             onUpdate: RESTRICT
             referencedColumnNames: id
-            referencedTableCatalogName: bikesharing
+            referencedTableCatalogName: com.godeltech.bikesharing
             referencedTableName: service_type
             referencedTableSchemaName: public
             validate: true
@@ -379,7 +379,7 @@ databaseChangeLog:
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: equipment_item_id
-            baseTableCatalogName: bikesharing
+            baseTableCatalogName: com.godeltech.bikesharing
             baseTableName: service_operation
             baseTableSchemaName: public
             constraintName: service_operation_fk1
@@ -388,7 +388,7 @@ databaseChangeLog:
             onDelete: CASCADE
             onUpdate: RESTRICT
             referencedColumnNames: id
-            referencedTableCatalogName: bikesharing
+            referencedTableCatalogName: com.godeltech.bikesharing
             referencedTableName: equipment_item
             referencedTableSchemaName: public
             validate: true
@@ -398,7 +398,7 @@ databaseChangeLog:
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: equipment_item_id
-            baseTableCatalogName: bikesharing
+            baseTableCatalogName: com.godeltech.bikesharing
             baseTableName: rent_operation
             baseTableSchemaName: public
             constraintName: rent_operation_fk0
@@ -407,7 +407,7 @@ databaseChangeLog:
             onDelete: CASCADE
             onUpdate: RESTRICT
             referencedColumnNames: id
-            referencedTableCatalogName: bikesharing
+            referencedTableCatalogName: com.godeltech.bikesharing
             referencedTableName: equipment_item
             referencedTableSchemaName: public
             validate: true
@@ -417,7 +417,7 @@ databaseChangeLog:
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: client_account_id
-            baseTableCatalogName: bikesharing
+            baseTableCatalogName: com.godeltech.bikesharing
             baseTableName: rent_operation
             baseTableSchemaName: public
             constraintName: rent_operation_fk1
@@ -426,7 +426,7 @@ databaseChangeLog:
             onDelete: CASCADE
             onUpdate: RESTRICT
             referencedColumnNames: id
-            referencedTableCatalogName: bikesharing
+            referencedTableCatalogName: com.godeltech.bikesharing
             referencedTableName: client_account
             referencedTableSchemaName: public
             validate: true
@@ -436,7 +436,7 @@ databaseChangeLog:
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: rent_status_id
-            baseTableCatalogName: bikesharing
+            baseTableCatalogName: com.godeltech.bikesharing
             baseTableName: rent_operation
             baseTableSchemaName: public
             constraintName: rent_operation_fk2
@@ -445,7 +445,7 @@ databaseChangeLog:
             onDelete: CASCADE
             onUpdate: RESTRICT
             referencedColumnNames: id
-            referencedTableCatalogName: bikesharing
+            referencedTableCatalogName: com.godeltech.bikesharing
             referencedTableName: rent_status
             referencedTableSchemaName: public
             validate: true

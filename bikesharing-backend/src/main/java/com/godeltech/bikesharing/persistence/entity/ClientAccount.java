@@ -1,4 +1,4 @@
-package bikesharing.persistence.entity;
+package com.godeltech.bikesharing.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +17,8 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @Table(name = "client_account")
 @EqualsAndHashCode(of = "id", callSuper = false)
-public class ClientAccount extends AbstractEntity{
+public class ClientAccount extends AbstractEntity {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

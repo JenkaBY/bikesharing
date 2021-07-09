@@ -1,6 +1,6 @@
-package bikesharing.persistence.entity;
+package com.godeltech.bikesharing.persistence.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,29 +19,35 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Table(name = "service_operation")
+@Table(name = "rent_operation")
 @EqualsAndHashCode(of = "id", callSuper = false)
-public class ServiceOperation extends AbstractEntity {
+public class RentOperation extends AbstractEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "issue_description")
-  private String issueDescription;
+  @Column(name = "total_cost")
+  private Long totalCost;
 
-  @Column(name = "start_date")
-  private LocalDate startDate;
+  private Long deposit;
 
-  @Column(name = "end_date")
-  private LocalDate endDate;
+  @Column(name = "start_time")
+  private LocalDateTime startTime;
+
+  @Column(name = "end_time")
+  private LocalDateTime endTime;
 
   private String comments;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "rent_status_id", nullable = false)
+  private RentStatus rentStatus;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "equipment_item_id", nullable = false)
   private EquipmentItem equipmentItem;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "service_type_id", nullable = false)
-  private ServiceType serviceType;
+  @JoinColumn(name = "client_account_id", nullable = false)
+  private ClientAccount clientAccount;
 }

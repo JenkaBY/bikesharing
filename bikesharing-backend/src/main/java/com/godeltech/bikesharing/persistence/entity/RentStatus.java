@@ -1,4 +1,4 @@
-package bikesharing.persistence.entity;
+package com.godeltech.bikesharing.persistence.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

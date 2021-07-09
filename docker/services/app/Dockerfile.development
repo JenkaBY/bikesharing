@@ -1,5 +1,5 @@
 FROM openjdk:11-jdk-slim
 WORKDIR /usr/local/app
 ARG REVISION
-COPY ./bikesharing-backend/build/libs/bikesharing-0.0.1-SNAPSHOT.jar /app.jar
+COPY ./com.godeltech.bikesharing-backend/build/libs/com.godeltech.bikesharing-0.0.1-SNAPSHOT.jar /app.jar
 ENTRYPOINT ["java","-jar","app.jar"]

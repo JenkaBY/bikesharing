@@ -30,7 +30,7 @@ subprojects {
     }
 
     ext {
-        springfoxVersion = '2.9.2'
+        springfoxVersion = '3.0.0'
         swaggerParserVersion = '2.0.23'
 
         apply plugin: 'io.spring.dependency-management'

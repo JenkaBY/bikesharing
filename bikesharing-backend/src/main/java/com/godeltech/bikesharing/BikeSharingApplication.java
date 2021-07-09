@@ -1,4 +1,4 @@
-package bikesharing;
+package com.godeltech.bikesharing;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

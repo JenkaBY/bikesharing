@@ -1,4 +1,4 @@
-package bikesharing.persistence.entity;
+package com.godeltech.bikesharing.persistence.entity;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;

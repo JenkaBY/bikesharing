@@ -1,4 +1,4 @@
-package bikesharing.config;
+package com.godeltech.bikesharing.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

@@ -1,4 +1,4 @@
-package bikesharing.persistence.entity;
+package com.godeltech.bikesharing.persistence.entity;
 
 import java.time.LocalDate;
 import javax.persistence.Column;
@@ -19,31 +19,29 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Table(name = "equipment_item")
+@Table(name = "service_operation")
 @EqualsAndHashCode(of = "id", callSuper = false)
-public class EquipmentItem extends AbstractEntity {
+public class ServiceOperation extends AbstractEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String name;
+  @Column(name = "issue_description")
+  private String issueDescription;
 
-  @Column(name = "registration_number", nullable = false, unique = true)
-  private String registrationNumber;
+  @Column(name = "start_date")
+  private LocalDate startDate;
 
-  @Column(name = "factory_number", nullable = false)
-  private String factoryNumber;
-
-  @Column(name = "purchase_date")
-  private LocalDate purchaseDate;
+  @Column(name = "end_date")
+  private LocalDate endDate;
 
   private String comments;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "equipment_group_id", nullable = false)
-  private EquipmentGroup equipmentGroup;
+  @JoinColumn(name = "equipment_item_id", nullable = false)
+  private EquipmentItem equipmentItem;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "equipment_status_id", nullable = false)
-  private EquipmentStatus equipmentStatus;
+  @JoinColumn(name = "service_type_id", nullable = false)
+  private ServiceType serviceType;
 }
