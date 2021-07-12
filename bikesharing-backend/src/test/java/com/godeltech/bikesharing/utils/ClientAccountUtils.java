@@ -1,10 +1,10 @@
 package com.godeltech.bikesharing.utils;
 
 import com.godeltech.bikesharing.models.ClientAccountModel;
+import com.godeltech.bikesharing.models.request.NewClientAccountRequest;
 import com.godeltech.bikesharing.persistence.entity.ClientAccount;
 
 public class ClientAccountUtils {
-  public static final Long CLIENT_ACCOUNT_ID = 1L;
   public static final String NAME = "FelixTheCat";
   public static final String ADDRESS = "London, Downing st. 10";
   public static final Integer RATING = 1;
@@ -13,7 +13,6 @@ public class ClientAccountUtils {
 
   public static ClientAccount getClientAccount() {
     var clientAccount = new ClientAccount();
-    clientAccount.setId(CLIENT_ACCOUNT_ID);
     clientAccount.setName(NAME);
     clientAccount.setAddress(ADDRESS);
     clientAccount.setRating(RATING);
@@ -22,14 +21,23 @@ public class ClientAccountUtils {
     return clientAccount;
   }
 
-  public static ClientAccountModel getClientAccountModel() {
+  public static ClientAccountModel getClientAccountModel(Long id) {
     var clientAccountModel = new ClientAccountModel();
-    clientAccountModel.setId(CLIENT_ACCOUNT_ID);
+    clientAccountModel.setId(id);
     clientAccountModel.setName(NAME);
     clientAccountModel.setAddress(ADDRESS);
     clientAccountModel.setRating(RATING);
     clientAccountModel.setPhoneNumber(PHONE_NUMBER);
     clientAccountModel.setComments(COMMENTS);
     return clientAccountModel;
+  }
+
+  public static NewClientAccountRequest getNewClientAccountRequest() {
+    var clientAccountRequest = new NewClientAccountRequest();
+    clientAccountRequest.setName(NAME);
+    clientAccountRequest.setAddress(ADDRESS);
+    clientAccountRequest.setPhoneNumber(PHONE_NUMBER);
+    clientAccountRequest.setComments(COMMENTS);
+    return clientAccountRequest;
   }
 }

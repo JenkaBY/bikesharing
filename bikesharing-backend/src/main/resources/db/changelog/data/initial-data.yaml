@@ -63,3 +63,52 @@ databaseChangeLog:
             separator: ','
             relativeToChangelogFile: true
             tableName: equipment_status
+  - changeSet:
+      id: initial-data-4
+      author: app
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: registration_number
+                  name: registration_number
+                  type: STRING
+              - column:
+                  header: name
+                  name: name
+                  type: STRING
+              - column:
+                  header: equipment_group_id
+                  name: equipment_group_id
+                  type: NUMERIC
+              - column:
+                  header: equipment_status_id
+                  name: equipment_status_id
+                  type: NUMERIC
+              - column:
+                  header: factory_number
+                  name: factory_number
+                  type: STRING
+              - column:
+                  header: purchase_date
+                  name: purchase_date
+                  type: DATE
+              - column:
+                  header: comments
+                  name: comments
+                  type: STRING
+              - column:
+                  header: updated
+                  name: updated
+                  type: TIMESTAMP
+              - column:
+                  header: created
+                  name: created
+                  type: TIMESTAMP
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/equipment_item.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: equipment_item
