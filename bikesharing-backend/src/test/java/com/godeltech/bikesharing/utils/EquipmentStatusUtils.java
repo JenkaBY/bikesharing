@@ -4,8 +4,8 @@ import com.godeltech.bikesharing.models.EquipmentStatusModel;
 import com.godeltech.bikesharing.persistence.entity.EquipmentStatus;
 
 public class EquipmentStatusUtils {
-  public static final String NAME = "NewEquipmentStatus";
-  public static final String CODE = "NewEquipmentStatus";
+  public static final String NAME = "equipment is free";
+  public static final String CODE = "FREE";
 
   public static EquipmentStatus getEquipmentStatus() {
     var equipmentStatus = new EquipmentStatus();

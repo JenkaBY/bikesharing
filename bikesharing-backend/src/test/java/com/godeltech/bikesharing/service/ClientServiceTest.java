@@ -8,12 +8,12 @@ import com.godeltech.bikesharing.models.request.NewClientAccountRequest;
 import com.godeltech.bikesharing.utils.ClientAccountUtils;
 import org.junit.jupiter.api.Test;
 
-public class ClientAccountServiceTest extends AbstractIntegrationTest {
+public class ClientServiceTest extends AbstractIntegrationTest {
   @Test
-  public void crudTest() {
+  public void shouldSaveNewClient() {
     final NewClientAccountRequest request = ClientAccountUtils.getNewClientAccountRequest();
-    final ClientAccountModel model = clientAccountService.save(request);
-    final ClientAccountModel modelFromBase = clientAccountService.getByPhoneNumber(model.getPhoneNumber());
+    final ClientAccountModel model = clientService.save(request);
+    final ClientAccountModel modelFromBase = clientService.getByPhoneNumber(model.getPhoneNumber());
     assertNotNull(modelFromBase.getId());
     assertEquals(modelFromBase, model);
   }

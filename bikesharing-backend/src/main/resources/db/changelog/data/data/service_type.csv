@@ -1,0 +1,4 @@
+code,name
+SIMPLE_REPAIR,equipment needs simple repair
+COMPLEX_REPAIR,equipment needs complicated repair
+BATTERY_ON_CHARGE,battery charge required

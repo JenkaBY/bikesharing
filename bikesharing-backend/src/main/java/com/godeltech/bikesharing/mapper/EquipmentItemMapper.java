@@ -9,4 +9,5 @@ public interface EquipmentItemMapper {
 
   EquipmentItemModel mapToModel(EquipmentItem equipment);
 
+  EquipmentItem mapToEntity(EquipmentItemModel model);
 }

@@ -291,18 +291,12 @@ databaseChangeLog:
               - column:
                   name: name
                   type: character varying(255)
-                  constraints:
-                    nullable: false
               - column:
                   name: address
                   type: character varying(255)
-                  constraints:
-                    nullable: false
               - column:
                   name: rating
                   type: int
-                  constraints:
-                    nullable: false
               - column:
                   name: comments
                   type: character varying(255)

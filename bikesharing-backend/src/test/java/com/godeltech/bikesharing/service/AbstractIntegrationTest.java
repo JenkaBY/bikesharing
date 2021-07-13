@@ -11,6 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(classes = TestContainerConfig.class)
 public class AbstractIntegrationTest {
   @Autowired
-  protected ClientAccountService clientAccountService;
+  protected ClientService clientService;
+  @Autowired
+  protected RentService rentService;
+  @Autowired
+  protected EquipmentItemService equipmentItemService;
 
 }

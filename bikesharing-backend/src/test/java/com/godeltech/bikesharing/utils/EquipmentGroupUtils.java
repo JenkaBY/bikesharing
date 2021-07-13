@@ -4,8 +4,8 @@ import com.godeltech.bikesharing.models.EquipmentGroupModel;
 import com.godeltech.bikesharing.persistence.entity.EquipmentGroup;
 
 public class EquipmentGroupUtils {
-  public static final String NAME = "NewEquipmentGroup";
-  public static final String CODE = "NewEquipmentCode";
+  public static final String NAME = "Bicycle";
+  public static final String CODE = "BICYCLE";
 
   public static EquipmentGroup getEquipmentGroup() {
     var equipmentGroup = new EquipmentGroup();

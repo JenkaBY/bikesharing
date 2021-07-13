@@ -21,4 +21,13 @@ class EquipmentItemMapperTest {
 
     assertEquals(equipmentItemMapper.mapToModel(equipmentItem), equipmentItemModel);
   }
+
+  @Test
+  void shouldMapModelToEntity() {
+    var equipmentItem = EquipmentItemUtils.getEquipmentItem();
+    equipmentItem.setId(ID);
+    var equipmentItemModel = EquipmentItemUtils.getEquipmentItemModel(ID);
+
+    assertEquals(equipmentItemMapper.mapToEntity(equipmentItemModel), equipmentItem);
+  }
 }

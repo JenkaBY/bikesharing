@@ -33,4 +33,9 @@ public class ClientAccount extends AbstractEntity {
   private Integer rating;
 
   private String comments;
+
+  public ClientAccount(String clientPhoneNumber) {
+    super();
+    this.phoneNumber = clientPhoneNumber;
+  }
 }

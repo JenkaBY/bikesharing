@@ -9,12 +9,14 @@ import java.time.LocalDate;
 public class EquipmentItemUtils {
   public static final String REGISTRATION_NUMBER = "Number0001";
   public static final String FACTORY_NUMBER = "Number0002";
+  public static final String NAME = "EquipmentName";
   public static final LocalDate PURCHASE_DATE = LocalDate.of(2021, 1, 1);
 
   public static EquipmentItem getEquipmentItem() {
     var equipmentItem = new EquipmentItem();
     equipmentItem.setRegistrationNumber(REGISTRATION_NUMBER);
     equipmentItem.setFactoryNumber(FACTORY_NUMBER);
+    equipmentItem.setName(NAME);
     equipmentItem.setPurchaseDate(PURCHASE_DATE);
     equipmentItem.setEquipmentGroup(EquipmentGroupUtils.getEquipmentGroup());
     equipmentItem.setEquipmentStatus(EquipmentStatusUtils.getEquipmentStatus());
@@ -26,6 +28,7 @@ public class EquipmentItemUtils {
     equipmentItemModel.setId(id);
     equipmentItemModel.setRegistrationNumber(REGISTRATION_NUMBER);
     equipmentItemModel.setFactoryNumber(FACTORY_NUMBER);
+    equipmentItemModel.setName(NAME);
     equipmentItemModel.setPurchaseDate(PURCHASE_DATE);
     equipmentItemModel.setEquipmentGroup(EquipmentGroupUtils.getEquipmentGroupModel());
     equipmentItemModel.setEquipmentStatus(EquipmentStatusUtils.getEquipmentStatusModel());
