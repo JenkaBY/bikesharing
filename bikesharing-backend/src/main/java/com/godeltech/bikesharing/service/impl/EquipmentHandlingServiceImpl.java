@@ -4,6 +4,7 @@ import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.ServiceOperationMapper;
 import com.godeltech.bikesharing.models.ServiceOperationModel;
 import com.godeltech.bikesharing.models.request.EquipmentHandlingRequest;
+import com.godeltech.bikesharing.persistence.entity.ServiceOperation;
 import com.godeltech.bikesharing.persistence.entity.ServiceType;
 import com.godeltech.bikesharing.persistence.repository.ServiceOperationRepository;
 import com.godeltech.bikesharing.persistence.repository.ServiceTypeRepository;
@@ -41,6 +42,13 @@ public class EquipmentHandlingServiceImpl implements EquipmentHandlingService {
     serviceOperation.setServiceType(serviceType);
     serviceOperation = repository.save(serviceOperation);
 
+    return mapper.mapToModel(serviceOperation);
+  }
+
+  @Override
+  public ServiceOperationModel getById(Long id) {
+    var serviceOperation = repository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException(ServiceOperation.class.getName(), "id", id.toString()));
     return mapper.mapToModel(serviceOperation);
   }
 

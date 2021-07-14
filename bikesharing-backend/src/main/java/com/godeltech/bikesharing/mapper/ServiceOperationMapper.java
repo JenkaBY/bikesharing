@@ -12,5 +12,6 @@ public interface ServiceOperationMapper {
   @Mapping(target = "serviceTypeModel", source = "serviceOperation.serviceType")
   ServiceOperationModel mapToModel(ServiceOperation serviceOperation);
 
-  ServiceOperation mapToEntity(ServiceOperationModel operationModel);
+  @Mapping(target = "equipmentItem", source = "serviceOperationModel.equipmentItemModel")
+  ServiceOperation mapToEntity(ServiceOperationModel serviceOperationModel);
 }

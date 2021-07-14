@@ -24,5 +24,15 @@ class ServiceOperationMapperTest {
     assertEquals(serviceOperationMapper.mapToModel(serviceOperation), rentOperationModel);
   }
 
+  @Test
+  void shouldMapModelToEntity() {
+    var serviceOperation = ServiceOperationUtils.getServiceOperation();
+    serviceOperation.setId(ID);
+    serviceOperation.getEquipmentItem().setId(ID);
+
+    var rentOperationModel = ServiceOperationUtils.getServiceOperationModel(ID);
+
+    assertEquals(serviceOperationMapper.mapToEntity(rentOperationModel), serviceOperation);
+  }
 
 }

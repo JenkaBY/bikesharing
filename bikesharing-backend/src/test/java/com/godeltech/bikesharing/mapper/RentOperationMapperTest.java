@@ -19,7 +19,7 @@ class RentOperationMapperTest {
     rentOperation.setId(ID);
     rentOperation.getEquipmentItem().setId(ID);
     rentOperation.getClientAccount().setId(ID);
-    var rentOperationModel = RentOperationUtils.getRentOperationModel(ID);
+    var rentOperationModel = RentOperationUtils.getRentOperationRequest(ID);
 
     assertEquals(rentOperationMapper.mapToModel(rentOperation), rentOperationModel);
   }
@@ -30,7 +30,7 @@ class RentOperationMapperTest {
     rentOperation.setId(ID);
     rentOperation.getEquipmentItem().setId(ID);
     rentOperation.getClientAccount().setId(ID);
-    var rentOperationModel = RentOperationUtils.getRentOperationModel(ID);
+    var rentOperationModel = RentOperationUtils.getRentOperationRequest(ID);
 
     assertEquals(rentOperationMapper.mapToEntity(rentOperationModel), rentOperation);
   }

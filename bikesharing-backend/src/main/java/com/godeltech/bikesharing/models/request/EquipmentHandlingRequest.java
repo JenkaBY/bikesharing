@@ -1,6 +1,5 @@
 package com.godeltech.bikesharing.models.request;
 
-import com.godeltech.bikesharing.models.ServiceTypeModel;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 

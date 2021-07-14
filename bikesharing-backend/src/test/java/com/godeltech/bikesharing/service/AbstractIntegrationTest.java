@@ -16,5 +16,6 @@ public class AbstractIntegrationTest {
   protected RentService rentService;
   @Autowired
   protected EquipmentItemService equipmentItemService;
-
+  @Autowired
+  protected EquipmentHandlingService equipmentHandlingService;
 }

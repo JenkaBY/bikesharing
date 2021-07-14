@@ -14,7 +14,7 @@ public class RentServiceTest extends AbstractIntegrationTest {
   public void shouldStartRentOperationProperly() {
     var equipmentModel = EquipmentItemUtils.getEquipmentItemModel(null);
     equipmentItemService.save(equipmentModel);
-    var request = RentOperationUtils.getRentOperationModel();
+    var request = RentOperationUtils.getRentOperationRequest();
     var rentOperationModel = rentService.startRentOperation(request);
     var rentOperationModelFromBase = rentService.getById(rentOperationModel.getId());
     var equipmentFromBase = equipmentItemService.getByRegistrationNumber(equipmentModel.getRegistrationNumber());
