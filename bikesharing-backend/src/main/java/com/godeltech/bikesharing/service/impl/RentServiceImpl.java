@@ -1,9 +1,12 @@
 package com.godeltech.bikesharing.service.impl;
 
 import com.godeltech.bikesharing.exception.ResourceNotFoundException;
+import com.godeltech.bikesharing.mapper.ClientAccountMapper;
+import com.godeltech.bikesharing.mapper.EquipmentItemMapper;
 import com.godeltech.bikesharing.mapper.RentOperationMapper;
 import com.godeltech.bikesharing.models.RentOperationModel;
-import com.godeltech.bikesharing.models.request.StartRentOperationRequest;
+import com.godeltech.bikesharing.models.request.RentOperationRequest;
+import com.godeltech.bikesharing.models.response.RentOperationResponse;
 import com.godeltech.bikesharing.persistence.entity.RentOperation;
 import com.godeltech.bikesharing.persistence.entity.RentStatus;
 import com.godeltech.bikesharing.persistence.repository.RentOperationRepository;
@@ -27,29 +30,30 @@ public class RentServiceImpl implements RentService {
   private final RentStatusRepository rentStatusRepository;
   private final EquipmentItemService equipmentItemService;
   private final ClientService clientService;
-  private final RentOperationMapper mapper;
+  private final RentOperationMapper rentOperationMapper;
+  private final ClientAccountMapper clientAccountMapper;
+  private final EquipmentItemMapper equipmentItemMapper;
 
   @Override
-  public RentOperationModel startRentOperation(StartRentOperationRequest request) {
+  public RentOperationResponse startRentOperation(RentOperationRequest request) {
     log.info("startRentOperation with request: {}", request);
-    var operationModel = new RentOperationModel();
+    var rentOperation = new RentOperation();
     var clientModel = clientService.getOrCreateByPhoneNumber(request.getClientPhoneNumber());
-    operationModel.setClientAccount(clientModel);
-    operationModel.setDeposit(request.getDeposit());
-    operationModel.setStartTime(LocalDateTime.now());
+    rentOperation.setClientAccount(clientAccountMapper.mapToEntity(clientModel));
+    rentOperation.setDeposit(request.getDeposit());
+    rentOperation.setStartTime(LocalDateTime.now());
     //TODO implement time calculator with cost of time for equipmentItem and deposit-sum
-    operationModel.setEndTime(LocalDateTime.now().plusHours(1));
-    operationModel.setTotalCost(request.getDeposit());
+    rentOperation.setEndTime(LocalDateTime.now().plusHours(1));
+    rentOperation.setTotalCost(request.getDeposit());
 
     equipmentItemService.setEquipmentItemStatusInUse(request.getEquipmentRegistrationNumber());
     var equipmentItemModel = equipmentItemService.getByRegistrationNumber(request.getEquipmentRegistrationNumber());
-    operationModel.setEquipmentItem(equipmentItemModel);
+    rentOperation.setEquipmentItem(equipmentItemMapper.mapToEntity(equipmentItemModel));
 
-    var rentOperation = mapper.mapToEntity(operationModel);
     rentOperation.setRentStatus(getRentStatusByCode(INITIAL_STATUS));
     rentOperation = repository.save(rentOperation);
 
-    return mapper.mapToModel(rentOperation);
+    return rentOperationMapper.mapToResponse(rentOperation);
   }
 
   private RentStatus getRentStatusByCode(String code) {
@@ -63,6 +67,6 @@ public class RentServiceImpl implements RentService {
     log.info("getById: {}", id);
     var entity = repository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException(RentOperation.class.getName(), "id", id.toString()));
-    return mapper.mapToModel(entity);
+    return rentOperationMapper.mapToModel(entity);
   }
 }

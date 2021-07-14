@@ -1,7 +1,7 @@
 package com.godeltech.bikesharing.utils;
 
 import com.godeltech.bikesharing.models.ClientAccountModel;
-import com.godeltech.bikesharing.models.request.NewClientAccountRequest;
+import com.godeltech.bikesharing.models.request.CreateClientAccountRequest;
 import com.godeltech.bikesharing.persistence.entity.ClientAccount;
 
 public class ClientAccountUtils {
@@ -32,8 +32,8 @@ public class ClientAccountUtils {
     return clientAccountModel;
   }
 
-  public static NewClientAccountRequest getNewClientAccountRequest() {
-    var clientAccountRequest = new NewClientAccountRequest();
+  public static CreateClientAccountRequest getNewClientAccountRequest() {
+    var clientAccountRequest = new CreateClientAccountRequest();
     clientAccountRequest.setName(NAME);
     clientAccountRequest.setAddress(ADDRESS);
     clientAccountRequest.setPhoneNumber(PHONE_NUMBER);

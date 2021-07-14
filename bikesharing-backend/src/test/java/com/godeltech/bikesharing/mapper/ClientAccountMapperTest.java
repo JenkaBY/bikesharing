@@ -25,7 +25,7 @@ class ClientAccountMapperTest {
   @Test
   void shouldMapRequestToEntity() {
     var clientAccountRequest = ClientAccountUtils.getNewClientAccountRequest();
-    var actual = clientAccountMapper.mapToEntity(clientAccountRequest);
+    var actual = clientAccountMapper.mapRequestToEntity(clientAccountRequest);
     actual.setRating(ClientAccountUtils.RATING);
 
     var clientAccount = ClientAccountUtils.getClientAccount();

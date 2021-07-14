@@ -15,13 +15,16 @@ public class RentServiceTest extends AbstractIntegrationTest {
     var equipmentModel = EquipmentItemUtils.getEquipmentItemModel(null);
     equipmentItemService.save(equipmentModel);
     var request = RentOperationUtils.getRentOperationRequest();
-    var rentOperationModel = rentService.startRentOperation(request);
-    var rentOperationModelFromBase = rentService.getById(rentOperationModel.getId());
+    var rentOperationResponse = rentService.startRentOperation(request);
+    var rentOperationModelFromBase = rentService.getById(rentOperationResponse.getId());
     var equipmentFromBase = equipmentItemService.getByRegistrationNumber(equipmentModel.getRegistrationNumber());
     assertNotNull(rentOperationModelFromBase.getId());
     assertNotNull(equipmentFromBase);
     assertNotNull(clientService.getByPhoneNumber(request.getClientPhoneNumber()));
-    assertEquals(rentOperationModelFromBase, rentOperationModel);
+    assertEquals(rentOperationModelFromBase.getEquipmentItem().getRegistrationNumber(),
+        rentOperationResponse.getEquipmentRegistrationNumber());
+    assertEquals(rentOperationModelFromBase.getClientAccount().getPhoneNumber(),
+        rentOperationResponse.getClientPhoneNumber());
     assertEquals(equipmentFromBase.getEquipmentStatus().getCode(), IN_USE_STATUS);
   }
 

@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class NewClientAccountRequest {
+public class CreateClientAccountRequest {
   private String phoneNumber;
   private String name;
   private String address;

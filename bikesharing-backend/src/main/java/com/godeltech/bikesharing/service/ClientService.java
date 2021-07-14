@@ -1,11 +1,11 @@
 package com.godeltech.bikesharing.service;
 
 import com.godeltech.bikesharing.models.ClientAccountModel;
-import com.godeltech.bikesharing.models.request.NewClientAccountRequest;
+import com.godeltech.bikesharing.models.request.CreateClientAccountRequest;
 
 public interface ClientService {
 
-  ClientAccountModel save(NewClientAccountRequest request);
+  ClientAccountModel save(CreateClientAccountRequest request);
 
   ClientAccountModel getByPhoneNumber(String phoneNum);
 

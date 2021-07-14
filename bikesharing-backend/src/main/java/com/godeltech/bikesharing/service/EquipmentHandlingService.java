@@ -2,9 +2,10 @@ package com.godeltech.bikesharing.service;
 
 import com.godeltech.bikesharing.models.ServiceOperationModel;
 import com.godeltech.bikesharing.models.request.EquipmentHandlingRequest;
+import com.godeltech.bikesharing.models.response.EquipmentHandlingResponse;
 
 public interface EquipmentHandlingService {
-  ServiceOperationModel putEquipmentHandlingRequest(EquipmentHandlingRequest request);
+  EquipmentHandlingResponse putEquipmentHandlingRequest(EquipmentHandlingRequest request);
 
   ServiceOperationModel getById(Long id);
 }

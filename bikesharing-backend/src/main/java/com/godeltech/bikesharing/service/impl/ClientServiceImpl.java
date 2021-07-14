@@ -3,7 +3,7 @@ package com.godeltech.bikesharing.service.impl;
 import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.ClientAccountMapper;
 import com.godeltech.bikesharing.models.ClientAccountModel;
-import com.godeltech.bikesharing.models.request.NewClientAccountRequest;
+import com.godeltech.bikesharing.models.request.CreateClientAccountRequest;
 import com.godeltech.bikesharing.persistence.entity.ClientAccount;
 import com.godeltech.bikesharing.persistence.repository.ClientAccountRepository;
 import com.godeltech.bikesharing.service.ClientService;
@@ -22,9 +22,9 @@ public class ClientServiceImpl implements ClientService {
   private final ClientAccountMapper clientAccountMapper;
 
   @Override
-  public ClientAccountModel save(NewClientAccountRequest request) {
+  public ClientAccountModel save(CreateClientAccountRequest request) {
     log.info("save: {}", request);
-    var clientAccount = clientAccountMapper.mapToEntity(request);
+    var clientAccount = clientAccountMapper.mapRequestToEntity(request);
     clientAccount.setRating(0);
     return clientAccountMapper.mapToModel(repository.save(clientAccount));
   }

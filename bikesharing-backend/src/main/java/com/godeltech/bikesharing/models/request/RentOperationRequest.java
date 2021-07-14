@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class StartRentOperationRequest {
+public class RentOperationRequest {
   private String equipmentRegistrationNumber;
   private String clientPhoneNumber;
   private Long deposit;
