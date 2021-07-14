@@ -8,4 +8,6 @@ public interface EquipmentItemService {
   EquipmentItemModel save(EquipmentItemModel equipmentItemModel);
 
   void setEquipmentItemStatusInUse(String registrationNumber);
+
+  void setEquipmentItemStatusService(String registrationNumber);
 }

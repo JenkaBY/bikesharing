@@ -15,4 +15,11 @@ public interface EquipmentItemRepository extends JpaRepository<EquipmentItem, Lo
       + "(SELECT eStatus.id from EquipmentStatus eStatus where eStatus.code = 'IN_USE') "
       + "where eItem.registrationNumber = :registrationNumber")
   void setEquipmentItemStatusInUse(String registrationNumber);
+
+  @Modifying(flushAutomatically = true, clearAutomatically = true)
+  @Query("UPDATE EquipmentItem eItem "
+      + "SET eItem.equipmentStatus.id = "
+      + "(SELECT eStatus.id from EquipmentStatus eStatus where eStatus.code = 'SERVICE') "
+      + "where eItem.registrationNumber = :registrationNumber")
+  void setEquipmentItemStatusService(String registrationNumber);
 }

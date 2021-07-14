@@ -54,7 +54,7 @@ CREATE TABLE "service_operation" (
                                      "updated" TIMESTAMP NOT NULL,
                                      "created" TIMESTAMP NOT NULL,
                                      "service_type_id" int NOT NULL,
-                                     "issue_description" character varying NOT NULL,
+                                     "issue_description" character varying,
                                      "start_date" DATE NOT NULL,
                                      "end_date" DATE,
                                      "comments" character varying,

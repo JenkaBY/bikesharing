@@ -174,8 +174,6 @@ databaseChangeLog:
               - column:
                   name: issue_description
                   type: character varying(255)
-                  constraints:
-                    nullable: false
               - column:
                   name: service_type_id
                   type: int

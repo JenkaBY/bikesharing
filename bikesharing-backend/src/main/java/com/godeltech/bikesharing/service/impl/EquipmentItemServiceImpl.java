@@ -61,4 +61,10 @@ public class EquipmentItemServiceImpl implements EquipmentItemService {
     log.info("setEquipmentItemStatusInUse for registrationNumber: {}", registrationNumber);
     repository.setEquipmentItemStatusInUse(registrationNumber);
   }
+
+  @Override
+  public void setEquipmentItemStatusService(String registrationNumber) {
+    log.info("setEquipmentItemStatusService for registrationNumber: {}", registrationNumber);
+    repository.setEquipmentItemStatusService(registrationNumber);
+  }
 }

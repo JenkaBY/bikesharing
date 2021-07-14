@@ -23,7 +23,7 @@ public class RentOperationUtils {
     return rentOperation;
   }
 
-  public static RentOperationModel getStartRentOperationRequest(Long id) {
+  public static RentOperationModel getRentOperationModel(Long id) {
     var rentOperationModel = new RentOperationModel();
     rentOperationModel.setId(id);
     rentOperationModel.setRentStatus(RentStatusUtils.getRentStatusModel());
@@ -36,7 +36,7 @@ public class RentOperationUtils {
     return rentOperationModel;
   }
 
-  public static StartRentOperationRequest getStartRentOperationRequest() {
+  public static StartRentOperationRequest getRentOperationModel() {
     var startRentOperationRequest = new StartRentOperationRequest();
     startRentOperationRequest.setDeposit(DEPOSIT);
     startRentOperationRequest.setClientPhoneNumber(ClientAccountUtils.PHONE_NUMBER);
