@@ -15,4 +15,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-    show-sql: true
+    open-in-view: false
+
+logging:
+  level:
+    org.hibernateSQL: debug

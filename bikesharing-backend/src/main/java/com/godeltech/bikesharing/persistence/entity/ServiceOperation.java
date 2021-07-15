@@ -1,5 +1,6 @@
 package com.godeltech.bikesharing.persistence.entity;
 
+import com.godeltech.bikesharing.persistence.entity.common.AuditableEntity;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +22,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @Table(name = "service_operation")
 @EqualsAndHashCode(of = "id", callSuper = false)
-public class ServiceOperation extends AbstractEntity {
+public class ServiceOperation extends AuditableEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

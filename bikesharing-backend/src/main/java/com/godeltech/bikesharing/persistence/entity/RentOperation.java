@@ -1,15 +1,14 @@
 package com.godeltech.bikesharing.persistence.entity;
 
+import com.godeltech.bikesharing.persistence.entity.common.AuditableEntity;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +19,8 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 @Table(name = "rent_operation")
-@EqualsAndHashCode(of = "id", callSuper = false)
-public class RentOperation extends AbstractEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+@EqualsAndHashCode(of = {}, callSuper = false)
+public class RentOperation extends AuditableEntity {
 
   @Column(name = "total_cost")
   private Long totalCost;

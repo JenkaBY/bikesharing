@@ -1,9 +1,8 @@
 package com.godeltech.bikesharing.persistence.repository;
 
 import com.godeltech.bikesharing.persistence.entity.ServiceType;
-import java.util.Optional;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.godeltech.bikesharing.persistence.repository.common.LookupRepository;
 
-public interface ServiceTypeRepository extends JpaRepository<ServiceType, Long> {
-  Optional<ServiceType> findByCode(String code);
+public interface ServiceTypeRepository extends LookupRepository<ServiceType> {
+
 }

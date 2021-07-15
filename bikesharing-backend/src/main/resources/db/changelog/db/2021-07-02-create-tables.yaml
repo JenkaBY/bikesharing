@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
-      id: addTable-1
-      author: app
+      id: addTable equipment_group
+      author: dzmitry_krauchuk
       changes:
         - createTable:
             tableName: equipment_group
@@ -25,8 +25,8 @@ databaseChangeLog:
                   constraints:
                     nullable: false
   - changeSet:
-      id: addTable-2
-      author: app
+      id: addTable equipment_status
+      author: dzmitry_krauchuk
       changes:
         - createTable:
             tableName: equipment_status
@@ -50,8 +50,8 @@ databaseChangeLog:
                   constraints:
                     nullable: false
   - changeSet:
-      id: addTable-3
-      author: app
+      id: addTable equipment_item
+      author: dzmitry_krauchuk
       changes:
         - createTable:
             tableName: equipment_item
@@ -108,8 +108,8 @@ databaseChangeLog:
                   constraints:
                     nullable: false
   - changeSet:
-      id: addTable-4
-      author: app
+      id: addTable service_type
+      author: dzmitry_krauchuk
       changes:
         - createTable:
             tableName: service_type
@@ -133,8 +133,8 @@ databaseChangeLog:
                   constraints:
                     nullable: false
   - changeSet:
-      id: addTable-5
-      author: app
+      id: addTable rent_status
+      author: dzmitry_krauchuk
       changes:
         - createTable:
             tableName: rent_status
@@ -158,8 +158,8 @@ databaseChangeLog:
                   constraints:
                     nullable: false
   - changeSet:
-      id: addTable-6
-      author: app
+      id: addTable service_operation
+      author: dzmitry_krauchuk
       changes:
         - createTable:
             tableName: service_operation
@@ -206,8 +206,8 @@ databaseChangeLog:
                   constraints:
                     nullable: false
   - changeSet:
-      id: addTable-7
-      author: app
+      id: addTable rent_operation
+      author: dzmitry_krauchuk
       changes:
         - createTable:
             tableName: rent_operation
@@ -268,8 +268,8 @@ databaseChangeLog:
                   constraints:
                     nullable: false
   - changeSet:
-      id: addTable-8
-      author: app
+      id: addTable client_account
+      author: dzmitry_krauchuk
       changes:
         - createTable:
             tableName: client_account
@@ -309,15 +309,15 @@ databaseChangeLog:
                   constraints:
                     nullable: false
   - changeSet:
-      id: addForeignKeyConstraint-1
-      author: app
+      id: addForeignKeyConstraint FK_equipmentItem_equipmentGroup
+      author: dzmitry_krauchuk
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: equipment_group_id
             baseTableCatalogName: com.godeltech.bikesharing
             baseTableName: equipment_item
             baseTableSchemaName: public
-            constraintName: equipment_item_fk0
+            constraintName: FK_equipmentItem_equipmentGroup
             deferrable: true
             initiallyDeferred: true
             onDelete: CASCADE
@@ -328,15 +328,15 @@ databaseChangeLog:
             referencedTableSchemaName: public
             validate: true
   - changeSet:
-      id: addForeignKeyConstraint-2
-      author: app
+      id: addForeignKeyConstraint FK_equipmentItem_equipmentStatus
+      author: dzmitry_krauchuk
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: equipment_status_id
             baseTableCatalogName: com.godeltech.bikesharing
             baseTableName: equipment_item
             baseTableSchemaName: public
-            constraintName: equipment_item_fk1
+            constraintName: FK_equipmentItem_equipmentStatus
             deferrable: true
             initiallyDeferred: true
             onDelete: CASCADE
@@ -347,15 +347,15 @@ databaseChangeLog:
             referencedTableSchemaName: public
             validate: true
   - changeSet:
-      id: addForeignKeyConstraint-3
-      author: app
+      id: addForeignKeyConstraint FK_serviceOperation_serviceType
+      author: dzmitry_krauchuk
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: service_type_id
             baseTableCatalogName: com.godeltech.bikesharing
             baseTableName: service_operation
             baseTableSchemaName: public
-            constraintName: service_operation_fk0
+            constraintName: FK_serviceOperation_serviceType
             deferrable: true
             initiallyDeferred: true
             onDelete: CASCADE
@@ -366,15 +366,15 @@ databaseChangeLog:
             referencedTableSchemaName: public
             validate: true
   - changeSet:
-      id: addForeignKeyConstraint-4
-      author: app
+      id: addForeignKeyConstraint FK_serviceOperation_equipmentItem
+      author: dzmitry_krauchuk
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: equipment_item_id
             baseTableCatalogName: com.godeltech.bikesharing
             baseTableName: service_operation
             baseTableSchemaName: public
-            constraintName: service_operation_fk1
+            constraintName: FK_serviceOperation_equipmentItem
             deferrable: true
             initiallyDeferred: true
             onDelete: CASCADE
@@ -385,15 +385,15 @@ databaseChangeLog:
             referencedTableSchemaName: public
             validate: true
   - changeSet:
-      id: addForeignKeyConstraint-5
-      author: app
+      id: addForeignKeyConstraint FK_rentOperation_equipmentItem
+      author: dzmitry_krauchuk
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: equipment_item_id
             baseTableCatalogName: com.godeltech.bikesharing
             baseTableName: rent_operation
             baseTableSchemaName: public
-            constraintName: rent_operation_fk0
+            constraintName: FK_rentOperation_equipmentItem
             deferrable: true
             initiallyDeferred: true
             onDelete: CASCADE
@@ -404,15 +404,15 @@ databaseChangeLog:
             referencedTableSchemaName: public
             validate: true
   - changeSet:
-      id: addForeignKeyConstraint-6
-      author: app
+      id: addForeignKeyConstraint FK_rentOperation_clientAccount
+      author: dzmitry_krauchuk
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: client_account_id
             baseTableCatalogName: com.godeltech.bikesharing
             baseTableName: rent_operation
             baseTableSchemaName: public
-            constraintName: rent_operation_fk1
+            constraintName: FK_rentOperation_clientAccount
             deferrable: true
             initiallyDeferred: true
             onDelete: CASCADE
@@ -423,15 +423,15 @@ databaseChangeLog:
             referencedTableSchemaName: public
             validate: true
   - changeSet:
-      id: addForeignKeyConstraint-7
-      author: app
+      id: addForeignKeyConstraint FK_rentOperation_rentStatus
+      author: dzmitry_krauchuk
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: rent_status_id
             baseTableCatalogName: com.godeltech.bikesharing
             baseTableName: rent_operation
             baseTableSchemaName: public
-            constraintName: rent_operation_fk2
+            constraintName: FK_rentOperation_rentStatus
             deferrable: true
             initiallyDeferred: true
             onDelete: CASCADE

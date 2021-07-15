@@ -15,13 +15,16 @@ import com.godeltech.bikesharing.service.ClientService;
 import com.godeltech.bikesharing.service.EquipmentItemService;
 import com.godeltech.bikesharing.service.RentService;
 import java.time.LocalDateTime;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 @Slf4j
 @Service
+@Validated
 @Transactional
 @RequiredArgsConstructor
 public class RentServiceImpl implements RentService {
@@ -35,7 +38,7 @@ public class RentServiceImpl implements RentService {
   private final EquipmentItemMapper equipmentItemMapper;
 
   @Override
-  public RentOperationResponse startRentOperation(RentOperationRequest request) {
+  public RentOperationResponse startRentOperation(@Valid RentOperationRequest request) {
     log.info("startRentOperation with request: {}", request);
     var rentOperation = new RentOperation();
     var clientModel = clientService.getOrCreateByPhoneNumber(request.getClientPhoneNumber());

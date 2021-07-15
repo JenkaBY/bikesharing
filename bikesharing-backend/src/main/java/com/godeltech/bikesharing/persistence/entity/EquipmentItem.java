@@ -1,12 +1,10 @@
 package com.godeltech.bikesharing.persistence.entity;
 
+import com.godeltech.bikesharing.persistence.entity.common.AuditableEntity;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -20,11 +18,8 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 @Table(name = "equipment_item")
-@EqualsAndHashCode(of = "id", callSuper = false)
-public class EquipmentItem extends AbstractEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+@EqualsAndHashCode(callSuper = true, of = {})
+public class EquipmentItem extends AuditableEntity {
 
   private String name;
 

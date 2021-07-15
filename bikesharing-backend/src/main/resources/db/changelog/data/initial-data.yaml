@@ -1,8 +1,8 @@
 databaseChangeLog:
 
   - changeSet:
-      id: initial-data-1
-      author: app
+      id: initial-data for equipment_group
+      author: dzmitry_krauchuk
       changes:
         - loadData:
             columns:
@@ -22,8 +22,8 @@ databaseChangeLog:
             relativeToChangelogFile: true
             tableName: equipment_group
   - changeSet:
-        id: initial-data-2
-        author: app
+        id: initial-data for rent_status
+        author: dzmitry_krauchuk
         changes:
             - loadData:
                   columns:
@@ -43,8 +43,8 @@ databaseChangeLog:
                   relativeToChangelogFile: true
                   tableName: rent_status
   - changeSet:
-      id: initial-data-3
-      author: app
+      id: initial-data for equipment_status
+      author: dzmitry_krauchuk
       changes:
         - loadData:
             columns:
@@ -64,8 +64,8 @@ databaseChangeLog:
             relativeToChangelogFile: true
             tableName: equipment_status
   - changeSet:
-      id: initial-data-4
-      author: app
+      id: initial-data for equipment_item
+      author: dzmitry_krauchuk
       changes:
         - loadData:
             columns:
@@ -113,8 +113,8 @@ databaseChangeLog:
             relativeToChangelogFile: true
             tableName: equipment_item
   - changeSet:
-      id: initial-data-5
-      author: app
+      id: initial-data for service_type
+      author: dzmitry_krauchuk
       changes:
         - loadData:
             columns:
