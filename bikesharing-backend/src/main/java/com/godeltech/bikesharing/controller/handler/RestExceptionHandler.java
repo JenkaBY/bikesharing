@@ -1,9 +1,11 @@
 package com.godeltech.bikesharing.controller.handler;
 
 import com.godeltech.bikesharing.exception.ResourceNotFoundException;
+import com.godeltech.bikesharing.exception.ResourceNotFreeException;
 import com.godeltech.bikesharing.models.response.error.GeneralError;
 import com.godeltech.bikesharing.models.response.error.InternalServerError;
 import com.godeltech.bikesharing.models.response.error.ResourceNotFoundError;
+import com.godeltech.bikesharing.models.response.error.ResourceNotFreeError;
 import com.godeltech.bikesharing.models.response.error.ValidationError;
 import com.godeltech.bikesharing.models.response.error.Violation;
 import java.util.List;
@@ -31,6 +33,20 @@ public class RestExceptionHandler {
     var error = new ResourceNotFoundError();
     error.setMessage(e.getMessage());
     error.setExceptionCode(ResourceNotFoundError.EXCEPTION_CODE);
+    return error;
+  }
+
+  @ExceptionHandler(ResourceNotFreeException.class)
+  public ResponseEntity<GeneralError> handleNotFreeException(ResourceNotFreeException e) {
+    log.error(e.getMessage(), e);
+    var error = newResourceNotFreeError(e);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+  }
+
+  private GeneralError newResourceNotFreeError(ResourceNotFreeException e) {
+    var error = new ResourceNotFreeError();
+    error.setMessage(e.getMessage());
+    error.setExceptionCode(ResourceNotFreeError.EXCEPTION_CODE);
     return error;
   }
 

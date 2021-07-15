@@ -10,4 +10,6 @@ public interface EquipmentItemService {
   void setEquipmentItemStatusInUse(String registrationNumber);
 
   void setEquipmentItemStatusService(String registrationNumber);
+
+  String getEquipmentStatusCodeByRegistrationNumber(String equipmentRegistrationNumber);
 }

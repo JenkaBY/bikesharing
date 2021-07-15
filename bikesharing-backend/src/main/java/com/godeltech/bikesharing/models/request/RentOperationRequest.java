@@ -12,7 +12,8 @@ public class RentOperationRequest {
   @NotBlank
   private String equipmentRegistrationNumber;
 
-  @Pattern(regexp = "^(\\+\\d{1,3}( )?)?\\d{10,15}$", message = "Invalid phone number! Valid example:+1234...(to max 15 digits)")
+  @Pattern(regexp = "^(\\+\\d{1,3}( )?)?\\d{10,15}$",
+      message = "Invalid phone number! Valid example:+1234...(to max 15 digits)")
   private String clientPhoneNumber;
 
   @Min(1)

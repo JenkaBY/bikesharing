@@ -22,4 +22,11 @@ public interface EquipmentItemRepository extends JpaRepository<EquipmentItem, Lo
       + "(SELECT eStatus.id from EquipmentStatus eStatus where eStatus.code = 'SERVICE') "
       + "where eItem.registrationNumber = :registrationNumber")
   void setEquipmentItemStatusService(String registrationNumber);
+
+
+  @Query("SELECT equipmentItem.equipmentStatus.code "
+      + "from EquipmentItem equipmentItem "
+      + "where equipmentItem.registrationNumber = :registrationNumber")
+  String getEquipmentStatusCodeByRegistrationNumber(String registrationNumber);
+
 }

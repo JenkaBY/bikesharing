@@ -1,6 +1,7 @@
 package com.godeltech.bikesharing.service.impl;
 
 import com.godeltech.bikesharing.exception.ResourceNotFoundException;
+import com.godeltech.bikesharing.exception.ResourceNotFreeException;
 import com.godeltech.bikesharing.mapper.ClientAccountMapper;
 import com.godeltech.bikesharing.mapper.EquipmentItemMapper;
 import com.godeltech.bikesharing.mapper.RentOperationMapper;
@@ -41,6 +42,11 @@ public class RentServiceImpl implements RentService {
   public RentOperationResponse startRentOperation(@Valid RentOperationRequest request) {
     log.info("startRentOperation with request: {}", request);
     var rentOperation = new RentOperation();
+    checkEquipmentItemIsFree(request.getEquipmentRegistrationNumber());
+    equipmentItemService.setEquipmentItemStatusInUse(request.getEquipmentRegistrationNumber());
+    var equipmentItemModel = equipmentItemService.getByRegistrationNumber(request.getEquipmentRegistrationNumber());
+    rentOperation.setEquipmentItem(equipmentItemMapper.mapToEntity(equipmentItemModel));
+
     var clientModel = clientService.getOrCreateByPhoneNumber(request.getClientPhoneNumber());
     rentOperation.setClientAccount(clientAccountMapper.mapToEntity(clientModel));
     rentOperation.setDeposit(request.getDeposit());
@@ -49,14 +55,23 @@ public class RentServiceImpl implements RentService {
     rentOperation.setEndTime(LocalDateTime.now().plusHours(1));
     rentOperation.setTotalCost(request.getDeposit());
 
-    equipmentItemService.setEquipmentItemStatusInUse(request.getEquipmentRegistrationNumber());
-    var equipmentItemModel = equipmentItemService.getByRegistrationNumber(request.getEquipmentRegistrationNumber());
-    rentOperation.setEquipmentItem(equipmentItemMapper.mapToEntity(equipmentItemModel));
-
     rentOperation.setRentStatus(getRentStatusByCode(INITIAL_STATUS));
     rentOperation = repository.save(rentOperation);
 
     return rentOperationMapper.mapToResponse(rentOperation);
+  }
+
+  private void checkEquipmentItemIsFree(String equipmentRegistrationNumber) {
+    if (!equipmentItemIsFree(equipmentRegistrationNumber)) {
+      throw new ResourceNotFreeException(
+          String.format("The status is not FREE for equipmentItem with registrationNumber: %s",
+              equipmentRegistrationNumber));
+    }
+  }
+
+  private boolean equipmentItemIsFree(String equipmentRegistrationNumber) {
+    return equipmentItemService.getEquipmentStatusCodeByRegistrationNumber(equipmentRegistrationNumber)
+        .equals("FREE");
   }
 
   private RentStatus getRentStatusByCode(String code) {

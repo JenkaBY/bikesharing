@@ -12,7 +12,6 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +24,8 @@ public class RentOperationController {
   private final RentService rentService;
 
   @PostMapping()
-  @ApiOperation(value = "Start new rent-operation", nickname = "startRentOperation", response = RentOperationResponse.class)
+  @ApiOperation(value = "Start new rent-operation", nickname = "startRentOperation",
+      response = RentOperationResponse.class)
   @ApiResponses(value = {
       @ApiResponse(code = 201, message = "Ok", response = RentOperationResponse.class),
       @ApiResponse(code = 400, message = "Bad Request", response = GeneralError.class),

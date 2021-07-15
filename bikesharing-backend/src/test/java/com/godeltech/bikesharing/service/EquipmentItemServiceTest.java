@@ -24,6 +24,8 @@ public class EquipmentItemServiceTest extends AbstractIntegrationTest {
   public void shouldSetEquipmentItemStatusService() {
     var equipmentModel = EquipmentItemUtils.getEquipmentItemModel(null);
     equipmentItemService.save(equipmentModel);
+    assertEquals(equipmentItemService.getEquipmentStatusCodeByRegistrationNumber(
+        equipmentModel.getRegistrationNumber()), "FREE");
     equipmentItemService.setEquipmentItemStatusService(equipmentModel.getRegistrationNumber());
     var equipmentFromBase = equipmentItemService.getByRegistrationNumber(equipmentModel.getRegistrationNumber());
     assertNotNull(equipmentFromBase);
