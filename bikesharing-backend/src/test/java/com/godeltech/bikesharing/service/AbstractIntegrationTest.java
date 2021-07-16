@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @Transactional
 @ContextConfiguration(classes = TestContainerConfig.class)
-@AutoConfigureMockMvc
 public class AbstractIntegrationTest {
   @Autowired
   protected ClientService clientService;
@@ -21,6 +20,5 @@ public class AbstractIntegrationTest {
   protected EquipmentItemService equipmentItemService;
   @Autowired
   protected EquipmentHandlingService equipmentHandlingService;
-  @Autowired
-  protected MockMvc mockMvc;
+
 }
