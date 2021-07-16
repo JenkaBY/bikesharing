@@ -15,6 +15,7 @@ import com.godeltech.bikesharing.persistence.repository.RentStatusRepository;
 import com.godeltech.bikesharing.service.ClientService;
 import com.godeltech.bikesharing.service.EquipmentItemService;
 import com.godeltech.bikesharing.service.RentService;
+import com.godeltech.bikesharing.service.impl.lookup.RentStatusServiceImpl;
 import java.time.LocalDateTime;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,6 @@ import org.springframework.validation.annotation.Validated;
 @Transactional
 @RequiredArgsConstructor
 public class RentServiceImpl implements RentService {
-  private static final String INITIAL_STATUS = "LASTING";
   private final RentOperationRepository repository;
   private final RentStatusRepository rentStatusRepository;
   private final EquipmentItemService equipmentItemService;
@@ -37,7 +37,7 @@ public class RentServiceImpl implements RentService {
   private final RentOperationMapper rentOperationMapper;
   private final ClientAccountMapper clientAccountMapper;
   private final EquipmentItemMapper equipmentItemMapper;
-
+  private final RentStatusServiceImpl rentStatusService;
   @Override
   public RentOperationResponse startRentOperation(@Valid RentOperationRequest request) {
     log.info("startRentOperation with request: {}", request);
@@ -55,7 +55,8 @@ public class RentServiceImpl implements RentService {
     rentOperation.setEndTime(LocalDateTime.now().plusHours(1));
     rentOperation.setTotalCost(request.getDeposit());
 
-    rentOperation.setRentStatus(getRentStatusByCode(INITIAL_STATUS));
+    var rentStatus = rentStatusService.getByCode(RentOperationModel.INITIAL_STATUS);
+    rentOperation.setRentStatus(rentStatus);
     rentOperation = repository.save(rentOperation);
 
     return rentOperationMapper.mapToResponse(rentOperation);
@@ -77,10 +78,11 @@ public class RentServiceImpl implements RentService {
   private RentStatus getRentStatusByCode(String code) {
     return rentStatusRepository.findByCode(code)
         .orElseThrow(() -> new ResourceNotFoundException(
-            String.format("Rent status not found with code: %s", INITIAL_STATUS)));
+            String.format("Rent status not found with code: %s", code)));
   }
 
   @Override
+  @Transactional(readOnly = true)
   public RentOperationModel getById(Long id) {
     log.info("getById: {}", id);
     var entity = repository.findById(id)

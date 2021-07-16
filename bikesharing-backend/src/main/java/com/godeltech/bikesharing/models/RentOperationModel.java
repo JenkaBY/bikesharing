@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class RentOperationModel {
+  public static final String INITIAL_STATUS = "LASTING";
+
   private Long id;
   private RentStatusModel rentStatus;
   private Long totalCost;

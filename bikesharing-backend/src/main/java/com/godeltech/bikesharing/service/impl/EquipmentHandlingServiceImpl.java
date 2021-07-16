@@ -48,6 +48,7 @@ public class EquipmentHandlingServiceImpl implements EquipmentHandlingService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public ServiceOperationModel getById(Long id) {
     var serviceOperation = repository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException(ServiceOperation.class.getName(), "id", id.toString()));

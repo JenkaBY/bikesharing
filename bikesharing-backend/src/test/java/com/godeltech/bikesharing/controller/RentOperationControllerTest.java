@@ -48,7 +48,7 @@ public class RentOperationControllerTest {
   }
 
   @Test
-  public void ShouldFailWithBabRequestCode() throws Exception {
+  public void shouldFailWithBabRequestCode() throws Exception {
     request.setEquipmentRegistrationNumber("");
     var content = getJsonRequest(request);
     mockMvc.perform(post(URL_TEMPLATE)
@@ -60,7 +60,7 @@ public class RentOperationControllerTest {
   }
 
   @Test
-  public void ShouldGetProperResponse() throws Exception {
+  public void shouldGetProperResponse() throws Exception {
     when(rentService.startRentOperation(request)).thenReturn(response);
 
     var content = getJsonRequest(request);

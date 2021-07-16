@@ -19,4 +19,4 @@ spring:
 
 logging:
   level:
-    org.hibernateSQL: debug
+    org.hibernate.SQL: debug

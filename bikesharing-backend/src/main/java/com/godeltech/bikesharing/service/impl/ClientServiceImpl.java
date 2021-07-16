@@ -30,6 +30,7 @@ public class ClientServiceImpl implements ClientService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public ClientAccountModel getByPhoneNumber(String phoneNum) {
     log.info("getByPhoneNumber: {}", phoneNum);
     var clientAccount = repository.findByPhoneNumber(phoneNum)

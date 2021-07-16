@@ -1,7 +1,9 @@
 package com.godeltech.bikesharing.exception;
 
 public class ResourceNotFoundException extends AbstractBusinessException {
-  public ResourceNotFoundException(final String message) {
+  private static final long serialVersionUID = 8067023990712655807L;
+
+  public ResourceNotFoundException(String message) {
     super(message);
   }
 

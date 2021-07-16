@@ -26,6 +26,7 @@ public class EquipmentItemServiceImpl implements EquipmentItemService {
   private final EquipmentItemMapper mapper;
 
   @Override
+  @Transactional(readOnly = true)
   public EquipmentItemModel getByRegistrationNumber(String registrationNumber) {
     log.info("getByRegistrationNumber: {}", registrationNumber);
     var equipmentItem = repository.findByRegistrationNumber(registrationNumber)

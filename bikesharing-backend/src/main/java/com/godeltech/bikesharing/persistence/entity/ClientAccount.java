@@ -4,8 +4,6 @@ import com.godeltech.bikesharing.persistence.entity.common.AuditableEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +24,7 @@ public class ClientAccount extends AuditableEntity {
   @Column(name = "phone_number", nullable = false, unique = true)
   private String phoneNumber;
 
-  private Integer rating;
+  private int rating;
 
   private String comments;
 
