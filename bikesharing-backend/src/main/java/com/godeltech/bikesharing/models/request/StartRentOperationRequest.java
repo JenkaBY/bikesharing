@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class RentOperationRequest {
+public class StartRentOperationRequest {
   @NotBlank
   private String equipmentRegistrationNumber;
 

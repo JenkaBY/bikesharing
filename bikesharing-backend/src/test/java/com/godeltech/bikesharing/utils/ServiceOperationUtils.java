@@ -1,8 +1,8 @@
 package com.godeltech.bikesharing.utils;
 
 import com.godeltech.bikesharing.models.ServiceOperationModel;
-import com.godeltech.bikesharing.models.request.EquipmentHandlingRequest;
-import com.godeltech.bikesharing.models.response.EquipmentHandlingResponse;
+import com.godeltech.bikesharing.models.request.EquipmentMaintenanceRequest;
+import com.godeltech.bikesharing.models.response.EquipmentMaintenanceResponse;
 import com.godeltech.bikesharing.persistence.entity.ServiceOperation;
 import java.time.LocalDate;
 
@@ -30,16 +30,16 @@ public class ServiceOperationUtils {
     return serviceOperationModel;
   }
 
-  public static EquipmentHandlingRequest getEquipmentHandlingRequest() {
-    var request = new EquipmentHandlingRequest();
+  public static EquipmentMaintenanceRequest getEquipmentHandlingRequest() {
+    var request = new EquipmentMaintenanceRequest();
     request.setEquipmentRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
     request.setServiceTypeCode(ServiceTypeUtils.CODE);
     request.setIssueDescription(ISSUE_DESCRIPTION);
     return request;
   }
 
-  public static EquipmentHandlingResponse getEquipmentHandlingResponse(Long id) {
-    var equipmentHandlingResponse = new EquipmentHandlingResponse();
+  public static EquipmentMaintenanceResponse getEquipmentHandlingResponse(Long id) {
+    var equipmentHandlingResponse = new EquipmentMaintenanceResponse();
     equipmentHandlingResponse.setId(id);
     equipmentHandlingResponse.setEquipmentRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
     equipmentHandlingResponse.setServiceTypeCode(ServiceTypeUtils.CODE);

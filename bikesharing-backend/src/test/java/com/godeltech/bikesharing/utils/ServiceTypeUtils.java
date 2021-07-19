@@ -1,6 +1,6 @@
 package com.godeltech.bikesharing.utils;
 
-import com.godeltech.bikesharing.models.ServiceTypeModel;
+import com.godeltech.bikesharing.models.lookup.ServiceTypeModel;
 import com.godeltech.bikesharing.persistence.entity.ServiceType;
 
 public class ServiceTypeUtils {

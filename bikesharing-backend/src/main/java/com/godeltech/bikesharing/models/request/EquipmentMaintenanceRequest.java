@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class EquipmentHandlingRequest {
+public class EquipmentMaintenanceRequest {
   private String equipmentRegistrationNumber;
   private String serviceTypeCode;
   private String issueDescription;

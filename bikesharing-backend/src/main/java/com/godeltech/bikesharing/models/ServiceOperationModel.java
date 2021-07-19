@@ -1,5 +1,6 @@
 package com.godeltech.bikesharing.models;
 
+import com.godeltech.bikesharing.models.lookup.ServiceTypeModel;
 import java.time.LocalDate;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

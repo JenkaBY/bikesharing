@@ -1,8 +1,8 @@
 package com.godeltech.bikesharing.utils;
 
 import com.godeltech.bikesharing.models.RentOperationModel;
-import com.godeltech.bikesharing.models.request.RentOperationRequest;
-import com.godeltech.bikesharing.models.response.RentOperationResponse;
+import com.godeltech.bikesharing.models.request.StartRentOperationRequest;
+import com.godeltech.bikesharing.models.response.StartRentOperationResponse;
 import com.godeltech.bikesharing.persistence.entity.RentOperation;
 import java.time.LocalDateTime;
 
@@ -37,16 +37,16 @@ public class RentOperationUtils {
     return rentOperationModel;
   }
 
-  public static RentOperationRequest getRentOperationRequest() {
-    var startRentOperationRequest = new RentOperationRequest();
+  public static StartRentOperationRequest getRentOperationRequest() {
+    var startRentOperationRequest = new StartRentOperationRequest();
     startRentOperationRequest.setDeposit(DEPOSIT);
     startRentOperationRequest.setClientPhoneNumber(ClientAccountUtils.PHONE_NUMBER);
     startRentOperationRequest.setEquipmentRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
     return startRentOperationRequest;
   }
 
-  public static RentOperationResponse getRentOperationResponse(Long id) {
-    var rentOperationResponse = new RentOperationResponse();
+  public static StartRentOperationResponse getRentOperationResponse(Long id) {
+    var rentOperationResponse = new StartRentOperationResponse();
     rentOperationResponse.setId(id);
     rentOperationResponse.setDeposit(DEPOSIT);
     rentOperationResponse.setClientPhoneNumber(ClientAccountUtils.PHONE_NUMBER);

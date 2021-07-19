@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class ServiceTypeModel {
+public abstract class LookupEntityModel {
   private Long id;
   private String code;
   private String name;

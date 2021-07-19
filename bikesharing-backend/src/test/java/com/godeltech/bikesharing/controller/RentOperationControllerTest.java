@@ -9,8 +9,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.godeltech.bikesharing.models.request.RentOperationRequest;
-import com.godeltech.bikesharing.models.response.RentOperationResponse;
+import com.godeltech.bikesharing.mapper.RentOperationMapper;
+import com.godeltech.bikesharing.models.request.StartRentOperationRequest;
+import com.godeltech.bikesharing.models.response.StartRentOperationResponse;
 import com.godeltech.bikesharing.service.RentService;
 import com.godeltech.bikesharing.utils.RentOperationUtils;
 import java.io.UnsupportedEncodingException;
@@ -37,9 +38,11 @@ public class RentOperationControllerTest {
 
   @MockBean
   private RentService rentService;
+  @MockBean
+  private RentOperationMapper rentOperationMapper;
 
-  private RentOperationRequest request;
-  private RentOperationResponse response;
+  private StartRentOperationRequest request;
+  private StartRentOperationResponse response;
 
   @BeforeEach
   public void setUp() {
@@ -61,7 +64,12 @@ public class RentOperationControllerTest {
 
   @Test
   public void shouldGetProperResponse() throws Exception {
-    when(rentService.startRentOperation(request)).thenReturn(response);
+    when(rentOperationMapper.mapToModel(request))
+        .thenReturn(RentOperationUtils.getRentOperationModel(ID));
+    when(rentService.startRentOperation(rentOperationMapper.mapToModel(request)))
+        .thenReturn(RentOperationUtils.getRentOperationModel(ID));
+    when(rentOperationMapper.mapToResponse(RentOperationUtils.getRentOperationModel(ID)))
+        .thenReturn(RentOperationUtils.getRentOperationResponse(ID));
 
     var content = getJsonRequest(request);
     var result = mockMvc.perform(post(URL_TEMPLATE)
@@ -72,17 +80,17 @@ public class RentOperationControllerTest {
         .andExpect(status().isOk())
         .andReturn();
     var responseFromServer = getResponse(result);
-    verify(rentService).startRentOperation(request);
+    verify(rentService).startRentOperation(rentOperationMapper.mapToModel(request));
     assertEquals(responseFromServer, response);
   }
 
-  private String getJsonRequest(RentOperationRequest request) throws JsonProcessingException {
+  private String getJsonRequest(StartRentOperationRequest request) throws JsonProcessingException {
     ObjectMapper mapper = new ObjectMapper();
     return mapper.writeValueAsString(request);
   }
 
-  private RentOperationResponse getResponse(MvcResult result) throws UnsupportedEncodingException, JSONException {
-    var response = new RentOperationResponse();
+  private StartRentOperationResponse getResponse(MvcResult result) throws UnsupportedEncodingException, JSONException {
+    var response = new StartRentOperationResponse();
     var jsonString = result.getResponse().getContentAsString();
     var jsonObject = new JSONObject(jsonString);
     response.setId(jsonObject.getLong("id"));

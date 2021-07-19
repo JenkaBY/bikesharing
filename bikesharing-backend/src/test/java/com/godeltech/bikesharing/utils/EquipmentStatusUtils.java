@@ -1,6 +1,6 @@
 package com.godeltech.bikesharing.utils;
 
-import com.godeltech.bikesharing.models.EquipmentStatusModel;
+import com.godeltech.bikesharing.models.lookup.EquipmentStatusModel;
 import com.godeltech.bikesharing.persistence.entity.EquipmentStatus;
 
 public class EquipmentStatusUtils {

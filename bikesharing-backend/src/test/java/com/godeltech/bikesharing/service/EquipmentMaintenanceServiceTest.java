@@ -7,7 +7,7 @@ import com.godeltech.bikesharing.utils.EquipmentItemUtils;
 import com.godeltech.bikesharing.utils.ServiceOperationUtils;
 import org.junit.jupiter.api.Test;
 
-public class EquipmentHandlingServiceTest extends AbstractIntegrationTest {
+public class EquipmentMaintenanceServiceTest extends AbstractIntegrationTest {
   private static final String SERVICE_STATUS = "SERVICE";
 
   @Test
@@ -15,8 +15,8 @@ public class EquipmentHandlingServiceTest extends AbstractIntegrationTest {
     var equipmentModel = EquipmentItemUtils.getEquipmentItemModel(null);
     equipmentItemService.save(equipmentModel);
     var request = ServiceOperationUtils.getEquipmentHandlingRequest();
-    var equipmentHandlingResponse = equipmentHandlingService.putEquipmentHandlingRequest(request);
-    var serviceOperationModelFromBase = equipmentHandlingService.getById(equipmentHandlingResponse.getId());
+    var equipmentHandlingResponse = equipmentMaintenanceService.putEquipmentHandlingRequest(request);
+    var serviceOperationModelFromBase = equipmentMaintenanceService.getById(equipmentHandlingResponse.getId());
     var equipmentFromBase = equipmentItemService.getByRegistrationNumber(equipmentModel.getRegistrationNumber());
     assertNotNull(serviceOperationModelFromBase.getId());
     assertNotNull(equipmentFromBase);

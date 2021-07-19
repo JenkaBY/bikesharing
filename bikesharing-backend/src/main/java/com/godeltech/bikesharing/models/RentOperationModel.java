@@ -1,5 +1,6 @@
 package com.godeltech.bikesharing.models;
 
+import com.godeltech.bikesharing.models.lookup.RentStatusModel;
 import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class RentOperationModel {
-  public static final String INITIAL_STATUS = "LASTING";
 
   private Long id;
   private RentStatusModel rentStatus;
@@ -15,7 +15,7 @@ public class RentOperationModel {
   private Long deposit;
   private EquipmentItemModel equipmentItem;
   private ClientAccountModel clientAccount;
-  private LocalDateTime startTime;
+  private LocalDateTime startTime = LocalDateTime.now();
   private LocalDateTime endTime;
   private String comments;
 }

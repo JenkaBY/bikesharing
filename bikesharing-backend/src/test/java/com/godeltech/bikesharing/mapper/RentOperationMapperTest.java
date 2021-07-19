@@ -1,6 +1,7 @@
 package com.godeltech.bikesharing.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.godeltech.bikesharing.utils.RentOperationUtils;
 import org.junit.jupiter.api.Test;
@@ -25,13 +26,23 @@ class RentOperationMapperTest {
   }
 
   @Test
-  void shouldMapEntityToResponse() {
-    var rentOperation = RentOperationUtils.getRentOperation();
-    rentOperation.setId(ID);
+  void shouldMapModelToResponse() {
+    var rentOperation = RentOperationUtils.getRentOperationModel(ID);
     rentOperation.getEquipmentItem().setId(ID);
     rentOperation.getClientAccount().setId(ID);
     var rentOperationResponse = RentOperationUtils.getRentOperationResponse(ID);
 
     assertEquals(rentOperationMapper.mapToResponse(rentOperation), rentOperationResponse);
+  }
+
+  @Test
+  void shouldMapRequestToModel() {
+    var request = RentOperationUtils.getRentOperationRequest();
+    var rentOperationModel = rentOperationMapper.mapToModel(request);
+
+    assertEquals(rentOperationModel.getClientAccount().getPhoneNumber(), request.getClientPhoneNumber());
+    assertEquals(rentOperationModel.getEquipmentItem().getRegistrationNumber(), request.getEquipmentRegistrationNumber());
+    assertEquals(rentOperationModel.getDeposit(), request.getDeposit());
+    assertNotNull(rentOperationModel.getStartTime());
   }
 }

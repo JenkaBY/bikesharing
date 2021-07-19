@@ -4,14 +4,14 @@ import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.EquipmentItemMapper;
 import com.godeltech.bikesharing.mapper.ServiceOperationMapper;
 import com.godeltech.bikesharing.models.ServiceOperationModel;
-import com.godeltech.bikesharing.models.request.EquipmentHandlingRequest;
-import com.godeltech.bikesharing.models.response.EquipmentHandlingResponse;
+import com.godeltech.bikesharing.models.request.EquipmentMaintenanceRequest;
+import com.godeltech.bikesharing.models.response.EquipmentMaintenanceResponse;
 import com.godeltech.bikesharing.persistence.entity.ServiceOperation;
 import com.godeltech.bikesharing.persistence.entity.ServiceType;
 import com.godeltech.bikesharing.persistence.repository.ServiceOperationRepository;
 import com.godeltech.bikesharing.persistence.repository.ServiceTypeRepository;
-import com.godeltech.bikesharing.service.EquipmentHandlingService;
 import com.godeltech.bikesharing.service.EquipmentItemService;
+import com.godeltech.bikesharing.service.EquipmentMaintenanceService;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class EquipmentHandlingServiceImpl implements EquipmentHandlingService {
+public class EquipmentMaintenanceServiceImpl implements EquipmentMaintenanceService {
   private final ServiceOperationMapper serviceOperationMapper;
   private final EquipmentItemMapper equipmentItemMapper;
   private final ServiceOperationRepository repository;
@@ -30,7 +30,7 @@ public class EquipmentHandlingServiceImpl implements EquipmentHandlingService {
   private final EquipmentItemService equipmentItemService;
 
   @Override
-  public EquipmentHandlingResponse putEquipmentHandlingRequest(EquipmentHandlingRequest request) {
+  public EquipmentMaintenanceResponse putEquipmentHandlingRequest(EquipmentMaintenanceRequest request) {
     log.info("putEquipmentHandlingRequest with request: {}", request);
     var serviceOperation = new ServiceOperation();
     serviceOperation.setStartDate(LocalDate.now());

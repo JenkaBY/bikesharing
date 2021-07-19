@@ -27,7 +27,7 @@ public class RentOperation extends AuditableEntity {
   private Long deposit;
 
   @Column(name = "start_time")
-  private LocalDateTime startTime;
+  private LocalDateTime startTime = LocalDateTime.now();
 
   @Column(name = "end_time")
   private LocalDateTime endTime;

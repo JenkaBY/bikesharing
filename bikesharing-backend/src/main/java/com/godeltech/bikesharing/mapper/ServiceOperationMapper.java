@@ -1,7 +1,7 @@
 package com.godeltech.bikesharing.mapper;
 
 import com.godeltech.bikesharing.models.ServiceOperationModel;
-import com.godeltech.bikesharing.models.response.EquipmentHandlingResponse;
+import com.godeltech.bikesharing.models.response.EquipmentMaintenanceResponse;
 import com.godeltech.bikesharing.persistence.entity.ServiceOperation;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,5 +15,5 @@ public interface ServiceOperationMapper {
 
   @Mapping(target = "serviceTypeCode", source = "serviceOperation.serviceType.code")
   @Mapping(target = "equipmentRegistrationNumber", source = "serviceOperation.equipmentItem.registrationNumber")
-  EquipmentHandlingResponse mapToResponse(ServiceOperation serviceOperation);
+  EquipmentMaintenanceResponse mapToResponse(ServiceOperation serviceOperation);
 }
