@@ -6,29 +6,31 @@ import com.godeltech.bikesharing.models.LookupEntityModel;
 import com.godeltech.bikesharing.persistence.entity.common.LookupEntity;
 import com.godeltech.bikesharing.persistence.repository.common.LookupRepository;
 import com.godeltech.bikesharing.service.LookupEntityService;
+import java.lang.reflect.ParameterizedType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
-public abstract class LookupEntityServiceImpl<M extends LookupEntityModel, E extends LookupEntity,
-    R extends LookupRepository<E>, T extends LookupMapper<M, E>>
+public abstract class LookupEntityServiceImpl<M extends LookupEntityModel, E extends LookupEntity>
     implements LookupEntityService<M, E> {
 
-  private final R repository;
-  private final T mapper;
+  private final LookupRepository<E> repository;
+  private final LookupMapper<M, E> mapper;
 
   @Override
   @Transactional(readOnly = true)
   public M getByCode(String code) {
     log.info("getByCode: {}", code);
-    E entity = repository.findByCode(code)
+    return repository.findByCode(code).map(mapper::mapToModel)
         .orElseThrow(() -> new ResourceNotFoundException(
-            String.format("Resource not found with code: %s", code)));
-
-    return mapper.mapToModel(entity);
+            String.format("%s not found with code: %s", getEntityInfo(), code)));
   }
 
-
+  @SuppressWarnings("unchecked")
+  String getEntityInfo() {
+    return ((Class<E>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1])
+        .getSimpleName();
+  }
 }

@@ -3,13 +3,11 @@ package com.godeltech.bikesharing.service.impl;
 import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.EquipmentItemMapper;
 import com.godeltech.bikesharing.models.EquipmentItemModel;
-import com.godeltech.bikesharing.persistence.entity.EquipmentGroup;
 import com.godeltech.bikesharing.persistence.entity.EquipmentItem;
-import com.godeltech.bikesharing.persistence.entity.EquipmentStatus;
-import com.godeltech.bikesharing.persistence.repository.EquipmentGroupRepository;
 import com.godeltech.bikesharing.persistence.repository.EquipmentItemRepository;
-import com.godeltech.bikesharing.persistence.repository.EquipmentStatusRepository;
 import com.godeltech.bikesharing.service.EquipmentItemService;
+import com.godeltech.bikesharing.service.impl.lookup.EquipmentGroupServiceImpl;
+import com.godeltech.bikesharing.service.impl.lookup.EquipmentStatusServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,41 +19,27 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class EquipmentItemServiceImpl implements EquipmentItemService {
   private final EquipmentItemRepository repository;
-  private final EquipmentGroupRepository equipmentGroupRepository;
-  private final EquipmentStatusRepository equipmentStatusRepository;
+  private final EquipmentGroupServiceImpl equipmentGroupService;
+  private final EquipmentStatusServiceImpl equipmentStatusService;
   private final EquipmentItemMapper mapper;
 
   @Override
   @Transactional(readOnly = true)
   public EquipmentItemModel getByRegistrationNumber(String registrationNumber) {
     log.info("getByRegistrationNumber: {}", registrationNumber);
-    var equipmentItem = repository.findByRegistrationNumber(registrationNumber)
+    return repository.findByRegistrationNumber(registrationNumber).map(mapper::mapToModel)
         .orElseThrow(() -> new ResourceNotFoundException(EquipmentItem.class.getName(), "registrationNumber",
             registrationNumber));
-    return mapper.mapToModel(equipmentItem);
   }
 
   @Override
   public EquipmentItemModel save(EquipmentItemModel model) {
     log.info("save: {}", model);
+    model.setEquipmentGroup(equipmentGroupService.getByCode(model.getEquipmentGroup().getCode()));
+    model.setEquipmentStatus(equipmentStatusService.getByCode(model.getEquipmentStatus().getCode()));
     var equipmentItem = mapper.mapToEntity(model);
-    equipmentItem.setEquipmentGroup(getEquipmentGroupByCode(model.getEquipmentGroup().getCode()));
-    equipmentItem.setEquipmentStatus(getEquipmentStatusByCode(model.getEquipmentStatus().getCode()));
     return mapper.mapToModel(repository.save(equipmentItem));
   }
-
-  private EquipmentGroup getEquipmentGroupByCode(String code) {
-    return equipmentGroupRepository.findByCode(code)
-        .orElseThrow(() -> new ResourceNotFoundException(
-            String.format("EquipmentGroup not found with code: %s", code)));
-  }
-
-  private EquipmentStatus getEquipmentStatusByCode(String code) {
-    return equipmentStatusRepository.findByCode(code)
-        .orElseThrow(() -> new ResourceNotFoundException(
-            String.format("EquipmentGroup not found with code: %s", code)));
-  }
-
 
   @Override
   public void setEquipmentItemStatusInUse(String registrationNumber) {

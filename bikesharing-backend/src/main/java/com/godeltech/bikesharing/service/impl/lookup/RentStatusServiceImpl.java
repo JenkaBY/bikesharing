@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RentStatusServiceImpl
-    extends LookupEntityServiceImpl<RentStatusModel, RentStatus, RentStatusRepository, RentStatusMapper> {
+    extends LookupEntityServiceImpl<RentStatusModel, RentStatus> {
 
   public RentStatusServiceImpl(RentStatusRepository repository, RentStatusMapper mapper) {
     super(repository, mapper);
