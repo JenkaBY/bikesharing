@@ -73,6 +73,20 @@ public class FinishRentTimeCalculator {
     return e.getPeriodStartTimeInMinutes();
   }
 
+  private Long getPeriodEndTimeInMinutes(RentCostModel model) {
+    if (TimePeriodModel.PERIOD_1_HOUR_CODE.equals(model.getTimePeriod().getCode())) {
+      return 60L;
+    } else if (TimePeriodModel.PERIOD_3_HOURS_CODE.equals(model.getTimePeriod().getCode())) {
+      return 180L;
+    } else if (TimePeriodModel.PERIOD_6_HOURS_CODE.equals(model.getTimePeriod().getCode())) {
+      return 360L;
+    } else if (TimePeriodModel.PERIOD_12_HOURS_CODE.equals(model.getTimePeriod().getCode())) {
+      return 720L;
+    } else {
+      return null;
+    }
+  }
+
   private CountUnit getCountUnit(RentCostModel m) {
     return new CountUnit(getPeriodStartTimeInMinutes(m),
         getPeriodEndTimeInMinutes(m),
@@ -95,24 +109,10 @@ public class FinishRentTimeCalculator {
     }
   }
 
-  private Long getPeriodEndTimeInMinutes(RentCostModel model) {
-    if (TimePeriodModel.PERIOD_1_HOUR_CODE.equals(model.getTimePeriod().getCode())) {
-      return 60L;
-    } else if (TimePeriodModel.PERIOD_3_HOURS_CODE.equals(model.getTimePeriod().getCode())) {
-      return 180L;
-    } else if (TimePeriodModel.PERIOD_6_HOURS_CODE.equals(model.getTimePeriod().getCode())) {
-      return 360L;
-    } else if (TimePeriodModel.PERIOD_12_HOURS_CODE.equals(model.getTimePeriod().getCode())) {
-      return 720L;
-    } else {
-      return null;
-    }
-  }
-
   private long updateTimePeriodCost(long timePeriodCount, long costPeriodCount, CountUnit countUnit) {
     if (!(countUnit.getPeriodEndTimeInMinutes() == null)) {
-      return costPeriodCount +
-          countUnit.getCost5minCurrentPeriod() * (countUnit.getPeriodEndTimeInMinutes() - timePeriodCount) / 5;
+      return costPeriodCount
+          + countUnit.getCost5minCurrentPeriod() * (countUnit.getPeriodEndTimeInMinutes() - timePeriodCount) / 5;
     }
     return costPeriodCount;
   }

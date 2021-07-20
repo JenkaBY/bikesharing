@@ -40,7 +40,7 @@ public class RentCostServiceImpl implements RentCostService {
     rentCostModel.setTimePeriod(timePeriodService
         .getByCode(rentCostModel.getTimePeriod().getCode()));
     rentCostModel.setEquipmentGroup(equipmentGroupService
-    .getByCode(rentCostModel.getEquipmentGroup().getCode()));
+        .getByCode(rentCostModel.getEquipmentGroup().getCode()));
     var rentCost = repository.save(mapper.mapToEntity(rentCostModel));
     return mapper.mapToModel(rentCost);
   }

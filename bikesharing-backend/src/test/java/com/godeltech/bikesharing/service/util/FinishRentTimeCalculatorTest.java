@@ -19,7 +19,7 @@ class FinishRentTimeCalculatorTest extends AbstractIntegrationTest {
     equipmentItemService.save(equipmentModel);
 
     var rentOperationModel = rentOperationMapper.mapToModel(RentOperationUtils.getRentOperationRequest());
-    rentOperationModel.setDeposit(DEPOSIT);//TODO continue
+    rentOperationModel.setDeposit(DEPOSIT);
     var rentOperationResponse = rentService.startRentOperation(rentOperationModel);
     var rentOperationModelFromBase = rentService.getById(rentOperationResponse.getId());
     var equipmentFromBase = equipmentItemService.getByRegistrationNumber(equipmentModel.getRegistrationNumber());
