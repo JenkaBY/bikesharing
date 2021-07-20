@@ -5,6 +5,7 @@ import com.godeltech.bikesharing.mapper.RentCostMapper;
 import com.godeltech.bikesharing.models.RentCostModel;
 import com.godeltech.bikesharing.persistence.repository.RentCostRepository;
 import com.godeltech.bikesharing.service.RentCostService;
+import com.godeltech.bikesharing.service.impl.lookup.EquipmentGroupServiceImpl;
 import com.godeltech.bikesharing.service.impl.lookup.TimePeriodServiceImpl;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class RentCostServiceImpl implements RentCostService {
   private final RentCostRepository repository;
   private final TimePeriodServiceImpl timePeriodService;
+  private final EquipmentGroupServiceImpl equipmentGroupService;
   private final RentCostMapper mapper;
 
   @Override
@@ -34,8 +36,11 @@ public class RentCostServiceImpl implements RentCostService {
 
   @Override
   public RentCostModel save(RentCostModel rentCostModel) {
+    //TODO check if rentCost for equipmentGroup and timePeriod exists
     rentCostModel.setTimePeriod(timePeriodService
         .getByCode(rentCostModel.getTimePeriod().getCode()));
+    rentCostModel.setEquipmentGroup(equipmentGroupService
+    .getByCode(rentCostModel.getEquipmentGroup().getCode()));
     var rentCost = repository.save(mapper.mapToEntity(rentCostModel));
     return mapper.mapToModel(rentCost);
   }

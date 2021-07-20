@@ -6,7 +6,6 @@ import com.godeltech.bikesharing.models.lookup.TimePeriodModel;
 import com.godeltech.bikesharing.service.RentCostService;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +24,7 @@ public class FinishRentTimeCalculator {
         .getEquipmentItem().getEquipmentGroup().getCode());
 
     // make a map of CountUnits for periods (Key - long value for period's startTime)
-    var countUnitMap = getCountUnitMap(rentCostList);
+    var countUnitMap = getCountUnitList(rentCostList);
 
     // get minutesCount to add to startTime, client payed for
     var plusMinutesCount = getPlusMinutesCount(rentOperationModel.getDeposit(), countUnitMap);
@@ -33,8 +32,8 @@ public class FinishRentTimeCalculator {
     rentOperationModel.setEndTime(rentOperationModel.getStartTime().plusMinutes(plusMinutesCount));
   }
 
-  private long getPlusMinutesCount(Long deposit, Map<Long, CountUnit> countUnitMap) {
-    var sortedCountUnitList = countUnitMap.values().stream()
+  private long getPlusMinutesCount(Long deposit, List<CountUnit> countUnits) {
+    var sortedCountUnitList = countUnits.stream()
         .sorted(Comparator.comparingLong(CountUnit::getPeriodStartTimeInMinutes)
             .reversed())
         .collect(Collectors.toList());
@@ -42,31 +41,44 @@ public class FinishRentTimeCalculator {
       if (deposit >= countUnit.getFullCostOfPreviousPeriods()) {
         return countUnit.getFullTimeOfPreviousPeriodsInMinutes()
             + (deposit - countUnit.getFullCostOfPreviousPeriods())
-            / countUnit.getCost5minCurrentPeriod() / 5;
+            / countUnit.getCost5minCurrentPeriod() * 5;
       }
     }
     return 0;
   }
 
-  private Map<Long, CountUnit> getCountUnitMap(List<RentCostModel> rentCostList) {
-    var countUnitMap = rentCostList.stream()
-        .collect(Collectors.toMap(this::getPeriodStartTimeInMinutes, this::getCountUnit));
+  private List<CountUnit> getCountUnitList(List<RentCostModel> rentCostList) {
+    var countUnitList = rentCostList.stream()
+        .map(this::getCountUnit)
+        .sorted(Comparator.comparingLong(CountUnit::getPeriodStartTimeInMinutes))
+        .collect(Collectors.toList());
 
     long timePeriodCount = 0;
     long costPeriodCount = 0;
-    for (Map.Entry<Long, CountUnit> e : countUnitMap.entrySet()) {
-      e.getValue().setFullCostOfPreviousPeriods(costPeriodCount);
-      e.getValue().setFullTimeOfPreviousPeriodsInMinutes(timePeriodCount);
-      costPeriodCount = updateTimePeriodCost(timePeriodCount, costPeriodCount, e.getValue());
-      timePeriodCount = updateTimePeriodCount(timePeriodCount, e.getValue());
+    long fullTimeOfPreviousPeriod = 0;
+    for (CountUnit e : countUnitList) {
+      e.setFullCostOfPreviousPeriods(costPeriodCount);
+      e.setFullTimeOfPreviousPeriodsInMinutes(fullTimeOfPreviousPeriod);
+      costPeriodCount = updateTimePeriodCost(timePeriodCount, costPeriodCount, e);
+      timePeriodCount = updateTimePeriodCount(timePeriodCount, e);
+      fullTimeOfPreviousPeriod = getPeriodEndTimeInMinutes(e);
     }
-    return countUnitMap;
+    return countUnitList;
+  }
+
+  private Long getPeriodEndTimeInMinutes(CountUnit e) {
+    if (!(e.getPeriodEndTimeInMinutes() == null)) {
+      return e.getPeriodEndTimeInMinutes();
+    }
+    return e.getPeriodStartTimeInMinutes();
   }
 
   private CountUnit getCountUnit(RentCostModel m) {
     return new CountUnit(getPeriodStartTimeInMinutes(m),
         getPeriodEndTimeInMinutes(m),
-        m.getCost(), null, null);
+        m.getCost(),
+        0L,
+        0L);
   }
 
   private Long getPeriodStartTimeInMinutes(RentCostModel model) {
