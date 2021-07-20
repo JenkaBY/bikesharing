@@ -19,9 +19,6 @@ dependencies {
 
     // Swagger
     implementation "io.springfox:springfox-boot-starter:${springfoxVersion}"
-    implementation "io.springfox:springfox-swagger-ui:${springfoxVersion}"
-    implementation "io.swagger.parser.v3:swagger-parser:${swaggerParserVersion}"
-
 
     //      Database
     runtimeOnly 'org.postgresql:postgresql'
