@@ -7,6 +7,7 @@ import com.godeltech.bikesharing.persistence.entity.common.LookupEntity;
 import com.godeltech.bikesharing.persistence.repository.common.LookupRepository;
 import com.godeltech.bikesharing.service.LookupEntityService;
 import java.lang.reflect.ParameterizedType;
+import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,14 @@ public abstract class LookupEntityServiceImpl<M extends LookupEntityModel, E ext
     return repository.findByCode(code).map(mapper::mapToModel)
         .orElseThrow(() -> new ResourceNotFoundException(
             String.format("%s not found with code: %s", getEntityInfo(), code)));
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public Stream<M> findAll() {
+    return repository.findAll()
+        .stream()
+        .map(mapper::mapToModel);
   }
 
   @SuppressWarnings("unchecked")
