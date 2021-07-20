@@ -17,7 +17,7 @@ public class EquipmentItemServiceTest extends AbstractIntegrationTest {
     equipmentItemService.setEquipmentItemStatusInUse(equipmentModel.getRegistrationNumber());
     var equipmentFromBase = equipmentItemService.getByRegistrationNumber(equipmentModel.getRegistrationNumber());
     assertNotNull(equipmentFromBase);
-    assertEquals(equipmentFromBase.getEquipmentStatus().getCode(), IN_USE_STATUS);
+    assertEquals(IN_USE_STATUS, equipmentFromBase.getEquipmentStatus().getCode());
   }
 
   @Test
@@ -29,7 +29,7 @@ public class EquipmentItemServiceTest extends AbstractIntegrationTest {
     equipmentItemService.setEquipmentItemStatusService(equipmentModel.getRegistrationNumber());
     var equipmentFromBase = equipmentItemService.getByRegistrationNumber(equipmentModel.getRegistrationNumber());
     assertNotNull(equipmentFromBase);
-    assertEquals(equipmentFromBase.getEquipmentStatus().getCode(), SERVICE_STATUS);
+    assertEquals(SERVICE_STATUS, equipmentFromBase.getEquipmentStatus().getCode());
   }
 
 }

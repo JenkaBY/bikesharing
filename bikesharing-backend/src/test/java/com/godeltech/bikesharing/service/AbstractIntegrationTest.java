@@ -21,4 +21,7 @@ public class AbstractIntegrationTest {
   protected EquipmentMaintenanceService equipmentMaintenanceService;
   @Autowired
   protected RentOperationMapper rentOperationMapper;
+  @Autowired
+  protected RentCostService rentCostService;
+
 }

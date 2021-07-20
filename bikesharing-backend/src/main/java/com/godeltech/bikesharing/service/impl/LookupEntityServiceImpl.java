@@ -4,7 +4,7 @@ import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.LookupMapper;
 import com.godeltech.bikesharing.models.LookupEntityModel;
 import com.godeltech.bikesharing.persistence.entity.common.LookupEntity;
-import com.godeltech.bikesharing.persistence.repository.common.LookupRepository;
+import com.godeltech.bikesharing.persistence.repository.LookupRepository;
 import com.godeltech.bikesharing.service.LookupEntityService;
 import java.lang.reflect.ParameterizedType;
 import lombok.RequiredArgsConstructor;

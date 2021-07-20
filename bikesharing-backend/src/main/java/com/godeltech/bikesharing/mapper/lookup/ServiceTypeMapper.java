@@ -2,7 +2,7 @@ package com.godeltech.bikesharing.mapper.lookup;
 
 import com.godeltech.bikesharing.mapper.LookupMapper;
 import com.godeltech.bikesharing.models.lookup.ServiceTypeModel;
-import com.godeltech.bikesharing.persistence.entity.ServiceType;
+import com.godeltech.bikesharing.persistence.entity.lookup.ServiceType;
 import org.mapstruct.Mapper;
 
 @Mapper

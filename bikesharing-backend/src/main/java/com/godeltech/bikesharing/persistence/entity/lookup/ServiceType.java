@@ -1,11 +1,11 @@
-package com.godeltech.bikesharing.persistence.entity;
+package com.godeltech.bikesharing.persistence.entity.lookup;
 
 import com.godeltech.bikesharing.persistence.entity.common.LookupEntity;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "equipment_status")
-public class EquipmentStatus extends LookupEntity {
+@Table(name = "service_type")
+public class ServiceType extends LookupEntity {
 
 }

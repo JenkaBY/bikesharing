@@ -10,7 +10,7 @@ import com.godeltech.bikesharing.service.ClientService;
 import com.godeltech.bikesharing.service.EquipmentItemService;
 import com.godeltech.bikesharing.service.RentService;
 import com.godeltech.bikesharing.service.impl.lookup.RentStatusServiceImpl;
-import com.godeltech.bikesharing.service.util.FinishTimeCalculator;
+import com.godeltech.bikesharing.service.util.FinishRentTimeCalculator;
 import com.godeltech.bikesharing.service.util.RentOperationValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class RentServiceImpl implements RentService {
   private final RentOperationRepository repository;
   private final RentOperationValidator validator;
+  private final FinishRentTimeCalculator calculator;
   private final EquipmentItemService equipmentItemService;
   private final ClientService clientService;
   private final RentOperationMapper rentOperationMapper;
@@ -42,9 +43,7 @@ public class RentServiceImpl implements RentService {
     rentOperationModel.setRentStatus(rentStatusService
         .getByCode(RentStatusModel.INITIAL_STATUS));
 
-    //TODO implement time calculator with cost of time for equipmentItem and deposit-sum
-    rentOperationModel.setEndTime(FinishTimeCalculator.calculateFinishTime(
-        rentOperationModel.getStartTime(), rentOperationModel.getDeposit()));
+    calculator.setFinishTime(rentOperationModel);
     rentOperationModel.setTotalCost(rentOperationModel.getDeposit());
 
     var rentOperation = repository.save(rentOperationMapper.mapToEntity(rentOperationModel));

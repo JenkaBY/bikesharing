@@ -1,22 +1,36 @@
-package com.godeltech.bikesharing.service;
+package com.godeltech.bikesharing.service.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.godeltech.bikesharing.exception.ResourceNotFreeException;
+import com.godeltech.bikesharing.models.lookup.TimePeriodModel;
+import com.godeltech.bikesharing.service.AbstractIntegrationTest;
 import com.godeltech.bikesharing.utils.EquipmentItemUtils;
-import com.godeltech.bikesharing.utils.EquipmentStatusUtils;
+import com.godeltech.bikesharing.utils.RentCostUtils;
 import com.godeltech.bikesharing.utils.RentOperationUtils;
+import com.godeltech.bikesharing.utils.TimePeriodUtils;
 import org.junit.jupiter.api.Test;
 
-public class RentServiceTest extends AbstractIntegrationTest {
-  private static final String IN_USE_STATUS = "IN_USE";
+class FinishRentTimeCalculatorTest extends AbstractIntegrationTest {
+  private static final Long ID = 1L;
+  private static final Long COST_FOR_3_HOURS = 5L;
 
   @Test
-  public void shouldStartRentOperationProperly() {
+  public void shouldCalculateProperly() {
     var equipmentModel = EquipmentItemUtils.getEquipmentItemModel(null);
     equipmentItemService.save(equipmentModel);
+    var rentCostModel1 = RentCostUtils.getRentCostModel(null);
+    rentCostService.save(rentCostModel1);
+
+    var rentCostModel2 = RentCostUtils.getRentCostModel(null);
+    rentCostModel2.setCost(COST_FOR_3_HOURS);
+    var timePeriodModel = TimePeriodUtils.getTimePeriodModel();
+    timePeriodModel.setCode(TimePeriodModel.PERIOD_3_HOURS_CODE);
+    rentCostModel2.setTimePeriod(timePeriodModel);
+    rentCostService.save(rentCostModel2);
+
+
+    //TODO continue
     var rentOperationModel = rentOperationMapper.mapToModel(RentOperationUtils.getRentOperationRequest());
     var rentOperationResponse = rentService.startRentOperation(rentOperationModel);
     var rentOperationModelFromBase = rentService.getById(rentOperationResponse.getId());
@@ -28,17 +42,5 @@ public class RentServiceTest extends AbstractIntegrationTest {
         rentOperationResponse.getEquipmentItem().getRegistrationNumber());
     assertEquals(rentOperationModelFromBase.getClientAccount().getPhoneNumber(),
         rentOperationResponse.getClientAccount().getPhoneNumber());
-    assertEquals(IN_USE_STATUS, equipmentFromBase.getEquipmentStatus().getCode());
   }
-
-  @Test
-  public void shouldThrowException() {
-    var equipmentModel = EquipmentItemUtils.getEquipmentItemModel(null);
-    equipmentModel.setEquipmentStatus(EquipmentStatusUtils.getEquipmentStatusServiceModel());
-    equipmentItemService.save(equipmentModel);
-    var rentOperationModel = RentOperationUtils.getRentOperationModel(null);
-    assertThrows(ResourceNotFreeException.class,
-        () -> rentService.startRentOperation(rentOperationModel));
-  }
-
 }

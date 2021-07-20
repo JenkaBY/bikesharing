@@ -25,7 +25,6 @@ public class ClientServiceImpl implements ClientService {
   public ClientAccountModel save(CreateClientAccountRequest request) {
     log.info("save: {}", request);
     var clientAccount = clientAccountMapper.mapRequestToEntity(request);
-    clientAccount.setRating(0);
     return clientAccountMapper.mapToModel(repository.save(clientAccount));
   }
 
@@ -33,9 +32,8 @@ public class ClientServiceImpl implements ClientService {
   @Transactional(readOnly = true)
   public ClientAccountModel getByPhoneNumber(String phoneNum) {
     log.info("getByPhoneNumber: {}", phoneNum);
-    var clientAccount = repository.findByPhoneNumber(phoneNum)
+    return repository.findByPhoneNumber(phoneNum).map(clientAccountMapper::mapToModel)
         .orElseThrow(() -> new ResourceNotFoundException(ClientAccount.class.getName(), "phoneNumber", phoneNum));
-    return clientAccountMapper.mapToModel(clientAccount);
   }
 
   @Override

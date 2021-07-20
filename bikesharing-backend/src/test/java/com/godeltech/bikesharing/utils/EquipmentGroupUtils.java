@@ -1,7 +1,7 @@
 package com.godeltech.bikesharing.utils;
 
 import com.godeltech.bikesharing.models.lookup.EquipmentGroupModel;
-import com.godeltech.bikesharing.persistence.entity.EquipmentGroup;
+import com.godeltech.bikesharing.persistence.entity.lookup.EquipmentGroup;
 
 public class EquipmentGroupUtils {
   public static final String NAME = "Bicycle";

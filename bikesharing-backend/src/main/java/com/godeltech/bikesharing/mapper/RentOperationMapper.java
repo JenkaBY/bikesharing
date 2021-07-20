@@ -12,12 +12,6 @@ public interface RentOperationMapper {
 
   RentOperationModel mapToModel(RentOperation rentOperation);
 
-  @Mapping(target = "id", ignore = true)
-  @Mapping(target = "totalCost", ignore = true)
-  @Mapping(target = "startTime", ignore = true)
-  @Mapping(target = "rentStatus", ignore = true)
-  @Mapping(target = "endTime", ignore = true)
-  @Mapping(target = "comments", ignore = true)
   @Mapping(target = "equipmentItem.registrationNumber", source = "equipmentRegistrationNumber")
   @Mapping(target = "clientAccount.phoneNumber", source = "clientPhoneNumber")
   RentOperationModel mapToModel(StartRentOperationRequest request);
@@ -26,7 +20,5 @@ public interface RentOperationMapper {
   @Mapping(target = "clientPhoneNumber", source = "rentOperationModel.clientAccount.phoneNumber")
   StartRentOperationResponse mapToResponse(RentOperationModel rentOperationModel);
 
-  @Mapping(target = "updatedAt", ignore = true)
-  @Mapping(target = "createdAt", ignore = true)
   RentOperation mapToEntity(RentOperationModel rentOperationModel);
 }

@@ -1,6 +1,7 @@
 package com.godeltech.bikesharing.persistence.entity;
 
 import com.godeltech.bikesharing.persistence.entity.common.AuditableEntity;
+import com.godeltech.bikesharing.persistence.entity.lookup.RentStatus;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;

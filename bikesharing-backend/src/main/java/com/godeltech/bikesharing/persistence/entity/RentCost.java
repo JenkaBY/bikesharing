@@ -2,9 +2,7 @@ package com.godeltech.bikesharing.persistence.entity;
 
 import com.godeltech.bikesharing.persistence.entity.common.AuditableEntity;
 import com.godeltech.bikesharing.persistence.entity.lookup.EquipmentGroup;
-import com.godeltech.bikesharing.persistence.entity.lookup.EquipmentStatus;
-import java.time.LocalDate;
-import javax.persistence.Column;
+import com.godeltech.bikesharing.persistence.entity.lookup.TimePeriod;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -19,28 +17,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Table(name = "equipment_item")
+@Table(name = "equipment_time_rentcost")
 @EqualsAndHashCode(callSuper = true, of = {})
-public class EquipmentItem extends AuditableEntity {
+public class RentCost extends AuditableEntity {
 
-  private String name;
-
-  @Column(name = "registration_number", nullable = false, unique = true)
-  private String registrationNumber;
-
-  @Column(name = "factory_number", nullable = false)
-  private String factoryNumber;
-
-  @Column(name = "purchase_date")
-  private LocalDate purchaseDate;
-
-  private String comments;
+  private Long cost;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "equipment_group_id", nullable = false)
   private EquipmentGroup equipmentGroup;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "equipment_status_id", nullable = false)
-  private EquipmentStatus equipmentStatus;
+  @JoinColumn(name = "time_period_id", nullable = false)
+  private TimePeriod timePeriod;
 }

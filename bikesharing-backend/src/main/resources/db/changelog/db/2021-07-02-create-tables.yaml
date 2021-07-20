@@ -323,7 +323,7 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: equipment_item_id
+                  name: equipment_group_id
                   type: int
                   constraints:
                     nullable: false
@@ -510,7 +510,7 @@ databaseChangeLog:
       author: dzmitry_krauchuk
       changes:
         - addForeignKeyConstraint:
-            baseColumnNames: equipment_item_id
+            baseColumnNames: equipment_group_id
             baseTableCatalogName: com.godeltech.bikesharing
             baseTableName: equipment_time_rentcost
             baseTableSchemaName: public
@@ -521,7 +521,7 @@ databaseChangeLog:
             onUpdate: RESTRICT
             referencedColumnNames: id
             referencedTableCatalogName: com.godeltech.bikesharing
-            referencedTableName: equipment_item
+            referencedTableName: equipment_group
             referencedTableSchemaName: public
             validate: true
   - changeSet:

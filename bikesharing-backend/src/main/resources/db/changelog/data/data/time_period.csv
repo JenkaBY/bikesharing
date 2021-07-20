@@ -1,0 +1,6 @@
+code,name
+HOUR,period of time within 1 hour
+3HOURS,period of time since 1:00:01 to 3:00:00
+6HOURS,period of time since 3:00:01 to 6:00:00
+12HOURS,period of time since 6:00:01 to 12:00:00
+12+HOURS,period of time over 12:00:01

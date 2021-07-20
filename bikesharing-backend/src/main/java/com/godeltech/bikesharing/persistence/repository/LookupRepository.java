@@ -1,4 +1,4 @@
-package com.godeltech.bikesharing.persistence.repository.common;
+package com.godeltech.bikesharing.persistence.repository;
 
 import com.godeltech.bikesharing.persistence.entity.common.LookupEntity;
 import java.util.Optional;

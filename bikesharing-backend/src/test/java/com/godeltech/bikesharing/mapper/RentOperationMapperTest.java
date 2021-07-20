@@ -41,7 +41,8 @@ class RentOperationMapperTest {
     var rentOperationModel = rentOperationMapper.mapToModel(request);
 
     assertEquals(rentOperationModel.getClientAccount().getPhoneNumber(), request.getClientPhoneNumber());
-    assertEquals(rentOperationModel.getEquipmentItem().getRegistrationNumber(), request.getEquipmentRegistrationNumber());
+    assertEquals(rentOperationModel.getEquipmentItem().getRegistrationNumber(),
+        request.getEquipmentRegistrationNumber());
     assertEquals(rentOperationModel.getDeposit(), request.getDeposit());
     assertNotNull(rentOperationModel.getStartTime());
   }

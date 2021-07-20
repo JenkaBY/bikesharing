@@ -1,7 +1,7 @@
 package com.godeltech.bikesharing.utils;
 
 import com.godeltech.bikesharing.models.lookup.EquipmentStatusModel;
-import com.godeltech.bikesharing.persistence.entity.EquipmentStatus;
+import com.godeltech.bikesharing.persistence.entity.lookup.EquipmentStatus;
 
 public class EquipmentStatusUtils {
   public static final String NAME = "equipment is free";

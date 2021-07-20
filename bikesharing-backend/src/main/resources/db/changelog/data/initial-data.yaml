@@ -133,3 +133,57 @@ databaseChangeLog:
             separator: ','
             relativeToChangelogFile: true
             tableName: service_type
+  - changeSet:
+      id: initial-data for time_period
+      author: dzmitry_krauchuk
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: code
+                  name: code
+                  type: STRING
+              - column:
+                  header: name
+                  name: name
+                  type: STRING
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/time_period.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: time_period
+  - changeSet:
+      id: initial-data for equipment_time_rentcost
+      author: dzmitry_krauchuk
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: equipment_group_id
+                  name: equipment_group_id
+                  type: NUMERIC
+              - column:
+                  header: time_period_id
+                  name: time_period_id
+                  type: NUMERIC
+              - column:
+                  header: cost
+                  name: cost
+                  type: NUMERIC
+              - column:
+                  header: updated
+                  name: updated
+                  type: TIMESTAMP
+              - column:
+                  header: created
+                  name: created
+                  type: TIMESTAMP
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/equipment_time_rentcost.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: equipment_time_rentcost

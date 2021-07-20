@@ -1,7 +1,7 @@
 package com.godeltech.bikesharing.utils;
 
 import com.godeltech.bikesharing.models.lookup.RentStatusModel;
-import com.godeltech.bikesharing.persistence.entity.RentStatus;
+import com.godeltech.bikesharing.persistence.entity.lookup.RentStatus;
 
 public class RentStatusUtils {
   public static final String NAME = "NewRentStatus";
