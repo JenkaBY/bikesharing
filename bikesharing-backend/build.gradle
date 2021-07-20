@@ -1,14 +1,29 @@
 plugins {
-    id 'org.springframework.boot'
+    id 'java'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.springframework.boot' version '2.5.1'
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+
+repositories {
+    mavenCentral()
 }
 
 ext {
     mapstructVersion = '1.4.2.Final'
     mockitoJunitJupiterVersion = '3.6.0'
     junitJupiterApiVersion='5.7.0'
+    springfoxVersion = '3.0.0'
 }
 
 dependencies {
+    //      Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly "org.projectlombok:lombok"
+    testAnnotationProcessor "org.projectlombok:lombok"
+    //   Spring
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -19,9 +34,6 @@ dependencies {
 
     // Swagger
     implementation "io.springfox:springfox-boot-starter:${springfoxVersion}"
-    implementation "io.springfox:springfox-swagger-ui:${springfoxVersion}"
-    implementation "io.swagger.parser.v3:swagger-parser:${swaggerParserVersion}"
-
 
     //      Database
     runtimeOnly 'org.postgresql:postgresql'
@@ -42,3 +54,10 @@ compileJava {
 test {
     useJUnitPlatform()
 }
+
+task runDevBackend {
+    print "Run DEV Backend"
+    bootRun.args("--spring.profiles.active=dev")
+}
+
+runDevBackend.dependsOn bootRun
