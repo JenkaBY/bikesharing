@@ -30,6 +30,7 @@ public abstract class LookupEntityServiceImpl<M extends LookupEntityModel, E ext
   }
 
   @Override
+  @Transactional(readOnly = true)
   public Stream<M> findAll() {
     return repository.findAll()
         .stream()
