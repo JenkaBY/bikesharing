@@ -33,7 +33,7 @@ public class ClientServiceImpl implements ClientService {
   public ClientAccountModel getByPhoneNumber(String phoneNum) {
     log.info("getByPhoneNumber: {}", phoneNum);
     return repository.findByPhoneNumber(phoneNum).map(clientAccountMapper::mapToModel)
-        .orElseThrow(() -> new ResourceNotFoundException(ClientAccount.class.getName(), "phoneNumber", phoneNum));
+        .orElseThrow(() -> new ResourceNotFoundException(ClientAccount.class.getSimpleName(), "phoneNumber", phoneNum));
   }
 
   @Override

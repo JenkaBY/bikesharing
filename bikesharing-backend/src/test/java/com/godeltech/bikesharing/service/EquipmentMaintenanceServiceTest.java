@@ -15,15 +15,13 @@ public class EquipmentMaintenanceServiceTest extends AbstractIntegrationTest {
     var equipmentModel = EquipmentItemUtils.getEquipmentItemModel(null);
     equipmentItemService.save(equipmentModel);
     var request = ServiceOperationUtils.getEquipmentHandlingRequest();
-    var equipmentHandlingResponse = equipmentMaintenanceService.putEquipmentHandlingRequest(request);
-    var serviceOperationModelFromBase = equipmentMaintenanceService.getById(equipmentHandlingResponse.getId());
+    var serviceOperationModel = equipmentMaintenanceService.putEquipmentHandlingRequest(request);
+    var serviceOperationModelFromBase = equipmentMaintenanceService.getById(serviceOperationModel.getId());
     var equipmentFromBase = equipmentItemService.getByRegistrationNumber(equipmentModel.getRegistrationNumber());
     assertNotNull(serviceOperationModelFromBase.getId());
     assertNotNull(equipmentFromBase);
-    assertEquals(serviceOperationModelFromBase.getEquipmentItemModel().getRegistrationNumber(),
-        equipmentHandlingResponse.getEquipmentRegistrationNumber());
     assertEquals(serviceOperationModelFromBase.getServiceTypeModel().getCode(),
-        equipmentHandlingResponse.getServiceTypeCode());
+        serviceOperationModel.getServiceTypeModel().getCode());
     assertEquals(equipmentFromBase.getEquipmentStatus().getCode(), SERVICE_STATUS);
   }
 

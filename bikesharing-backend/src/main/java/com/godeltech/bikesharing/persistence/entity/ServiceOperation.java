@@ -32,7 +32,7 @@ public class ServiceOperation extends AuditableEntity {
   private String issueDescription;
 
   @Column(name = "start_date")
-  private LocalDate startDate;
+  private LocalDate startDate = LocalDate.now();
 
   @Column(name = "end_date")
   private LocalDate endDate;

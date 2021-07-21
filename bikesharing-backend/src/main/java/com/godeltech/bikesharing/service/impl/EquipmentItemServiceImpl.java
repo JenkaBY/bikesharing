@@ -28,7 +28,7 @@ public class EquipmentItemServiceImpl implements EquipmentItemService {
   public EquipmentItemModel getByRegistrationNumber(String registrationNumber) {
     log.info("getByRegistrationNumber: {}", registrationNumber);
     return repository.findByRegistrationNumber(registrationNumber).map(mapper::mapToModel)
-        .orElseThrow(() -> new ResourceNotFoundException(EquipmentItem.class.getName(), "registrationNumber",
+        .orElseThrow(() -> new ResourceNotFoundException(EquipmentItem.class.getSimpleName(), "registrationNumber",
             registrationNumber));
   }
 

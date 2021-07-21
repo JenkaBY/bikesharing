@@ -23,23 +23,21 @@ public class FinishRentTimeCalculator {
     var rentCostList = rentCostService.getByEquipmentGroupCode(rentOperationModel
         .getEquipmentItem().getEquipmentGroup().getCode());
 
-    // make a map of CountUnits for periods (Key - long value for period's startTime)
-    var countUnitMap = getCountUnitList(rentCostList);
-
     // get minutesCount to add to startTime, client payed for
-    var plusMinutesCount = getPlusMinutesCount(rentOperationModel.getDeposit(), countUnitMap);
+    var plusMinutesCount = getPlusMinutesCount(rentOperationModel.getDeposit(), rentCostList);
 
     rentOperationModel.setEndTime(rentOperationModel.getStartTime().plusMinutes(plusMinutesCount));
   }
 
-  private long getPlusMinutesCount(Long deposit, List<CountUnit> countUnits) {
+  private long getPlusMinutesCount(Long deposit, List<RentCostModel> rentCostList) {
+    var countUnits = getCountUnitList(rentCostList);
     var sortedCountUnitList = countUnits.stream()
-        .sorted(Comparator.comparingLong(CountUnit::getPeriodStartTimeInMinutes)
+        .sorted(Comparator.comparingLong(CountUnit::getPeriodDurationInMinutes)
             .reversed())
         .collect(Collectors.toList());
     for (CountUnit countUnit : sortedCountUnitList) {
-      if (deposit >= countUnit.getFullCostOfPreviousPeriods()) {
-        return countUnit.getFullTimeOfPreviousPeriodsInMinutes()
+      if (deposit > countUnit.getFullCostOfPreviousPeriods()) {
+        return countUnit.getDurationOfPreviousPeriodsInMinutes()
             + (deposit - countUnit.getFullCostOfPreviousPeriods())
             / countUnit.getCost5minCurrentPeriod() * 5;
       }
@@ -50,7 +48,7 @@ public class FinishRentTimeCalculator {
   private List<CountUnit> getCountUnitList(List<RentCostModel> rentCostList) {
     var countUnitList = rentCostList.stream()
         .map(this::getCountUnit)
-        .sorted(Comparator.comparingLong(CountUnit::getPeriodStartTimeInMinutes))
+        .sorted(Comparator.comparingLong(CountUnit::getPeriodDurationInMinutes))
         .collect(Collectors.toList());
 
     long timePeriodCount = 0;
@@ -58,22 +56,15 @@ public class FinishRentTimeCalculator {
     long fullTimeOfPreviousPeriod = 0;
     for (CountUnit e : countUnitList) {
       e.setFullCostOfPreviousPeriods(costPeriodCount);
-      e.setFullTimeOfPreviousPeriodsInMinutes(fullTimeOfPreviousPeriod);
+      e.setDurationOfPreviousPeriodsInMinutes(fullTimeOfPreviousPeriod);
       costPeriodCount = updateTimePeriodCost(timePeriodCount, costPeriodCount, e);
       timePeriodCount = updateTimePeriodCount(timePeriodCount, e);
-      fullTimeOfPreviousPeriod = getPeriodEndTimeInMinutes(e);
+      fullTimeOfPreviousPeriod = e.periodDurationInMinutes;
     }
     return countUnitList;
   }
 
-  private Long getPeriodEndTimeInMinutes(CountUnit e) {
-    if (!(e.getPeriodEndTimeInMinutes() == null)) {
-      return e.getPeriodEndTimeInMinutes();
-    }
-    return e.getPeriodStartTimeInMinutes();
-  }
-
-  private Long getPeriodEndTimeInMinutes(RentCostModel model) {
+  private Long getPeriodDurationInMinutes(RentCostModel model) {
     if (TimePeriodModel.PERIOD_1_HOUR_CODE.equals(model.getTimePeriod().getCode())) {
       return 60L;
     } else if (TimePeriodModel.PERIOD_3_HOURS_CODE.equals(model.getTimePeriod().getCode())) {
@@ -83,43 +74,28 @@ public class FinishRentTimeCalculator {
     } else if (TimePeriodModel.PERIOD_12_HOURS_CODE.equals(model.getTimePeriod().getCode())) {
       return 720L;
     } else {
-      return null;
+      return 1440L;
     }
   }
 
   private CountUnit getCountUnit(RentCostModel m) {
-    return new CountUnit(getPeriodStartTimeInMinutes(m),
-        getPeriodEndTimeInMinutes(m),
+    return new CountUnit(getPeriodDurationInMinutes(m),
         m.getCost(),
         0L,
         0L);
   }
 
-  private Long getPeriodStartTimeInMinutes(RentCostModel model) {
-    if (TimePeriodModel.PERIOD_1_HOUR_CODE.equals(model.getTimePeriod().getCode())) {
-      return 0L;
-    } else if (TimePeriodModel.PERIOD_3_HOURS_CODE.equals(model.getTimePeriod().getCode())) {
-      return 60L;
-    } else if (TimePeriodModel.PERIOD_6_HOURS_CODE.equals(model.getTimePeriod().getCode())) {
-      return 180L;
-    } else if (TimePeriodModel.PERIOD_12_HOURS_CODE.equals(model.getTimePeriod().getCode())) {
-      return 360L;
-    } else {
-      return 720L;
-    }
-  }
-
   private long updateTimePeriodCost(long timePeriodCount, long costPeriodCount, CountUnit countUnit) {
-    if (!(countUnit.getPeriodEndTimeInMinutes() == null)) {
+    if (!(countUnit.getPeriodDurationInMinutes() == null)) {
       return costPeriodCount
-          + countUnit.getCost5minCurrentPeriod() * (countUnit.getPeriodEndTimeInMinutes() - timePeriodCount) / 5;
+          + countUnit.getCost5minCurrentPeriod() * (countUnit.getPeriodDurationInMinutes() - timePeriodCount) / 5;
     }
     return costPeriodCount;
   }
 
   private long updateTimePeriodCount(long timePeriodCount, CountUnit countUnit) {
-    if (!(countUnit.getPeriodEndTimeInMinutes() == null)) {
-      return countUnit.periodEndTimeInMinutes - timePeriodCount;
+    if (!(countUnit.getPeriodDurationInMinutes() == null)) {
+      return countUnit.periodDurationInMinutes - timePeriodCount;
     }
     return timePeriodCount;
   }
@@ -127,15 +103,13 @@ public class FinishRentTimeCalculator {
   @Getter
   @AllArgsConstructor
   public static class CountUnit {
-    private final Long periodStartTimeInMinutes;
-    private final Long periodEndTimeInMinutes;
+    private final Long periodDurationInMinutes;
     private final Long cost5minCurrentPeriod;
     @Setter
     private Long fullCostOfPreviousPeriods;
     @Setter
-    private Long fullTimeOfPreviousPeriodsInMinutes;
+    private Long durationOfPreviousPeriodsInMinutes;
   }
-
 
 }
 

@@ -56,7 +56,7 @@ public class RentServiceImpl implements RentService {
   public RentOperationModel getById(Long id) {
     log.info("getById: {}", id);
     var entity = repository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException(RentOperation.class.getName(), "id", id.toString()));
+        .orElseThrow(() -> new ResourceNotFoundException(RentOperation.class.getSimpleName(), "id", id.toString()));
     return rentOperationMapper.mapToModel(entity);
   }
 }
