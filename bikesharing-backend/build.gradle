@@ -6,10 +6,6 @@ plugins {
 
 sourceCompatibility = JavaVersion.VERSION_11
 
-repositories {
-    mavenCentral()
-}
-
 ext {
     mapstructVersion = '1.4.2.Final'
     mockitoJunitJupiterVersion = '3.6.0'

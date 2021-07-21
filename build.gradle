@@ -1,3 +1,17 @@
+buildscript {
+    ext {
+        kotlinVersion = '1.5.21'
+        androidGradlePlugin = '4.2.0'
+    }
+    repositories {
+        google()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "com.android.tools.build:gradle:$androidGradlePlugin"
+    }
+}
+
 plugins {
     id 'base'
     id 'checkstyle'
@@ -14,11 +28,14 @@ allprojects {
     }
 }
 
+
 subprojects {
     group = 'com.godeltech'
     version = '0.0.1-SNAPSHOT'
 
-
+    repositories {
+        mavenCentral()
+    }
 
     ext {
 
