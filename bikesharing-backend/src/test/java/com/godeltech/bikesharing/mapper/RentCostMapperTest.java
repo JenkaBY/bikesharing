@@ -18,9 +18,9 @@ class RentCostMapperTest {
   void shouldMapEntityToModel() {
     var rentCost = RentCostUtils.getRentCost();
     rentCost.setId(ID);
-    var clientAccountModel = RentCostUtils.getRentCostModel(ID);
+    var rentCostModel = RentCostUtils.getRentCostModel(ID);
 
-    assertEquals(rentCostMapper.mapToModel(rentCost), clientAccountModel);
+    assertEquals(rentCostMapper.mapToModel(rentCost), rentCostModel);
   }
 
 }

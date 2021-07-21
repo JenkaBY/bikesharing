@@ -2,7 +2,7 @@ package com.godeltech.bikesharing.persistence.entity;
 
 import com.godeltech.bikesharing.persistence.entity.common.AuditableEntity;
 import com.godeltech.bikesharing.persistence.entity.lookup.EquipmentGroup;
-import com.godeltech.bikesharing.persistence.entity.lookup.TimePeriod;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -17,17 +17,26 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Table(name = "equipment_time_rentcost")
+@Table(name = "equipment_rentcost")
 @EqualsAndHashCode(callSuper = true, of = {})
 public class RentCost extends AuditableEntity {
-
-  private Long cost;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "equipment_group_id", nullable = false)
   private EquipmentGroup equipmentGroup;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "time_period_id", nullable = false)
-  private TimePeriod timePeriod;
+  @Column(name = "h_half_price", nullable = false)
+  private Long halfHourPrice;
+
+  @Column(name = "h_price", nullable = false)
+  private Long oneHourPrice;
+
+  @Column(name = "day_price", nullable = false)
+  private Long dayPrice;
+
+  @Column(name = "min_price_4_h", nullable = false)
+  private Long minimalHourPrice;
+
+  @Column(name = "h_discount", nullable = false)
+  private Long hourDiscount;
 }

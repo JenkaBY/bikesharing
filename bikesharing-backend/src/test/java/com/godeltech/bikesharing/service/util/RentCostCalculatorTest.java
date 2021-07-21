@@ -9,9 +9,10 @@ import com.godeltech.bikesharing.utils.RentOperationUtils;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 
-class FinishRentTimeCalculatorTest extends AbstractIntegrationTest {
-  private static final Long DEPOSIT = 300L;
-  private static final Long PLUS_MINUTES = 160L;
+class RentCostCalculatorTest extends AbstractIntegrationTest {
+  private static final Long PLUS_MINUTES = 180L;
+  private static final Long TIME_UNIT_COUNT = 3L;
+  private static final Long TOTAL_COST = 9L;
 
   @Test
   public void shouldCalculateProperly() {
@@ -19,15 +20,22 @@ class FinishRentTimeCalculatorTest extends AbstractIntegrationTest {
     equipmentItemService.save(equipmentModel);
 
     var rentOperationModel = rentOperationMapper.mapToModel(RentOperationUtils.getRentOperationRequest());
-    rentOperationModel.setDeposit(DEPOSIT);
-    var rentOperationResponse = rentService.startRentOperation(rentOperationModel);
-    var rentOperationModelFromBase = rentService.getById(rentOperationResponse.getId());
+    rentOperationModel.setTimeUnitCount(TIME_UNIT_COUNT);
+    var rentOperationModelResponse = rentService.startRentOperation(rentOperationModel);
+
+    // TODO Delete it
+    var rentOperationModelFromBase = rentService.getById(rentOperationModelResponse.getId());
+
     var equipmentFromBase = equipmentItemService.getByRegistrationNumber(equipmentModel.getRegistrationNumber());
-    final LocalDateTime startTime = rentOperationResponse.getStartTime();
-    final LocalDateTime endTime = startTime.plusMinutes(PLUS_MINUTES);
+    final LocalDateTime endTime = rentOperationModelResponse.getStartTime()
+        .plusMinutes(PLUS_MINUTES);
     assertNotNull(rentOperationModelFromBase.getId());
     assertNotNull(equipmentFromBase);
 
-    assertEquals(endTime, rentOperationResponse.getEndTime());
+    // TODO Delete it
+    assertEquals(rentOperationModelResponse, rentOperationModelFromBase);
+
+    assertEquals(endTime, rentOperationModelResponse.getEndTime());
+    assertEquals(TOTAL_COST, rentOperationModelResponse.getTotalCost());
   }
 }

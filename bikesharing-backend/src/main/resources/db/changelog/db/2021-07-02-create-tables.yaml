@@ -309,11 +309,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
   - changeSet:
-      id: addTable equipment_time_rentcost
+      id: addTable equipment_rentcost
       author: dzmitry_krauchuk
       changes:
         - createTable:
-            tableName: equipment_time_rentcost
+            tableName: equipment_rentcost
             columns:
               - column:
                   name: id
@@ -328,12 +328,27 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: time_period_id
+                  name: h_half_price
                   type: int
                   constraints:
                     nullable: false
               - column:
-                  name: cost
+                  name: h_price
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: day_price
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: min_price_4_h
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: h_discount
                   type: int
                   constraints:
                     nullable: false
@@ -506,15 +521,15 @@ databaseChangeLog:
             referencedTableSchemaName: public
             validate: true
   - changeSet:
-      id: addForeignKeyConstraint FK_rentCost_equipmentItem
+      id: addForeignKeyConstraint FK_rentCost_equipmentGroup
       author: dzmitry_krauchuk
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: equipment_group_id
             baseTableCatalogName: com.godeltech.bikesharing
-            baseTableName: equipment_time_rentcost
+            baseTableName: equipment_rentcost
             baseTableSchemaName: public
-            constraintName: FK_rentCost_equipmentItem
+            constraintName: FK_rentCost_equipmentGroup
             deferrable: true
             initiallyDeferred: true
             onDelete: CASCADE
@@ -522,24 +537,5 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableCatalogName: com.godeltech.bikesharing
             referencedTableName: equipment_group
-            referencedTableSchemaName: public
-            validate: true
-  - changeSet:
-      id: addForeignKeyConstraint FK_rentCost_timePeriod
-      author: dzmitry_krauchuk
-      changes:
-        - addForeignKeyConstraint:
-            baseColumnNames: time_period_id
-            baseTableCatalogName: com.godeltech.bikesharing
-            baseTableName: equipment_time_rentcost
-            baseTableSchemaName: public
-            constraintName: FK_rentCost_timePeriod
-            deferrable: true
-            initiallyDeferred: true
-            onDelete: CASCADE
-            onUpdate: RESTRICT
-            referencedColumnNames: id
-            referencedTableCatalogName: com.godeltech.bikesharing
-            referencedTableName: time_period
             referencedTableSchemaName: public
             validate: true

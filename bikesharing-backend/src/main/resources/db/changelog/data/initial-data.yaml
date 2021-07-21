@@ -134,28 +134,7 @@ databaseChangeLog:
             relativeToChangelogFile: true
             tableName: service_type
   - changeSet:
-      id: initial-data for time_period
-      author: dzmitry_krauchuk
-      changes:
-        - loadData:
-            columns:
-              - column:
-                  header: code
-                  name: code
-                  type: STRING
-              - column:
-                  header: name
-                  name: name
-                  type: STRING
-            commentLineStartsWith: '#'
-            encoding: UTF-8
-            file: data/time_period.csv
-            quotchar: '"'
-            separator: ','
-            relativeToChangelogFile: true
-            tableName: time_period
-  - changeSet:
-      id: initial-data for equipment_time_rentcost
+      id: initial-data for equipment_rentcost
       author: dzmitry_krauchuk
       changes:
         - loadData:
@@ -165,12 +144,24 @@ databaseChangeLog:
                   name: equipment_group_id
                   type: NUMERIC
               - column:
-                  header: time_period_id
-                  name: time_period_id
+                  header: h_half_price
+                  name: h_half_price
                   type: NUMERIC
               - column:
-                  header: cost
-                  name: cost
+                  header: h_price
+                  name: h_price
+                  type: NUMERIC
+              - column:
+                  header: day_price
+                  name: day_price
+                  type: NUMERIC
+              - column:
+                  header: min_price_4_h
+                  name: min_price_4_h
+                  type: NUMERIC
+              - column:
+                  header: h_discount
+                  name: h_discount
                   type: NUMERIC
               - column:
                   header: updated
@@ -182,8 +173,8 @@ databaseChangeLog:
                   type: TIMESTAMP
             commentLineStartsWith: '#'
             encoding: UTF-8
-            file: data/equipment_time_rentcost.csv
+            file: data/equipment_rentcost.csv
             quotchar: '"'
             separator: ','
             relativeToChangelogFile: true
-            tableName: equipment_time_rentcost
+            tableName: equipment_rentcost

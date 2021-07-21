@@ -9,6 +9,10 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class StartRentOperationRequest {
+  public static final String HALF_HOUR_CODE = "HALF_HOUR";
+  public static final String ONE_HOUR_CODE = "ONE_HOUR";
+  public static final String DAY_CODE = "DAY";
+
   @NotBlank
   private String equipmentRegistrationNumber;
 
@@ -18,4 +22,10 @@ public class StartRentOperationRequest {
 
   @Min(1)
   private Long deposit;
+
+  @NotBlank
+  private String timeUnitCode;
+
+  @Min(1)
+  private Long timeUnitCount;
 }

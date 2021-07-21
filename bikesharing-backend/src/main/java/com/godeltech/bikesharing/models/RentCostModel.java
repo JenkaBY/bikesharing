@@ -1,7 +1,6 @@
 package com.godeltech.bikesharing.models;
 
 import com.godeltech.bikesharing.models.lookup.EquipmentGroupModel;
-import com.godeltech.bikesharing.models.lookup.TimePeriodModel;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -10,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 public class RentCostModel {
   private Long id;
   private EquipmentGroupModel equipmentGroup;
-  private TimePeriodModel timePeriod;
-  private Long cost;
+  private Long halfHourPrice;
+  private Long oneHourPrice;
+  private Long dayPrice;
+  private Long minimalHourPrice;
+  private Long hourDiscount;
 }

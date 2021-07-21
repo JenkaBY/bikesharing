@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 public class RentOperationUtils {
   public static final Long TOTAL_COST = 100L;
   public static final Long DEPOSIT = 100L;
+  public static final String TIME_UNIT_CODE = StartRentOperationRequest.ONE_HOUR_CODE;
+  public static final Long TIME_UNIT_COUNT = 1L;
   public static final LocalDateTime START_TIME = LocalDateTime.of(2021, 1, 1, 1, 0);
   public static final LocalDateTime END_TIME = START_TIME.plusHours(24);
 
@@ -42,6 +44,8 @@ public class RentOperationUtils {
     startRentOperationRequest.setDeposit(DEPOSIT);
     startRentOperationRequest.setClientPhoneNumber(ClientAccountUtils.PHONE_NUMBER);
     startRentOperationRequest.setEquipmentRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
+    startRentOperationRequest.setTimeUnitCode(TIME_UNIT_CODE);
+    startRentOperationRequest.setTimeUnitCount(TIME_UNIT_COUNT);
     return startRentOperationRequest;
   }
 
