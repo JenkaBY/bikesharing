@@ -1,6 +1,6 @@
 package com.godeltech.bikesharing.models.request;
 
-import javax.validation.Valid;
+import com.godeltech.bikesharing.models.RentTimeModel;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class StartRentOperationRequest {
+//  TODO Remove the constants
   public static final String HALF_HOUR_CODE = "HALF_HOUR";
   public static final String ONE_HOUR_CODE = "ONE_HOUR";
   public static final String DAY_CODE = "DAY";
@@ -23,6 +24,6 @@ public class StartRentOperationRequest {
 
   @Min(1)
   private Long deposit;
-
-  private @Valid RentTimeRequest rentTimeRequest;
+//TODO Add validation
+  private RentTimeModel rentTimeModel;
 }

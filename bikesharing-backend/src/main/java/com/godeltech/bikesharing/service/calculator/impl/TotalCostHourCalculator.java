@@ -14,6 +14,7 @@ public class TotalCostHourCalculator implements TotalCostCalculator {
     var totalCost = rentCostModel.getOneHourPrice();
     var currentHourPrice = rentCostModel.getOneHourPrice();
     var timeUnitAmount = rentTimeModel.getAmount();
+//    TODO for future improvements: These calculations are the same for each equipment Group, I think we would cache them.
     while (timeUnitAmount > 1) {
       currentHourPrice = changeCurrentHourPrice(currentHourPrice, rentCostModel.getHourDiscount(),
           rentCostModel.getMinimalHourPrice());
@@ -22,7 +23,7 @@ public class TotalCostHourCalculator implements TotalCostCalculator {
     }
     return totalCost;
   }
-
+//TODO Rename to calculateHourPrice
   private Long changeCurrentHourPrice(Long currentHourPrice, Long hourDiscount, Long minimalHourPrice) {
     if (currentHourPrice > minimalHourPrice) {
       return currentHourPrice - hourDiscount;

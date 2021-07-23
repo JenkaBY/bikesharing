@@ -22,10 +22,9 @@ public class RentOperationController {
   private final RentService rentService;
   private final RentOperationMapper rentOperationMapper;
 
-  @PostMapping()
+  @PostMapping
   public ResponseEntity<StartRentOperationResponse> startRentOperation(
-      @Valid @RequestBody
-          StartRentOperationRequest request) {
+      @Valid @RequestBody StartRentOperationRequest request) {
     var rentOperationModel = rentOperationMapper.mapToModel(request);
     var response = rentOperationMapper.mapToResponse(rentService.startRentOperation(rentOperationModel));
     return ResponseEntity.status(HttpStatus.OK).body(response);

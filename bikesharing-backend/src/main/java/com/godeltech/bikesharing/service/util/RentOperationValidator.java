@@ -14,8 +14,7 @@ public class RentOperationValidator {
     log.info("checkEquipmentItemIsFree for model: {}", equipmentItemModel);
     if (!equipmentItemModel.getEquipmentStatus().getCode().equals(EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_FREE)) {
       throw new ResourceNotFreeException(
-          String.format("The status is not FREE for equipmentItem: %s",
-              equipmentItemModel));
+          String.format("The status is not FREE for equipmentItem: %s", equipmentItemModel));
     }
   }
 }

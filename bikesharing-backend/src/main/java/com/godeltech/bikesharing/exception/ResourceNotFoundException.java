@@ -10,4 +10,8 @@ public class ResourceNotFoundException extends AbstractBusinessException {
   public ResourceNotFoundException(String type, String field, String value) {
     super(String.format("%s with %s: %s not found", type, field, value));
   }
+
+  public ResourceNotFoundException(String type, String field, Long value) {
+    super(String.format("%s with %s: %s not found", type, field, value));
+  }
 }
