@@ -34,23 +34,26 @@ public class RentServiceImpl implements RentService {
   private final RentStatusServiceImpl rentStatusService;
 
   @Override
-  public RentOperationModel startRentOperation(RentOperationModel rentOperationModel) {
-    log.info("startRentOperation with model: {}", rentOperationModel);
-    var equipmentItemModel = equipmentItemService.getByRegistrationNumber(
-        rentOperationModel.getEquipmentItem().getRegistrationNumber());
+  public RentOperationModel startRentOperation(RentOperationModel rentOperation) {
+    log.info("startRentOperation with model: {}", rentOperation);
+    var registrationNumber = rentOperation.getEquipmentItem().getRegistrationNumber();
+    var equipmentItemModel = equipmentItemService.getByRegistrationNumber(registrationNumber);
+
     validator.checkEquipmentItemIsFree(equipmentItemModel);
-    equipmentItemService.updateEquipmentItemStatus(rentOperationModel.getEquipmentItem().getRegistrationNumber(),
-        EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_IN_USE);
-    equipmentItemModel.setEquipmentStatus(equipmentStatusService
-        .getByCode(EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_IN_USE));
-    var clientAccountModel = clientService
-        .getOrCreateByPhoneNumber(rentOperationModel.getClientAccount().getPhoneNumber());
-    rentOperationModel.setRentStatus(rentStatusService.getByCode(RentStatusModel.INITIAL_STATUS));
-    var calculatedRentDetailsModel = calculator.getCalculatedRentDetails(
-        equipmentItemModel.getEquipmentGroup().getCode(), rentOperationModel.getRentTimeModel());
-    var rentOperation = repository.save(rentOperationMapper
-        .mapToEntity(rentOperationModel, equipmentItemModel, clientAccountModel, calculatedRentDetailsModel));
-    return rentOperationMapper.mapToModel(rentOperation);
+    var inUseStatusCode = EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_IN_USE;
+    equipmentItemModel.setEquipmentStatus(equipmentStatusService.getByCode(inUseStatusCode));
+    equipmentItemService.updateEquipmentItemStatus(registrationNumber, inUseStatusCode);
+
+    var client = clientService.getOrCreateByPhoneNumber(rentOperation.getClientAccount().getPhoneNumber());
+    rentOperation.setRentStatus(rentStatusService.getByCode(RentStatusModel.INITIAL_STATUS));
+
+    var calculatedRentDetails = calculator.getCalculatedRentDetails(
+        equipmentItemModel.getEquipmentGroup().getCode(), rentOperation.getRentTimeModel());
+    var toBeSavedRentOperation = rentOperationMapper
+        .mapToEntity(rentOperation, equipmentItemModel, client, calculatedRentDetails);
+    var createdRentOperation = repository.save(toBeSavedRentOperation);
+
+    return rentOperationMapper.mapToModel(createdRentOperation);
   }
 
 
@@ -59,7 +62,7 @@ public class RentServiceImpl implements RentService {
   public RentOperationModel getById(Long id) {
     log.info("getById: {}", id);
     var entity = repository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException(RentOperation.class.getSimpleName(), "id", id.toString()));
+        .orElseThrow(() -> new ResourceNotFoundException(RentOperation.class.getSimpleName(), "id", id));
     return rentOperationMapper.mapToModel(entity);
   }
 }
