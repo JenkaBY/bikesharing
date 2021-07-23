@@ -11,7 +11,7 @@ spring:
     enabled: true
     change-log: classpath:db/changelog/changelog-master.yaml
     contexts: dev
-
+    drop-first: false
   jpa:
     hibernate:
       ddl-auto: none
