@@ -26,7 +26,7 @@ public class RentCostTimeCalculator {
   }
 
   private long getPaidMinutes(RentTimeModel rentTimeModel) {
-    return rentTimeModel.getAmount() * rentTimeModel.getRentTimeUnit().durationInMin;
+    return rentTimeModel.getAmount() * rentTimeModel.getRentTimeUnit().getDurationInMin();
   }
 
 }

@@ -11,8 +11,7 @@ public class TotalCostDayCalculator implements TotalCostCalculator {
 
   @Override
   public Long calculateTotalCost(RentCostModel rentCostModel, RentTimeModel rentTimeModel) {
-//    TODO Probably the bug is here, for DAY rentCostModel.getDayPrice() should be here
-    return rentCostModel.getHalfHourPrice() * rentTimeModel.getAmount();
+    return rentCostModel.getDayPrice() * rentTimeModel.getAmount();
   }
 
   @Override

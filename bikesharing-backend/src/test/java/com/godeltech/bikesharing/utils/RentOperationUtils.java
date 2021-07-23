@@ -45,7 +45,7 @@ public class RentOperationUtils {
     startRentOperationRequest.setDeposit(DEPOSIT);
     startRentOperationRequest.setClientPhoneNumber(ClientAccountUtils.PHONE_NUMBER);
     startRentOperationRequest.setEquipmentRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
-    startRentOperationRequest.setRentTimeModel(RentTimeModelUtils.getRentTimeModel(TIME_UNIT_HOUR,TIME_UNIT_AMOUNT));
+    startRentOperationRequest.setRentTimeRequest(RentTimeModelUtils.getRentTimeRequest(TIME_UNIT_HOUR,TIME_UNIT_AMOUNT));
     return startRentOperationRequest;
   }
 
