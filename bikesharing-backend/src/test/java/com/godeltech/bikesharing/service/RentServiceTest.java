@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.godeltech.bikesharing.exception.ResourceNotFreeException;
 import com.godeltech.bikesharing.models.RentOperationModel;
-import com.godeltech.bikesharing.models.RentTimeModel;
 import com.godeltech.bikesharing.models.enums.RentTimeUnit;
 import com.godeltech.bikesharing.utils.EquipmentItemUtils;
 import com.godeltech.bikesharing.utils.EquipmentStatusUtils;
@@ -17,8 +16,8 @@ import org.junit.jupiter.api.Test;
 
 public class RentServiceTest extends AbstractIntegrationTest {
   private static final String IN_USE_STATUS = "IN_USE";
-  public static final RentTimeUnit TIME_UNIT_HOUR = RentTimeUnit.HOUR;
-  public static final Long TIME_UNIT_AMOUNT = 1L;
+  private static final RentTimeUnit TIME_UNIT_HOUR = RentTimeUnit.HOUR;
+  private static final Long TIME_UNIT_AMOUNT = 1L;
   private final RentOperationModel rentOperationModel = RentOperationUtils.getRentOperationModel(null);
 
   @Test

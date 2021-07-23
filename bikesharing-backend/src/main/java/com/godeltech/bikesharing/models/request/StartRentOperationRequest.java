@@ -1,6 +1,6 @@
 package com.godeltech.bikesharing.models.request;
 
-import com.godeltech.bikesharing.models.RentTimeModel;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -24,5 +24,5 @@ public class StartRentOperationRequest {
   @Min(1)
   private Long deposit;
 
-  private RentTimeModel rentTimeModel;
+  private @Valid RentTimeRequest rentTimeRequest;
 }
