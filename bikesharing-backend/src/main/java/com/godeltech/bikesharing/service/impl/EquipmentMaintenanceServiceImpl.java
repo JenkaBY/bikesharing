@@ -3,6 +3,7 @@ package com.godeltech.bikesharing.service.impl;
 import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.ServiceOperationMapper;
 import com.godeltech.bikesharing.models.ServiceOperationModel;
+import com.godeltech.bikesharing.models.lookup.EquipmentStatusModel;
 import com.godeltech.bikesharing.models.request.EquipmentMaintenanceRequest;
 import com.godeltech.bikesharing.persistence.entity.ServiceOperation;
 import com.godeltech.bikesharing.persistence.repository.ServiceOperationRepository;
@@ -27,7 +28,8 @@ public class EquipmentMaintenanceServiceImpl implements EquipmentMaintenanceServ
   @Override
   public ServiceOperationModel putEquipmentHandlingRequest(EquipmentMaintenanceRequest request) {
     log.info("putEquipmentHandlingRequest with request: {}", request);
-    equipmentItemService.setEquipmentItemStatusService(request.getEquipmentRegistrationNumber());
+    equipmentItemService.updateEquipmentItemStatus(request.getEquipmentRegistrationNumber(),
+        EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_SERVICE);
     var equipmentItemModel = equipmentItemService.getByRegistrationNumber(request.getEquipmentRegistrationNumber());
     var serviceType = serviceTypeService.getByCode(request.getServiceTypeCode());
     var serviceOperation = mapper.mapToEntity(request, equipmentItemModel, serviceType);

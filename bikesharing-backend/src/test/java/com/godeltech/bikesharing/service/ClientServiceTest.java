@@ -3,12 +3,14 @@ package com.godeltech.bikesharing.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.github.database.rider.core.api.dataset.DataSet;
 import com.godeltech.bikesharing.models.ClientAccountModel;
 import com.godeltech.bikesharing.models.request.CreateClientAccountRequest;
 import com.godeltech.bikesharing.utils.ClientAccountUtils;
 import org.junit.jupiter.api.Test;
 
 public class ClientServiceTest extends AbstractIntegrationTest {
+
   @Test
   public void shouldSaveNewClient() {
     final CreateClientAccountRequest request = ClientAccountUtils.getNewClientAccountRequest();

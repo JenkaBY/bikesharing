@@ -1,0 +1,23 @@
+equipment_status:
+  - id: 1
+    code: "SERVICE"
+    name: "equipment been serviced"
+  - id: 2
+    code: "IN_USE"
+    name: "equipment is in-use"
+  - id: 3
+    code: "FREE"
+    name: "equipment is free"
+equipment_group:
+  - id: 1
+    code: "BICYCLE"
+    name: "bicycle"
+  - id: 2
+    code: "SCOOTER"
+    name: "scooter"
+  - id: 3
+    code: "E_BICYCLE"
+    name: "e-bicycle"
+  - id: 4
+    code: "E_SCOOTER"
+    name: "e-scooter"

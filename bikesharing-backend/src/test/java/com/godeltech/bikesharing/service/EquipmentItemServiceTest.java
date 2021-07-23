@@ -3,11 +3,12 @@ package com.godeltech.bikesharing.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.github.database.rider.core.api.dataset.DataSet;
 import com.godeltech.bikesharing.models.EquipmentItemModel;
-import com.godeltech.bikesharing.persistence.repository.EquipmentItemRepository;
+import com.godeltech.bikesharing.models.lookup.EquipmentStatusModel;
+import com.godeltech.bikesharing.persistence.repository.RentOperationRepositoryRepository;
 import com.godeltech.bikesharing.utils.EquipmentItemUtils;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,11 +19,10 @@ public class EquipmentItemServiceTest extends AbstractIntegrationTest {
   private static final String FREE_STATUS = "FREE";
   private final EquipmentItemModel equipmentModel = EquipmentItemUtils.getEquipmentItemModel(null);
   @Autowired
-  private EquipmentItemRepository repository;
+  private RentOperationRepositoryRepository repository;
   private EquipmentItemModel savedEquipmentItem;
 
-  @BeforeEach
-  void setUp() {
+  private void setUp() {
     savedEquipmentItem = equipmentItemService.save(equipmentModel);
   }
 
@@ -33,24 +33,30 @@ public class EquipmentItemServiceTest extends AbstractIntegrationTest {
   }
 
   @Test
+  @DataSet(value = "/dataset/equipmentStatusWithGroup.yml", cleanBefore = true)
   void createdEquipmentItemShouldHaveFreeStatus() {
+    setUp();
     var actual = equipmentItemService
         .getEquipmentStatusCodeByRegistrationNumber(equipmentModel.getRegistrationNumber());
     assertEquals(FREE_STATUS, actual);
   }
 
   @Test
+  @DataSet(value = "/dataset/equipmentStatusWithGroup.yml", cleanBefore = true)
   public void shouldSetEquipmentItemStatusInUse() {
-    equipmentItemService.setEquipmentItemStatusInUse(equipmentModel.getRegistrationNumber());
-
+    setUp();
+    equipmentItemService.updateEquipmentItemStatus(equipmentModel.getRegistrationNumber(),
+        EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_IN_USE);
     var actual = equipmentItemService.getByRegistrationNumber(equipmentModel.getRegistrationNumber());
     assertActualStatus(actual, IN_USE_STATUS);
   }
 
   @Test
+  @DataSet(value = "/dataset/equipmentStatusWithGroup.yml", cleanBefore = true)
   public void shouldSetEquipmentItemStatusService() {
-    equipmentItemService.setEquipmentItemStatusService(equipmentModel.getRegistrationNumber());
-
+    setUp();
+    equipmentItemService.updateEquipmentItemStatus(equipmentModel.getRegistrationNumber(),
+        EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_SERVICE);
     var actual = equipmentItemService.getByRegistrationNumber(equipmentModel.getRegistrationNumber());
     assertActualStatus(actual, SERVICE_STATUS);
   }

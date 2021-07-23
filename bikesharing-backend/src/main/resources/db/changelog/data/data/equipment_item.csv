@@ -1,7 +1,0 @@
-registration_number,name,equipment_group_id,equipment_status_id,factory_number,purchase_date,comments,updated,created
-equipment1,Aist Classic,1,4,factoryNum1,2021-01-23,"simple road bike, single speed, 29' wheel",'2021-07-12 13:23:01.000000', '2021-07-12 13:23:01.000000'
-equipment2,Specialized Hardrock,1,4,factoryNum2,2021-01-23,"mountain bike, 21 speed, 26' wheel",'2021-07-12 13:23:01.000000', '2021-07-12 13:23:01.000000'
-equipment3,Micro Urban,2,4,factoryNum3,2021-01-23,"scooter, max 100 kg, 200 mm wheel",'2021-07-12 13:23:01.000000', '2021-07-12 13:23:01.000000'
-equipment4,Xiaomi Mijia,4,4,factoryNum4,2021-01-23,"e-scooter, max 100 kg, 30 km",'2021-07-12 13:23:01.000000', '2021-07-12 13:23:01.000000'
-equipment5,Kogoo s3,4,4,factoryNum5,2021-01-23,"e-scooter, max 100 kg, 25 km",'2021-07-12 13:23:01.000000', '2021-07-12 13:23:01.000000'
-equipment6,Xiaomi MiJia QiCycle,3,4,factoryNum6,2021-01-23,"e-bike, 3 speed, 16' wheel",'2021-07-12 13:23:01.000000', '2021-07-12 13:23:01.000000'

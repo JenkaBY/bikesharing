@@ -1,6 +1,7 @@
 package com.godeltech.bikesharing.utils;
 
 import com.godeltech.bikesharing.models.RentOperationModel;
+import com.godeltech.bikesharing.models.enums.RentTimeUnit;
 import com.godeltech.bikesharing.models.request.StartRentOperationRequest;
 import com.godeltech.bikesharing.models.response.StartRentOperationResponse;
 import com.godeltech.bikesharing.persistence.entity.RentOperation;
@@ -9,10 +10,10 @@ import java.time.LocalDateTime;
 public class RentOperationUtils {
   public static final Long TOTAL_COST = 100L;
   public static final Long DEPOSIT = 100L;
-  public static final String TIME_UNIT_CODE = StartRentOperationRequest.ONE_HOUR_CODE;
-  public static final Long TIME_UNIT_COUNT = 1L;
   public static final LocalDateTime START_TIME = LocalDateTime.of(2021, 1, 1, 1, 0);
   public static final LocalDateTime END_TIME = START_TIME.plusHours(24);
+  public static final RentTimeUnit TIME_UNIT_HOUR = RentTimeUnit.HOUR;
+  public static final Long TIME_UNIT_AMOUNT = 1L;
 
   public static RentOperation getRentOperation() {
     var rentOperation = new RentOperation();
@@ -44,8 +45,7 @@ public class RentOperationUtils {
     startRentOperationRequest.setDeposit(DEPOSIT);
     startRentOperationRequest.setClientPhoneNumber(ClientAccountUtils.PHONE_NUMBER);
     startRentOperationRequest.setEquipmentRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
-    startRentOperationRequest.setTimeUnitCode(TIME_UNIT_CODE);
-    startRentOperationRequest.setTimeUnitCount(TIME_UNIT_COUNT);
+    startRentOperationRequest.setRentTimeModel(RentTimeModelUtils.getRentTimeModel(TIME_UNIT_HOUR,TIME_UNIT_AMOUNT));
     return startRentOperationRequest;
   }
 

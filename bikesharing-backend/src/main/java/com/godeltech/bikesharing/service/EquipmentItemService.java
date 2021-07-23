@@ -7,9 +7,7 @@ public interface EquipmentItemService {
 
   EquipmentItemModel save(EquipmentItemModel equipmentItemModel);
 
-  void setEquipmentItemStatusInUse(String registrationNumber);
-
-  void setEquipmentItemStatusService(String registrationNumber);
+  void updateEquipmentItemStatus(String registrationNumber, String status);
 
   String getEquipmentStatusCodeByRegistrationNumber(String equipmentRegistrationNumber);
 }

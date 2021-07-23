@@ -363,31 +363,6 @@ databaseChangeLog:
                   constraints:
                     nullable: false
   - changeSet:
-      id: addTable time_period
-      author: dzmitry_krauchuk
-      changes:
-        - createTable:
-            tableName: time_period
-            columns:
-              - column:
-                  name: id
-                  type: serial
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
-                  name: code
-                  type: character varying(50)
-                  constraints:
-                    nullable: false
-                    unique: true
-              - column:
-                  name: name
-                  type: character varying(255)
-                  constraints:
-                    nullable: false
-  - changeSet:
       id: addForeignKeyConstraint FK_equipmentItem_equipmentGroup
       author: dzmitry_krauchuk
       changes:

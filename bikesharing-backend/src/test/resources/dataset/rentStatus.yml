@@ -1,0 +1,10 @@
+rent_status:
+  - id: 1
+    code: "CLOSED"
+    name: "equipment is returned"
+  - id: 2
+    code: "LASTING"
+    name: "equipment is in-use"
+  - id: 3
+    code: "EXPIRED"
+    name: "client is overdue with his obligations"

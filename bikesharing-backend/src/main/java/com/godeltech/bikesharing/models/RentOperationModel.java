@@ -18,6 +18,5 @@ public class RentOperationModel {
   private LocalDateTime startTime = LocalDateTime.now();
   private LocalDateTime endTime;
   private String comments;
-  private String timeUnitCode;
-  private Long timeUnitCount;
+  private RentTimeModel rentTimeModel;
 }

@@ -1,0 +1,7 @@
+service_type:
+  - id: 1
+    code: "SIMPLE_REPAIR"
+    name: "equipment needs simple repair"
+  - id: 2
+    code: "CHARGING_NEEDED"
+    name: "equipment needs to be charged"

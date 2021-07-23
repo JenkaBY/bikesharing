@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class EquipmentItemModel {
-  public static final String EQUIPMENT_ITEM_STATUS_FREE = "FREE";
 
   private Long id;
   private String registrationNumber;

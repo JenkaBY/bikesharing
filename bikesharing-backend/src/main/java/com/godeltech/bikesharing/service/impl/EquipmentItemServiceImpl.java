@@ -4,7 +4,7 @@ import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.EquipmentItemMapper;
 import com.godeltech.bikesharing.models.EquipmentItemModel;
 import com.godeltech.bikesharing.persistence.entity.EquipmentItem;
-import com.godeltech.bikesharing.persistence.repository.EquipmentItemRepository;
+import com.godeltech.bikesharing.persistence.repository.RentOperationRepositoryRepository;
 import com.godeltech.bikesharing.service.EquipmentItemService;
 import com.godeltech.bikesharing.service.impl.lookup.EquipmentGroupServiceImpl;
 import com.godeltech.bikesharing.service.impl.lookup.EquipmentStatusServiceImpl;
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class EquipmentItemServiceImpl implements EquipmentItemService {
-  private final EquipmentItemRepository repository;
+  private final RentOperationRepositoryRepository repository;
   private final EquipmentGroupServiceImpl equipmentGroupService;
   private final EquipmentStatusServiceImpl equipmentStatusService;
   private final EquipmentItemMapper mapper;
@@ -42,15 +42,9 @@ public class EquipmentItemServiceImpl implements EquipmentItemService {
   }
 
   @Override
-  public void setEquipmentItemStatusInUse(String registrationNumber) {
-    log.info("setEquipmentItemStatusInUse for registrationNumber: {}", registrationNumber);
-    repository.setEquipmentItemStatusInUse(registrationNumber);
-  }
-
-  @Override
-  public void setEquipmentItemStatusService(String registrationNumber) {
-    log.info("setEquipmentItemStatusService for registrationNumber: {}", registrationNumber);
-    repository.setEquipmentItemStatusService(registrationNumber);
+  public void updateEquipmentItemStatus(String registrationNumber, String status) {
+    log.info("setEquipmentItemStatusInUse for registrationNumber: {} set status: {}", registrationNumber, status);
+    repository.updateEquipmentItemStatus(registrationNumber, status);
   }
 
   @Override

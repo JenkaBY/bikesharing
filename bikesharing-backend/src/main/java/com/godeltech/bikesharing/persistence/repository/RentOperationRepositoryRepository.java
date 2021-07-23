@@ -6,22 +6,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-public interface EquipmentItemRepository extends JpaRepository<EquipmentItem, Long> {
+public interface RentOperationRepositoryRepository extends JpaRepository<EquipmentItem, Long> {
   Optional<EquipmentItem> findByRegistrationNumber(String registrationNumber);
 
   @Modifying(flushAutomatically = true, clearAutomatically = true)
   @Query("UPDATE EquipmentItem eItem "
       + "SET eItem.equipmentStatus.id = "
-      + "(SELECT eStatus.id from EquipmentStatus eStatus where eStatus.code = 'IN_USE') "
+      + "(SELECT eStatus.id from EquipmentStatus eStatus where eStatus.code = :status) "
       + "where eItem.registrationNumber = :registrationNumber")
-  void setEquipmentItemStatusInUse(String registrationNumber);
-
-  @Modifying(flushAutomatically = true, clearAutomatically = true)
-  @Query("UPDATE EquipmentItem eItem "
-      + "SET eItem.equipmentStatus.id = "
-      + "(SELECT eStatus.id from EquipmentStatus eStatus where eStatus.code = 'SERVICE') "
-      + "where eItem.registrationNumber = :registrationNumber")
-  void setEquipmentItemStatusService(String registrationNumber);
+  void updateEquipmentItemStatus(String registrationNumber, String status);
 
 
   @Query("SELECT equipmentItem.equipmentStatus.code "
