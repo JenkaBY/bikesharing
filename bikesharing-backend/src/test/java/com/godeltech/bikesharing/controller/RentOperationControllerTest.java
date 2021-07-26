@@ -106,7 +106,7 @@ public class RentOperationControllerTest {
     response.setDeposit(jsonObject.getLong("deposit"));
     response.setEquipmentRegistrationNumber(jsonObject.getString("equipmentRegistrationNumber"));
     response.setStartTime(parseFromString(jsonObject.getString("startTime")));
-    response.setEndTime(parseFromString(jsonObject.getString("endTime")));
+    response.setFinishedAtTime(parseFromString(jsonObject.getString("finishedAtTime")));
     return response;
   }
 

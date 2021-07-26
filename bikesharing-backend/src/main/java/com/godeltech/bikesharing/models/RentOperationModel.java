@@ -16,7 +16,10 @@ public class RentOperationModel {
   private EquipmentItemModel equipmentItem;
   private ClientAccountModel clientAccount;
   private LocalDateTime startTime = LocalDateTime.now();
-  private LocalDateTime endTime;
+  private LocalDateTime finishedAtTime;
   private String comments;
   private RentTimeModel rentTimeModel;
+
+  private Long toBePaidAmount;
+  private Long toBeRefundAmount;
 }

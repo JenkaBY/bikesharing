@@ -45,6 +45,16 @@ public class ClientServiceImpl implements ClientService {
     return clientAccountMapper.mapToModel(clientAccount);
   }
 
+  @Override
+  public ClientAccountModel getByRentOperationAndEquipmentRegistrationNumber(String registrationNumber) {
+    log.info("getByRentOperationAndEquipmentRegistrationNumber: {}", registrationNumber);
+    return repository.findByRentOperationAndEquipmentRegistrationNumber(registrationNumber)
+        .map(clientAccountMapper::mapToModel)
+        .orElseThrow(() -> new ResourceNotFoundException(String
+            .format("ClientAccount for RentOperation corresponding to EquipmentRegistrationNumber: %s not found",
+                registrationNumber)));
+  }
+
   private ClientAccount createAccountByPhoneNumber(String clientPhoneNumber) {
     var clientAccount = new ClientAccount(clientPhoneNumber);
     repository.save(clientAccount);

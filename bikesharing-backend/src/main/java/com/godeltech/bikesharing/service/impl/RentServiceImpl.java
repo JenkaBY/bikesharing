@@ -45,9 +45,9 @@ public class RentServiceImpl implements RentService {
     equipmentItemService.updateEquipmentItemStatus(registrationNumber, inUseStatusCode);
 
     var client = clientService.getOrCreateByPhoneNumber(rentOperation.getClientAccount().getPhoneNumber());
-    rentOperation.setRentStatus(rentStatusService.getByCode(RentStatusModel.INITIAL_STATUS));
+    rentOperation.setRentStatus(rentStatusService.getByCode(RentStatusModel.RENT_STATUS_INITIAL));
 
-    var calculatedRentDetails = calculator.getCalculatedRentDetails(
+    var calculatedRentDetails = calculator.getCalculatedStartRentDetails(
         equipmentItemModel.getEquipmentGroup().getCode(), rentOperation.getRentTimeModel());
     var toBeSavedRentOperation = rentOperationMapper
         .mapToEntity(rentOperation, equipmentItemModel, client, calculatedRentDetails);
@@ -56,6 +56,31 @@ public class RentServiceImpl implements RentService {
     return rentOperationMapper.mapToModel(createdRentOperation);
   }
 
+  public RentOperationModel finishRentOperation(RentOperationModel rentOperation) {
+    log.info("finishRentOperation with model: {}", rentOperation);
+
+    var registrationNumber = rentOperation.getEquipmentItem().getRegistrationNumber();
+    var equipmentItemModel = equipmentItemService.getByRegistrationNumber(registrationNumber);
+
+    validator.checkEquipmentItemIsInUse(equipmentItemModel);
+    var freeStatusCode = EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_FREE;
+    equipmentItemModel.setEquipmentStatus(equipmentStatusService.getByCode(freeStatusCode));
+    equipmentItemService.updateEquipmentItemStatus(registrationNumber, freeStatusCode);
+
+    var client = clientService
+        .getByRentOperationAndEquipmentRegistrationNumber(rentOperation.getEquipmentItem().getRegistrationNumber());
+    rentOperation.setRentStatus(rentStatusService.getByCode(RentStatusModel.RENT_STATUS_CLOSED));
+
+    var calculatedFinishRentDetails =
+        calculator.getCalculatedFinishRentDetails(equipmentItemModel.getEquipmentGroup().getCode(),
+            rentOperation.getFinishedAtTime());
+
+    var toBeSavedRentOperation = rentOperationMapper
+        .mapToEntity(rentOperation, equipmentItemModel, client, calculatedFinishRentDetails);
+    var finishedRentOperation = repository.save(toBeSavedRentOperation);
+
+    return rentOperationMapper.mapToModel(finishedRentOperation);
+  }
 
   @Override
   @Transactional(readOnly = true)

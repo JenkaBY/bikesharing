@@ -23,7 +23,7 @@ public class RentOperationUtils {
     rentOperation.setTotalCost(TOTAL_COST);
     rentOperation.setDeposit(DEPOSIT);
     rentOperation.setStartTime(START_TIME);
-    rentOperation.setEndTime(END_TIME);
+    rentOperation.setFinishedAtTime(END_TIME);
     return rentOperation;
   }
 
@@ -36,7 +36,7 @@ public class RentOperationUtils {
     rentOperationModel.setTotalCost(TOTAL_COST);
     rentOperationModel.setDeposit(DEPOSIT);
     rentOperationModel.setStartTime(START_TIME);
-    rentOperationModel.setEndTime(END_TIME);
+    rentOperationModel.setFinishedAtTime(END_TIME);
     return rentOperationModel;
   }
 
@@ -57,7 +57,7 @@ public class RentOperationUtils {
     rentOperationResponse.setClientPhoneNumber(ClientAccountUtils.PHONE_NUMBER);
     rentOperationResponse.setEquipmentRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
     rentOperationResponse.setStartTime(START_TIME);
-    rentOperationResponse.setEndTime(END_TIME);
+    rentOperationResponse.setFinishedAtTime(END_TIME);
     return rentOperationResponse;
   }
 }

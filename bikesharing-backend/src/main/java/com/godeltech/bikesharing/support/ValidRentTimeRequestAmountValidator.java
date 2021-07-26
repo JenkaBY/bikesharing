@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 public class ValidRentTimeRequestAmountValidator
     implements ConstraintValidator<ValidRentTimeRequestAmount, RentTimeRequest> {
 
-  private final static Map<RentTimeUnit, Conditions> timeUnitMap = new HashMap<>();
+  private static final Map<RentTimeUnit, Conditions> timeUnitMap = new HashMap<>();
 
   static {
     timeUnitMap

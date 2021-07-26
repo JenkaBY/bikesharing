@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
-import com.godeltech.bikesharing.exception.ResourceNotFreeException;
+import com.godeltech.bikesharing.exception.ResourceStatusNotAppropriateException;
 import com.godeltech.bikesharing.models.RentOperationModel;
 import com.godeltech.bikesharing.models.enums.RentTimeUnit;
 import com.godeltech.bikesharing.utils.EquipmentItemUtils;
@@ -43,7 +43,7 @@ public class RentServiceTest extends AbstractIntegrationTest {
     equipmentModel.setEquipmentStatus(EquipmentStatusUtils.getEquipmentStatusServiceModel());
     equipmentItemService.save(equipmentModel);
     var rentOperationModel = RentOperationUtils.getRentOperationModel(null);
-    assertThrows(ResourceNotFreeException.class,
+    assertThrows(ResourceStatusNotAppropriateException.class,
         () -> rentService.startRentOperation(rentOperationModel));
   }
 

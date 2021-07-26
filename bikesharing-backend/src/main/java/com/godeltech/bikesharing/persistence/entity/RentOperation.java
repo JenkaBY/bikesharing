@@ -31,7 +31,7 @@ public class RentOperation extends AuditableEntity {
   private LocalDateTime startTime = LocalDateTime.now();
 
   @Column(name = "end_time")
-  private LocalDateTime endTime;
+  private LocalDateTime finishedAtTime;
 
   private String comments;
 

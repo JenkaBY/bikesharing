@@ -10,4 +10,6 @@ public interface ClientService {
   ClientAccountModel getByPhoneNumber(String phoneNum);
 
   ClientAccountModel getOrCreateByPhoneNumber(String clientPhoneNumber);
+
+  ClientAccountModel getByRentOperationAndEquipmentRegistrationNumber(String registrationNumber);
 }

@@ -6,11 +6,14 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class StartRentOperationResponse {
+public class FinishRentOperationResponse {
   private Long id;
   private String equipmentRegistrationNumber;
   private String clientPhoneNumber;
   private Long deposit;
+  private Long totalCost;
+  private Long toBePaidAmount;
+  private Long toBeRefundAmount;
   private LocalDateTime startTime;
   private LocalDateTime finishedAtTime;
 }
