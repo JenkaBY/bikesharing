@@ -9,11 +9,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.godeltech.bikesharing.mapper.GeneralErrorMapper;
 import com.godeltech.bikesharing.mapper.RentOperationMapper;
+import com.godeltech.bikesharing.models.enums.RentTimeUnit;
+import com.godeltech.bikesharing.models.request.RentTimeRequest;
 import com.godeltech.bikesharing.models.request.StartRentOperationRequest;
 import com.godeltech.bikesharing.models.response.StartRentOperationResponse;
 import com.godeltech.bikesharing.service.RentService;
 import com.godeltech.bikesharing.utils.RentOperationUtils;
+import com.godeltech.bikesharing.utils.RentTimeModelUtils;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -28,10 +32,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-@WebMvcTest(RentOperationController.class)
+@WebMvcTest({RentOperationController.class, GeneralErrorMapper.class})
 public class RentOperationControllerTest {
   private static final String URL_TEMPLATE = "/v1/bikesharing/rentoperation";
   private static final Long ID = 1L;
+  private static final RentTimeRequest WRONG_RENT_TIME_REQUEST =
+      RentTimeModelUtils.getRentTimeRequest(RentTimeUnit.DAY, 3L);
 
   @Autowired
   private MockMvc mockMvc;
@@ -53,6 +59,7 @@ public class RentOperationControllerTest {
   @Test
   public void shouldFailWithBabRequestCode() throws Exception {
     request.setEquipmentRegistrationNumber("");
+    request.setRentTimeRequest(WRONG_RENT_TIME_REQUEST);
     var content = getJsonRequest(request);
     mockMvc.perform(post(URL_TEMPLATE)
         .contentType(MediaType.APPLICATION_JSON)
@@ -70,6 +77,7 @@ public class RentOperationControllerTest {
         .thenReturn(RentOperationUtils.getRentOperationModel(ID));
     when(rentOperationMapper.mapToResponse(RentOperationUtils.getRentOperationModel(ID)))
         .thenReturn(RentOperationUtils.getRentOperationResponse(ID));
+
 
     var content = getJsonRequest(request);
     var result = mockMvc.perform(post(URL_TEMPLATE)

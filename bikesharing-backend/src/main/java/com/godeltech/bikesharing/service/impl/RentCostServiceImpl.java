@@ -7,6 +7,7 @@ import com.godeltech.bikesharing.persistence.entity.RentCost;
 import com.godeltech.bikesharing.persistence.repository.RentCostRepository;
 import com.godeltech.bikesharing.service.RentCostService;
 import com.godeltech.bikesharing.service.impl.lookup.EquipmentGroupServiceImpl;
+import com.godeltech.bikesharing.service.util.RentCostValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class RentCostServiceImpl implements RentCostService {
   private final RentCostRepository repository;
   private final EquipmentGroupServiceImpl equipmentGroupService;
   private final RentCostMapper mapper;
+  private final RentCostValidator validator;
 
   @Override
   public RentCostModel getByEquipmentGroupCode(String equipmentGroupCode) {
@@ -30,7 +32,7 @@ public class RentCostServiceImpl implements RentCostService {
 
   @Override
   public RentCostModel save(RentCostModel rentCostModel) {
-    //TODO check if rentCost for equipmentGroup exists
+    validator.checkRentCostExists(rentCostModel);
     rentCostModel.setEquipmentGroup(equipmentGroupService
         .getByCode(rentCostModel.getEquipmentGroup().getCode()));
     var rentCost = repository.save(mapper.mapToEntity(rentCostModel));

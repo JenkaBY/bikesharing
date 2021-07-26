@@ -1,10 +1,10 @@
 package com.godeltech.bikesharing.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.github.database.rider.core.api.dataset.DataSet;
+import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.godeltech.bikesharing.exception.ResourceNotFreeException;
 import com.godeltech.bikesharing.models.RentOperationModel;
 import com.godeltech.bikesharing.models.enums.RentTimeUnit;
@@ -15,35 +15,29 @@ import com.godeltech.bikesharing.utils.RentTimeModelUtils;
 import org.junit.jupiter.api.Test;
 
 public class RentServiceTest extends AbstractIntegrationTest {
-  private static final String IN_USE_STATUS = "IN_USE";
   private static final RentTimeUnit TIME_UNIT_HOUR = RentTimeUnit.HOUR;
   private static final Long TIME_UNIT_AMOUNT = 1L;
   private final RentOperationModel rentOperationModel = RentOperationUtils.getRentOperationModel(null);
 
   @Test
-  @DataSet(value = {"/dataset/equipmentStatusWithGroup.yml",
-      "/dataset/rentStatus.yml", "/dataset/rentCost.yml",
-      "/dataset/equipmentItem.yml"}, cleanBefore = true)
+  @DataSet(value = {"/dataset/clientAccount/clientAccountInitial.yml",
+      "/dataset/equipmentGroup/equipmentGroupAll.yml",
+      "/dataset/equipmentStatus/equipmentStatusAll.yml",
+      "/dataset/rentStatus/rentStatusAll.yml",
+      "/dataset/rentCost/rentCostAll.yml",
+      "/dataset/equipmentItem/equipmentItemInitial.yml"}, cleanBefore = true, useSequenceFiltering = false)
+  @ExpectedDataSet(value = {"dataset/equipmentItem/equipmentItemExpected.yml",
+      "dataset/clientAccount/clientAccountExpected.yml",
+      "dataset/rentOperation/rentOperationExpected.yml"})
   public void shouldStartRentOperationProperly() {
-    rentOperationModel.setRentTimeModel(RentTimeModelUtils.getRentTimeModel(TIME_UNIT_HOUR,TIME_UNIT_AMOUNT));
-    var savedRentOperationModel= rentService.startRentOperation(rentOperationModel);
-    var rentOperationModelFromBase = rentService.getById(savedRentOperationModel.getId());
-    var equipmentItemFromBase = equipmentItemService.getByRegistrationNumber(
-        rentOperationModelFromBase.getEquipmentItem().getRegistrationNumber());
-    var clientAccountFromBase = clientService.getByPhoneNumber(
-        rentOperationModel.getClientAccount().getPhoneNumber());
-
-    assertNotNull(clientAccountFromBase);
-    assertEquals(savedRentOperationModel,rentOperationModelFromBase);
-    assertEquals(rentOperationModelFromBase.getEquipmentItem().getRegistrationNumber(),
-        savedRentOperationModel.getEquipmentItem().getRegistrationNumber());
-    assertEquals(rentOperationModelFromBase.getClientAccount().getPhoneNumber(),
-        savedRentOperationModel.getClientAccount().getPhoneNumber());
-    assertEquals(IN_USE_STATUS, equipmentItemFromBase.getEquipmentStatus().getCode());
+    rentOperationModel.setRentTimeModel(RentTimeModelUtils.getRentTimeModel(TIME_UNIT_HOUR, TIME_UNIT_AMOUNT));
+    var savedRentOperationModel = rentService.startRentOperation(rentOperationModel);
+    assertEquals(savedRentOperationModel, rentService.getById(savedRentOperationModel.getId()));
   }
 
   @Test
-  @DataSet(value = "/dataset/equipmentStatusWithGroup.yml", cleanBefore = true)
+  @DataSet(value = {"/dataset/equipmentGroup/equipmentGroupAll.yml",
+      "/dataset/equipmentStatus/equipmentStatusAll.yml"}, cleanBefore = true)
   public void shouldThrowException() {
     var equipmentModel = EquipmentItemUtils.getEquipmentItemModel(null);
     equipmentModel.setEquipmentStatus(EquipmentStatusUtils.getEquipmentStatusServiceModel());

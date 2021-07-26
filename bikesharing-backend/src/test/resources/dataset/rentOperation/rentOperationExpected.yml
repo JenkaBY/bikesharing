@@ -1,0 +1,7 @@
+rent_operation:
+  - id: 1
+    rent_status_id: 2
+    equipment_item_id: 1
+    client_account_id: 1
+    total_cost: 4
+    deposit: 100

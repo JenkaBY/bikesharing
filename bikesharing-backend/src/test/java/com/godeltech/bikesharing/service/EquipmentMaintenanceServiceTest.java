@@ -14,8 +14,9 @@ public class EquipmentMaintenanceServiceTest extends AbstractIntegrationTest {
   private final EquipmentItemModel equipmentModel = EquipmentItemUtils.getEquipmentItemModel(null);
 
   @Test
-  @DataSet(value = {"/dataset/equipmentStatusWithGroup.yml",
-      "/dataset/serviceType.yml"}, cleanBefore = true)
+  @DataSet(value = {"/dataset/equipmentGroup/equipmentGroupAll.yml",
+      "/dataset/equipmentStatus/equipmentStatusAll.yml",
+      "/dataset/serviceType/serviceTypeAll.yml"}, cleanBefore = true)
   public void shouldPutEquipmentHandlingRequestProperly() {
     equipmentItemService.save(equipmentModel);
     var request = ServiceOperationUtils.getEquipmentHandlingRequest();

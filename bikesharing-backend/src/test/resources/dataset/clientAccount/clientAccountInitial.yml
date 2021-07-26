@@ -1,0 +1,6 @@
+client_account:
+  - id: 1
+    phone_number: "+100223334455"
+    rating: 0
+    updated: 2021-07-12 13:23:01.000000
+    created: 2021-07-12 13:23:01.000000

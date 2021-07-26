@@ -20,6 +20,5 @@ public class StartRentOperationRequest {
 
   @Min(1)
   private Long deposit;
-  //TODO Add validation
   private @Valid RentTimeRequest rentTimeRequest;
 }

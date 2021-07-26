@@ -33,7 +33,9 @@ public class EquipmentItemServiceTest extends AbstractIntegrationTest {
   }
 
   @Test
-  @DataSet(value = "/dataset/equipmentStatusWithGroup.yml", cleanBefore = true)
+  @DataSet(value = {"/dataset/equipmentGroup/equipmentGroupAll.yml",
+      "/dataset/equipmentStatus/equipmentStatusAll.yml"}
+      , cleanBefore = true)
   void createdEquipmentItemShouldHaveFreeStatus() {
     setUp();
     var actual = equipmentItemService
@@ -42,7 +44,8 @@ public class EquipmentItemServiceTest extends AbstractIntegrationTest {
   }
 
   @Test
-  @DataSet(value = "/dataset/equipmentStatusWithGroup.yml", cleanBefore = true)
+  @DataSet(value = {"/dataset/equipmentGroup/equipmentGroupAll.yml",
+      "/dataset/equipmentStatus/equipmentStatusAll.yml"}, cleanBefore = true)
   public void shouldSetEquipmentItemStatusInUse() {
     setUp();
     equipmentItemService.updateEquipmentItemStatus(equipmentModel.getRegistrationNumber(),
@@ -52,7 +55,8 @@ public class EquipmentItemServiceTest extends AbstractIntegrationTest {
   }
 
   @Test
-  @DataSet(value = "/dataset/equipmentStatusWithGroup.yml", cleanBefore = true)
+  @DataSet(value = {"/dataset/equipmentGroup/equipmentGroupAll.yml",
+      "/dataset/equipmentStatus/equipmentStatusAll.yml"}, cleanBefore = true)
   public void shouldSetEquipmentItemStatusService() {
     setUp();
     equipmentItemService.updateEquipmentItemStatus(equipmentModel.getRegistrationNumber(),

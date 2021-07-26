@@ -14,7 +14,8 @@ public class TotalCostHourCalculator implements TotalCostCalculator {
     var totalCost = rentCostModel.getOneHourPrice();
     var currentHourPrice = rentCostModel.getOneHourPrice();
     var timeUnitAmount = rentTimeModel.getAmount();
-//    TODO for future improvements: These calculations are the same for each equipment Group, I think we would cache them.
+    // TODO for future improvements: These calculations are the same for each equipment Group,
+    //     I think we would cache them.
     while (timeUnitAmount > 1) {
       currentHourPrice = calculateHourPrice(currentHourPrice, rentCostModel.getHourDiscount(),
           rentCostModel.getMinimalHourPrice());

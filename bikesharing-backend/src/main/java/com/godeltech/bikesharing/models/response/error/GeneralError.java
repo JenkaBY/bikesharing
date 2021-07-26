@@ -1,14 +1,11 @@
 package com.godeltech.bikesharing.models.response.error;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
-@Getter
-@Setter
+@Data
+@RequiredArgsConstructor
 public class GeneralError {
-
-  private String exceptionCode;
-
-  private String message;
-
+  private final String exceptionCode;
+  private final String message;
 }

@@ -1,0 +1,10 @@
+equipment_status:
+  - id: 1
+    code: "SERVICE"
+    name: "equipment been serviced"
+  - id: 2
+    code: "IN_USE"
+    name: "equipment is in-use"
+  - id: 3
+    code: "FREE"
+    name: "equipment is free"
