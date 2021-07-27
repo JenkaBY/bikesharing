@@ -10,6 +10,7 @@ import com.godeltech.bikesharing.utils.ServiceOperationUtils;
 import org.junit.jupiter.api.Test;
 
 public class EquipmentMaintenanceServiceTest extends AbstractIntegrationTest {
+  //TODO I suggest to use already defined constants in  EquipmentStatusModel class instead of these.
   private static final String SERVICE_STATUS = "SERVICE";
   private final EquipmentItemModel equipmentModel = EquipmentItemUtils.getEquipmentItemModel(null);
 
