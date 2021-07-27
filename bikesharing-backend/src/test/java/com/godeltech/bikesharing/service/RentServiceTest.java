@@ -31,7 +31,9 @@ public class RentServiceTest extends AbstractIntegrationTest {
       "dataset/rentOperation/rentOperationExpected.yml"})
   public void shouldStartRentOperationProperly() {
     rentOperationModel.setRentTimeModel(RentTimeModelUtils.getRentTimeModel(TIME_UNIT_HOUR, TIME_UNIT_AMOUNT));
+
     var savedRentOperationModel = rentService.startRentOperation(rentOperationModel);
+
     assertEquals(savedRentOperationModel, rentService.getById(savedRentOperationModel.getId()));
   }
 
@@ -39,10 +41,13 @@ public class RentServiceTest extends AbstractIntegrationTest {
   @DataSet(value = {"/dataset/equipmentGroup/equipmentGroupAll.yml",
       "/dataset/equipmentStatus/equipmentStatusAll.yml"}, cleanBefore = true)
   public void shouldThrowException() {
+//    TODO You can can initialize equipment with SERVICE status in @DataSet
     var equipmentModel = EquipmentItemUtils.getEquipmentItemModel(null);
     equipmentModel.setEquipmentStatus(EquipmentStatusUtils.getEquipmentStatusServiceModel());
     equipmentItemService.save(equipmentModel);
+
     var rentOperationModel = RentOperationUtils.getRentOperationModel(null);
+
     assertThrows(ResourceStatusNotAppropriateException.class,
         () -> rentService.startRentOperation(rentOperationModel));
   }

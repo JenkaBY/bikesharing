@@ -71,13 +71,11 @@ public class RentOperationControllerTest {
 
   @Test
   public void shouldGetProperResponse() throws Exception {
-    when(rentOperationMapper.mapToModel(request))
-        .thenReturn(RentOperationUtils.getRentOperationModel(ID));
-    when(rentService.startRentOperation(rentOperationMapper.mapToModel(request)))
-        .thenReturn(RentOperationUtils.getRentOperationModel(ID));
-    when(rentOperationMapper.mapToResponse(RentOperationUtils.getRentOperationModel(ID)))
+    var rentOperationModel = RentOperationUtils.getRentOperationModel(ID);
+    when(rentOperationMapper.mapToModel(request)).thenReturn(rentOperationModel);
+    when(rentService.startRentOperation(rentOperationModel)).thenReturn(rentOperationModel);
+    when(rentOperationMapper.mapToResponse(rentOperationModel))
         .thenReturn(RentOperationUtils.getRentOperationResponse(ID));
-
 
     var content = getJsonRequest(request);
     var result = mockMvc.perform(post(URL_TEMPLATE)
@@ -88,11 +86,13 @@ public class RentOperationControllerTest {
         .andExpect(status().isOk())
         .andReturn();
     var responseFromServer = getResponse(result);
-    verify(rentService).startRentOperation(rentOperationMapper.mapToModel(request));
+
+    verify(rentService).startRentOperation(rentOperationModel);
     assertEquals(responseFromServer, response);
   }
 
   private String getJsonRequest(StartRentOperationRequest request) throws JsonProcessingException {
+//    TODO don't create new instance OM. You should inject it from application context
     ObjectMapper mapper = new ObjectMapper();
     return mapper.writeValueAsString(request);
   }
@@ -100,6 +100,8 @@ public class RentOperationControllerTest {
   private StartRentOperationResponse getResponse(MvcResult result) throws UnsupportedEncodingException, JSONException {
     var response = new StartRentOperationResponse();
     var jsonString = result.getResponse().getContentAsString();
+//    TODO replace the code below with
+//     response = objectMapper.readValue(jsonString, StartRentOperationResponse.class);
     var jsonObject = new JSONObject(jsonString);
     response.setId(jsonObject.getLong("id"));
     response.setClientPhoneNumber(jsonObject.getString("clientPhoneNumber"));

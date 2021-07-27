@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class EquipmentItemServiceTest extends AbstractIntegrationTest {
-
+//TODO I suggest to use already defined constants in  EquipmentStatusModel class instead of these.
   private static final String IN_USE_STATUS = "IN_USE";
   private static final String SERVICE_STATUS = "SERVICE";
   private static final String FREE_STATUS = "FREE";
@@ -37,6 +37,8 @@ public class EquipmentItemServiceTest extends AbstractIntegrationTest {
       "/dataset/equipmentStatus/equipmentStatusAll.yml"},
       cleanBefore = true)
   void createdEquipmentItemShouldHaveFreeStatus() {
+//    TODO Replace with @BeforeEach
+//    Probably better to use @BeforeEach instead of explicit invocation. I think @DataSet(...) will work as well on setUpMethod()
     setUp();
     var actual = equipmentItemService
         .getEquipmentStatusCodeByRegistrationNumber(equipmentModel.getRegistrationNumber());
@@ -47,6 +49,7 @@ public class EquipmentItemServiceTest extends AbstractIntegrationTest {
   @DataSet(value = {"/dataset/equipmentGroup/equipmentGroupAll.yml",
       "/dataset/equipmentStatus/equipmentStatusAll.yml"}, cleanBefore = true)
   public void shouldSetEquipmentItemStatusInUse() {
+    //    Probably better to use @BeforeEach instead of explicit invocation.
     setUp();
     equipmentItemService.updateEquipmentItemStatus(equipmentModel.getRegistrationNumber(),
         EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_IN_USE);
@@ -58,6 +61,7 @@ public class EquipmentItemServiceTest extends AbstractIntegrationTest {
   @DataSet(value = {"/dataset/equipmentGroup/equipmentGroupAll.yml",
       "/dataset/equipmentStatus/equipmentStatusAll.yml"}, cleanBefore = true)
   public void shouldSetEquipmentItemStatusService() {
+    //    Probably better to use @BeforeEach instead of explicit invocation.
     setUp();
     equipmentItemService.updateEquipmentItemStatus(equipmentModel.getRegistrationNumber(),
         EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_SERVICE);
