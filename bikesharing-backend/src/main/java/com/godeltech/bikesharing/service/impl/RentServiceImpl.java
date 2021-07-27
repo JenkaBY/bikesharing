@@ -45,7 +45,7 @@ public class RentServiceImpl implements RentService {
     equipmentItemService.updateEquipmentItemStatus(registrationNumber, inUseStatusCode);
 
     var client = clientService.getOrCreateByPhoneNumber(rentOperation.getClientAccount().getPhoneNumber());
-    rentOperation.setRentStatus(rentStatusService.getByCode(RentStatusModel.RENT_STATUS_INITIAL));
+    rentOperation.setRentStatus(rentStatusService.getByCode(RentStatusModel.RENT_STATUS_LASTING));
 
     var calculatedRentDetails = calculator.getCalculatedStartRentDetails(
         equipmentItemModel.getEquipmentGroup().getCode(), rentOperation.getRentTimeModel());
@@ -56,30 +56,46 @@ public class RentServiceImpl implements RentService {
     return rentOperationMapper.mapToModel(createdRentOperation);
   }
 
+  @Override
+  public RentOperationModel getByEquipmentItemRegistrationNumberAndRentStatusCode(String registrationNumber,
+                                                                                  String code) {
+    log.info("getByEquipmentItemRegistrationNumberAndRentStatusCode by registrationNumber: {} and rentStatusCode: {}",
+        registrationNumber, code);
+    return repository
+        .getByEquipmentItemRegistrationNumberAndRentStatusCode(registrationNumber, RentStatusModel.RENT_STATUS_LASTING)
+        .map(rentOperationMapper::mapToModel)
+        .orElseThrow(() -> new ResourceNotFoundException(String
+            .format("RentOperationModel with registrationNumber: %s and rentStatusCode: %s not found",
+                registrationNumber, code)));
+  }
+
+  @Override
   public RentOperationModel finishRentOperation(RentOperationModel rentOperation) {
     log.info("finishRentOperation with model: {}", rentOperation);
-
     var registrationNumber = rentOperation.getEquipmentItem().getRegistrationNumber();
-    var equipmentItemModel = equipmentItemService.getByRegistrationNumber(registrationNumber);
+    var rentStatusLastingCode = RentStatusModel.RENT_STATUS_LASTING;
+    var rentOperationModelFromBase =
+        getByEquipmentItemRegistrationNumberAndRentStatusCode(registrationNumber, rentStatusLastingCode);
 
+
+    var equipmentItemModel = rentOperationModelFromBase.getEquipmentItem();
     validator.checkEquipmentItemIsInUse(equipmentItemModel);
     var freeStatusCode = EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_FREE;
     equipmentItemModel.setEquipmentStatus(equipmentStatusService.getByCode(freeStatusCode));
     equipmentItemService.updateEquipmentItemStatus(registrationNumber, freeStatusCode);
 
-    var client = clientService
-        .getByRentOperationAndEquipmentRegistrationNumber(rentOperation.getEquipmentItem().getRegistrationNumber());
-    rentOperation.setRentStatus(rentStatusService.getByCode(RentStatusModel.RENT_STATUS_CLOSED));
+    var rentStatusClosed = rentStatusService.getByCode(RentStatusModel.RENT_STATUS_CLOSED);
+    rentOperationModelFromBase.setRentStatus(rentStatusClosed);
 
     var calculatedFinishRentDetails =
-        calculator.getCalculatedFinishRentDetails(equipmentItemModel.getEquipmentGroup().getCode(),
-            rentOperation.getFinishedAtTime());
+        calculator.getCalculatedFinishRentDetails(rentOperationModelFromBase,rentOperation.getFinishedAtTime());
 
+    rentOperationModelFromBase.setFinishedAtTime(rentOperation.getFinishedAtTime());
     var toBeSavedRentOperation = rentOperationMapper
-        .mapToEntity(rentOperation, equipmentItemModel, client, calculatedFinishRentDetails);
+        .mapToEntity(rentOperationModelFromBase, equipmentItemModel, calculatedFinishRentDetails);
     var finishedRentOperation = repository.save(toBeSavedRentOperation);
 
-    return rentOperationMapper.mapToModel(finishedRentOperation);
+    return rentOperationMapper.mapToModel(finishedRentOperation,calculatedFinishRentDetails);
   }
 
   @Override

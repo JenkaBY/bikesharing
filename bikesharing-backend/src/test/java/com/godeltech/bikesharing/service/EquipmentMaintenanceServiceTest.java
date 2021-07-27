@@ -4,31 +4,32 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.github.database.rider.core.api.dataset.DataSet;
-import com.godeltech.bikesharing.models.EquipmentItemModel;
+import com.godeltech.bikesharing.models.lookup.EquipmentStatusModel;
 import com.godeltech.bikesharing.utils.EquipmentItemUtils;
 import com.godeltech.bikesharing.utils.ServiceOperationUtils;
 import org.junit.jupiter.api.Test;
 
 public class EquipmentMaintenanceServiceTest extends AbstractIntegrationTest {
-  //TODO I suggest to use already defined constants in  EquipmentStatusModel class instead of these.
-  private static final String SERVICE_STATUS = "SERVICE";
-  private final EquipmentItemModel equipmentModel = EquipmentItemUtils.getEquipmentItemModel(null);
 
   @Test
-  @DataSet(value = {"/dataset/equipmentGroup/equipmentGroupAll.yml",
+  @DataSet(value = {
+      "/dataset/equipmentGroup/equipmentGroupAll.yml",
       "/dataset/equipmentStatus/equipmentStatusAll.yml",
-      "/dataset/serviceType/serviceTypeAll.yml"}, cleanBefore = true)
+      "/dataset/serviceType/serviceTypeAll.yml",
+      "/dataset/equipmentItem/equipmentItemFree.yml"
+  },
+      cleanBefore = true, useSequenceFiltering = false)
   public void shouldPutEquipmentHandlingRequestProperly() {
-    equipmentItemService.save(equipmentModel);
     var request = ServiceOperationUtils.getEquipmentHandlingRequest();
-    var serviceOperationModel = equipmentMaintenanceService.putEquipmentHandlingRequest(request);
-    var serviceOperationModelFromBase = equipmentMaintenanceService.getById(serviceOperationModel.getId());
-    var equipmentFromBase = equipmentItemService.getByRegistrationNumber(equipmentModel.getRegistrationNumber());
-    assertNotNull(serviceOperationModelFromBase.getId());
-    assertNotNull(equipmentFromBase);
-    assertEquals(serviceOperationModelFromBase.getServiceTypeModel().getCode(),
-        serviceOperationModel.getServiceTypeModel().getCode());
-    assertEquals(equipmentFromBase.getEquipmentStatus().getCode(), SERVICE_STATUS);
+
+    var actualServiceOperation = equipmentMaintenanceService.putEquipmentHandlingRequest(request);
+    var actualEquipmentItem = equipmentItemService.getByRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
+
+    var expectedServiceOperation = equipmentMaintenanceService.getById(actualServiceOperation.getId());
+    assertNotNull(actualServiceOperation);
+    assertEquals(expectedServiceOperation, actualServiceOperation);
+    assertEquals(EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_SERVICE,
+        actualEquipmentItem.getEquipmentStatus().getCode());
   }
 
 }

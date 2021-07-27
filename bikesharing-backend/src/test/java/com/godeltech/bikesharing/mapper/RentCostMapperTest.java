@@ -2,7 +2,6 @@ package com.godeltech.bikesharing.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.godeltech.bikesharing.utils.ClientAccountUtils;
 import com.godeltech.bikesharing.utils.RentCostUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +17,10 @@ class RentCostMapperTest {
   void shouldMapEntityToModel() {
     var rentCost = RentCostUtils.getRentCost();
     rentCost.setId(ID);
-    var rentCostModel = RentCostUtils.getRentCostModel(ID);
+    var expected = RentCostUtils.getRentCostModel(ID);
 
-    assertEquals(rentCostMapper.mapToModel(rentCost), rentCostModel);
+    var actual = rentCostMapper.mapToModel(rentCost);
+
+    assertEquals(expected, actual);
   }
-
 }

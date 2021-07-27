@@ -2,14 +2,16 @@ package com.godeltech.bikesharing.utils;
 
 import com.godeltech.bikesharing.models.RentOperationModel;
 import com.godeltech.bikesharing.models.enums.RentTimeUnit;
+import com.godeltech.bikesharing.models.request.FinishRentOperationRequest;
 import com.godeltech.bikesharing.models.request.StartRentOperationRequest;
+import com.godeltech.bikesharing.models.response.FinishRentOperationResponse;
 import com.godeltech.bikesharing.models.response.StartRentOperationResponse;
 import com.godeltech.bikesharing.persistence.entity.RentOperation;
 import java.time.LocalDateTime;
 
 public class RentOperationUtils {
-  public static final Long TOTAL_COST = 100L;
-  public static final Long DEPOSIT = 100L;
+  public static final Long TOTAL_COST = 4L;
+  public static final Long DEPOSIT = 4L;
   public static final LocalDateTime START_TIME = LocalDateTime.of(2021, 1, 1, 1, 0);
   public static final LocalDateTime END_TIME = START_TIME.plusHours(24);
   public static final RentTimeUnit TIME_UNIT_HOUR = RentTimeUnit.HOUR;
@@ -40,24 +42,42 @@ public class RentOperationUtils {
     return rentOperationModel;
   }
 
-  public static StartRentOperationRequest getRentOperationRequest() {
+  public static StartRentOperationRequest getStartRentOperationRequest() {
     var startRentOperationRequest = new StartRentOperationRequest();
     startRentOperationRequest.setDeposit(DEPOSIT);
     startRentOperationRequest.setClientPhoneNumber(ClientAccountUtils.PHONE_NUMBER);
     startRentOperationRequest.setEquipmentRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
     startRentOperationRequest.setRentTimeRequest(RentTimeModelUtils
-        .getRentTimeRequest(TIME_UNIT_HOUR,TIME_UNIT_AMOUNT));
+        .getRentTimeRequest(TIME_UNIT_HOUR, TIME_UNIT_AMOUNT));
     return startRentOperationRequest;
   }
 
-  public static StartRentOperationResponse getRentOperationResponse(Long id) {
-    var rentOperationResponse = new StartRentOperationResponse();
-    rentOperationResponse.setId(id);
-    rentOperationResponse.setDeposit(DEPOSIT);
-    rentOperationResponse.setClientPhoneNumber(ClientAccountUtils.PHONE_NUMBER);
-    rentOperationResponse.setEquipmentRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
-    rentOperationResponse.setStartTime(START_TIME);
-    rentOperationResponse.setFinishedAtTime(END_TIME);
-    return rentOperationResponse;
+  public static StartRentOperationResponse getStartRentOperationResponse(Long id) {
+    var startRentOperationResponse = new StartRentOperationResponse();
+    startRentOperationResponse.setId(id);
+    startRentOperationResponse.setDeposit(DEPOSIT);
+    startRentOperationResponse.setClientPhoneNumber(ClientAccountUtils.PHONE_NUMBER);
+    startRentOperationResponse.setEquipmentRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
+    startRentOperationResponse.setStartTime(START_TIME);
+    startRentOperationResponse.setFinishedAtTime(END_TIME);
+    return startRentOperationResponse;
+  }
+
+  public static FinishRentOperationRequest getFinishRentOperationRequest() {
+    var finishRentOperationRequest = new FinishRentOperationRequest();
+    finishRentOperationRequest.setEquipmentRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
+    finishRentOperationRequest.setFinishedAtTime(END_TIME);
+    return finishRentOperationRequest;
+  }
+
+  public static FinishRentOperationResponse getFinishRentOperationResponse(Long id) {
+    var finishRentOperationResponse = new FinishRentOperationResponse();
+    finishRentOperationResponse.setId(id);
+    finishRentOperationResponse.setDeposit(DEPOSIT);
+    finishRentOperationResponse.setClientPhoneNumber(ClientAccountUtils.PHONE_NUMBER);
+    finishRentOperationResponse.setEquipmentRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
+    finishRentOperationResponse.setStartTime(START_TIME);
+    finishRentOperationResponse.setFinishedAtTime(END_TIME);
+    return finishRentOperationResponse;
   }
 }

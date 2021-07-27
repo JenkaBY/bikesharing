@@ -18,10 +18,11 @@ class ServiceOperationMapperTest {
     var serviceOperation = ServiceOperationUtils.getServiceOperation();
     serviceOperation.setId(ID);
     serviceOperation.getEquipmentItem().setId(ID);
+    var expected = ServiceOperationUtils.getServiceOperationModel(ID);
 
-    var rentOperationModel = ServiceOperationUtils.getServiceOperationModel(ID);
+    var actual = serviceOperationMapper.mapToModel(serviceOperation);
 
-    assertEquals(serviceOperationMapper.mapToModel(serviceOperation), rentOperationModel);
+    assertEquals(expected, actual);
   }
 
   @Test
@@ -29,10 +30,10 @@ class ServiceOperationMapperTest {
     var serviceOperation = ServiceOperationUtils.getServiceOperation();
     serviceOperation.setId(ID);
     serviceOperation.getEquipmentItem().setId(ID);
+    var expected = ServiceOperationUtils.getEquipmentHandlingResponse(ID);
 
-    var equipmentHandlingResponse = ServiceOperationUtils.getEquipmentHandlingResponse(ID);
+    var actual = serviceOperationMapper.mapToResponse(serviceOperation);
 
-    assertEquals(serviceOperationMapper.mapToResponse(serviceOperation), equipmentHandlingResponse);
+    assertEquals(expected, actual);
   }
-
 }

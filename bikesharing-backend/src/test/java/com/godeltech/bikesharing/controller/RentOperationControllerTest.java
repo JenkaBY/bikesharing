@@ -21,8 +21,6 @@ import com.godeltech.bikesharing.utils.RentTimeModelUtils;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +40,9 @@ public class RentOperationControllerTest {
   @Autowired
   private MockMvc mockMvc;
 
+  @Autowired
+  private ObjectMapper objectMapper;
+
   @MockBean
   private RentService rentService;
   @MockBean
@@ -52,8 +53,8 @@ public class RentOperationControllerTest {
 
   @BeforeEach
   public void setUp() {
-    request = RentOperationUtils.getRentOperationRequest();
-    response = RentOperationUtils.getRentOperationResponse(ID);
+    request = RentOperationUtils.getStartRentOperationRequest();
+    response = RentOperationUtils.getStartRentOperationResponse(ID);
   }
 
   @Test
@@ -75,7 +76,7 @@ public class RentOperationControllerTest {
     when(rentOperationMapper.mapToModel(request)).thenReturn(rentOperationModel);
     when(rentService.startRentOperation(rentOperationModel)).thenReturn(rentOperationModel);
     when(rentOperationMapper.mapToResponse(rentOperationModel))
-        .thenReturn(RentOperationUtils.getRentOperationResponse(ID));
+        .thenReturn(RentOperationUtils.getStartRentOperationResponse(ID));
 
     var content = getJsonRequest(request);
     var result = mockMvc.perform(post(URL_TEMPLATE)
@@ -92,28 +93,13 @@ public class RentOperationControllerTest {
   }
 
   private String getJsonRequest(StartRentOperationRequest request) throws JsonProcessingException {
-//    TODO don't create new instance OM. You should inject it from application context
-    ObjectMapper mapper = new ObjectMapper();
-    return mapper.writeValueAsString(request);
+    return objectMapper.writeValueAsString(request);
   }
 
-  private StartRentOperationResponse getResponse(MvcResult result) throws UnsupportedEncodingException, JSONException {
-    var response = new StartRentOperationResponse();
+  private StartRentOperationResponse getResponse(MvcResult result)
+      throws UnsupportedEncodingException, JsonProcessingException {
     var jsonString = result.getResponse().getContentAsString();
-//    TODO replace the code below with
-//     response = objectMapper.readValue(jsonString, StartRentOperationResponse.class);
-    var jsonObject = new JSONObject(jsonString);
-    response.setId(jsonObject.getLong("id"));
-    response.setClientPhoneNumber(jsonObject.getString("clientPhoneNumber"));
-    response.setDeposit(jsonObject.getLong("deposit"));
-    response.setEquipmentRegistrationNumber(jsonObject.getString("equipmentRegistrationNumber"));
-    response.setStartTime(parseFromString(jsonObject.getString("startTime")));
-    response.setFinishedAtTime(parseFromString(jsonObject.getString("finishedAtTime")));
-    return response;
+    return objectMapper.readValue(jsonString, StartRentOperationResponse.class);
   }
 
-  private LocalDateTime parseFromString(String str) {
-    var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-    return LocalDateTime.parse(str, formatter);
-  }
 }

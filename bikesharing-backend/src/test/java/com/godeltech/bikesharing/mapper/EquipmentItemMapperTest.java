@@ -17,17 +17,21 @@ class EquipmentItemMapperTest {
   void shouldMapEntityToModel() {
     var equipmentItem = EquipmentItemUtils.getEquipmentItem();
     equipmentItem.setId(ID);
-    var equipmentItemModel = EquipmentItemUtils.getEquipmentItemModel(ID);
+    var expected = EquipmentItemUtils.getEquipmentItemModel(ID);
 
-    assertEquals(equipmentItemMapper.mapToModel(equipmentItem), equipmentItemModel);
+    var actual =equipmentItemMapper.mapToModel(equipmentItem);
+
+    assertEquals(expected, actual);
   }
 
   @Test
   void shouldMapModelToEntity() {
-    var equipmentItem = EquipmentItemUtils.getEquipmentItem();
-    equipmentItem.setId(ID);
     var equipmentItemModel = EquipmentItemUtils.getEquipmentItemModel(ID);
 
-    assertEquals(equipmentItemMapper.mapToEntity(equipmentItemModel), equipmentItem);
+    var actual = equipmentItemMapper.mapToEntity(equipmentItemModel);
+
+    var expected = EquipmentItemUtils.getEquipmentItem();
+    expected.setId(ID);
+    assertEquals(expected, actual);
   }
 }

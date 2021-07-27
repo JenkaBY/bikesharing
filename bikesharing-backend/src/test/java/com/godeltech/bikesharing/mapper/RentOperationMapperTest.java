@@ -20,9 +20,11 @@ class RentOperationMapperTest {
     rentOperation.setId(ID);
     rentOperation.getEquipmentItem().setId(ID);
     rentOperation.getClientAccount().setId(ID);
-    var rentOperationModel = RentOperationUtils.getRentOperationModel(ID);
+    var expected = RentOperationUtils.getRentOperationModel(ID);
 
-    assertEquals(rentOperationMapper.mapToModel(rentOperation), rentOperationModel);
+    var actual = rentOperationMapper.mapToModel(rentOperation);
+
+    assertEquals(expected, actual);
   }
 
   @Test
@@ -30,20 +32,38 @@ class RentOperationMapperTest {
     var rentOperation = RentOperationUtils.getRentOperationModel(ID);
     rentOperation.getEquipmentItem().setId(ID);
     rentOperation.getClientAccount().setId(ID);
-    var rentOperationResponse = RentOperationUtils.getRentOperationResponse(ID);
+    var expected = RentOperationUtils.getStartRentOperationResponse(ID);
 
-    assertEquals(rentOperationMapper.mapToResponse(rentOperation), rentOperationResponse);
+    var actual = rentOperationMapper.mapToResponse(rentOperation);
+
+    assertEquals(expected, actual);
   }
 
   @Test
-  void shouldMapRequestToModel() {
-    var request = RentOperationUtils.getRentOperationRequest();
-    var rentOperationModel = rentOperationMapper.mapToModel(request);
+  void shouldMapStartRequestToModel() {
+    var request = RentOperationUtils.getStartRentOperationRequest();
+    var expected = RentOperationUtils.getRentOperationModel(null);
 
-    assertEquals(rentOperationModel.getClientAccount().getPhoneNumber(), request.getClientPhoneNumber());
-    assertEquals(rentOperationModel.getEquipmentItem().getRegistrationNumber(),
-        request.getEquipmentRegistrationNumber());
-    assertEquals(rentOperationModel.getDeposit(), request.getDeposit());
-    assertNotNull(rentOperationModel.getStartTime());
+    var actual = rentOperationMapper.mapToModel(request);
+
+    assertNotNull(actual.getClientAccount());
+    assertEquals(expected.getClientAccount().getPhoneNumber(), actual.getClientAccount().getPhoneNumber());
+    assertNotNull(actual.getEquipmentItem());
+    assertEquals(expected.getEquipmentItem().getRegistrationNumber(),
+        actual.getEquipmentItem().getRegistrationNumber());
+    assertNotNull(actual.getStartTime());
+  }
+
+  @Test
+  void shouldMapFinishRequestToModel() {
+    var request = RentOperationUtils.getFinishRentOperationRequest();
+    var expected = RentOperationUtils.getRentOperationModel(null);
+
+    var actual = rentOperationMapper.mapToModel(request);
+
+    assertNotNull(actual.getEquipmentItem());
+    assertEquals(expected.getEquipmentItem().getRegistrationNumber(),
+        actual.getEquipmentItem().getRegistrationNumber());
+    assertNotNull(actual.getFinishedAtTime());
   }
 }

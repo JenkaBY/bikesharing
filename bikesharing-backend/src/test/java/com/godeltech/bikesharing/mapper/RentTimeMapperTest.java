@@ -19,8 +19,10 @@ class RentTimeMapperTest {
   @Test
   void shouldMapRequestToModel() {
     var rentTimeRequest = RentTimeModelUtils.getRentTimeRequest(TIME_UNIT_HOUR, TIME_UNIT_AMOUNT);
-    var rentTimeModel = RentTimeModelUtils.getRentTimeModel(TIME_UNIT_HOUR, TIME_UNIT_AMOUNT);
+    var expected = RentTimeModelUtils.getRentTimeModel(TIME_UNIT_HOUR, TIME_UNIT_AMOUNT);
 
-    assertEquals(rentTimeMapper.mapToModel(rentTimeRequest), rentTimeModel);
+    var actual = rentTimeMapper.mapToModel(rentTimeRequest);
+
+    assertEquals(expected, actual);
   }
 }
