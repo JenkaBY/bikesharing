@@ -39,27 +39,32 @@ public class RentCostTimeCalculator {
                                                                          LocalDateTime actualFinishedAtTime) {
     var totalCost = rentOperation.getTotalCost();
     var deposit = rentOperation.getDeposit();
-    var rentTimeModel = rentOperation.getRentTimeModel();
     var startTimeFromBase = rentOperation.getStartTime();
     var finishedAtTimeFromBase = rentOperation.getFinishedAtTime();
 
     var actualRentDuration = getRentDurationInMinutes(startTimeFromBase, actualFinishedAtTime);
     if (!is10minutesFromStartPassed(actualRentDuration)) {
-      return new CalculatedFinishRentDetailsModel(0L,
-          0L, deposit);
+      return CalculatedFinishRentDetailsModel.builder()
+          .toBeRefundAmount(deposit)
+          .build();
     }
 
     var paidRentDuration = getRentDurationInMinutes(startTimeFromBase, finishedAtTimeFromBase);
     var expiredRentDuration = actualRentDuration - paidRentDuration;
     if (isRentTimeExpired(expiredRentDuration)) {
       var extraAmountToBePaid = getExtraAmountToBePaid(expiredRentDuration, totalCost, paidRentDuration);
-      return new CalculatedFinishRentDetailsModel(totalCost + extraAmountToBePaid,
-          extraAmountToBePaid, 0L);
+      return CalculatedFinishRentDetailsModel.builder()
+          .totalCost(totalCost + extraAmountToBePaid)
+          .toBePaidAmount(extraAmountToBePaid)
+          .build();
     }
     //Normally if rentTime is not Expired and equipment is in use for more then 10 minutes,
     // initially calculated TotalCost doesn't change
-    return new CalculatedFinishRentDetailsModel(totalCost,
-        getToBePaidAmount(totalCost, deposit), getToBeRefundAmount(totalCost, deposit));
+    return CalculatedFinishRentDetailsModel.builder()
+        .totalCost(totalCost)
+        .toBePaidAmount(getToBePaidAmount(totalCost, deposit))
+        .toBeRefundAmount(getToBeRefundAmount(totalCost, deposit))
+        .build();
   }
 
   private long getExtraAmountToBePaid(Long expiredRentDuration, Long totalCost, Long paidRentDuration) {

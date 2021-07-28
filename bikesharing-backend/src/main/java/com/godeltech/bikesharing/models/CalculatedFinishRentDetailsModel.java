@@ -1,10 +1,13 @@
 package com.godeltech.bikesharing.models;
 
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@Data
-@RequiredArgsConstructor
+@Getter
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 public class CalculatedFinishRentDetailsModel {
   private final long totalCost;
   private final long toBePaidAmount;

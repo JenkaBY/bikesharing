@@ -58,15 +58,15 @@ public class RentServiceImpl implements RentService {
 
   @Override
   public RentOperationModel getByEquipmentItemRegistrationNumberAndRentStatusCode(String registrationNumber,
-                                                                                  String code) {
+                                                                                  String rentStatusCode) {
     log.info("getByEquipmentItemRegistrationNumberAndRentStatusCode by registrationNumber: {} and rentStatusCode: {}",
-        registrationNumber, code);
+        registrationNumber, rentStatusCode);
     return repository
-        .getByEquipmentItemRegistrationNumberAndRentStatusCode(registrationNumber, RentStatusModel.RENT_STATUS_LASTING)
+        .getByEquipmentItemRegistrationNumberAndRentStatusCode(registrationNumber, rentStatusCode)
         .map(rentOperationMapper::mapToModel)
         .orElseThrow(() -> new ResourceNotFoundException(String
             .format("RentOperationModel with registrationNumber: %s and rentStatusCode: %s not found",
-                registrationNumber, code)));
+                registrationNumber, rentStatusCode)));
   }
 
   @Override
