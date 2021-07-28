@@ -16,7 +16,6 @@ public class ClientServiceTest extends AbstractIntegrationTest {
 
     var expected = clientService.getByPhoneNumber(actual.getPhoneNumber());
     assertNotNull(actual);
-    assertEquals(expected, actual, "Saved client is not equal expected object");
+    assertEquals(expected, actual);
   }
-
 }

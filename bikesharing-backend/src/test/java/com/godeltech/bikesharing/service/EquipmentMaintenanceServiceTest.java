@@ -22,7 +22,7 @@ public class EquipmentMaintenanceServiceTest extends AbstractIntegrationTest {
   public void shouldPutEquipmentHandlingRequestProperly() {
     var request = ServiceOperationUtils.getEquipmentHandlingRequest();
 
-    var actualServiceOperation = equipmentMaintenanceService.putEquipmentHandlingRequest(request);
+    var actualServiceOperation = equipmentMaintenanceService.startEquipmentServiceOperation(request);
     var actualEquipmentItem = equipmentItemService.getByRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
 
     var expectedServiceOperation = equipmentMaintenanceService.getById(actualServiceOperation.getId());

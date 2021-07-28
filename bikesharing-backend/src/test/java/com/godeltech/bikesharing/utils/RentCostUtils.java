@@ -4,11 +4,11 @@ import com.godeltech.bikesharing.models.RentCostModel;
 import com.godeltech.bikesharing.persistence.entity.RentCost;
 
 public class RentCostUtils {
-  private static final Long HALF_HOUR_PRICE = 3L;
-  private static final Long ONE_HOUR_PRICE = 4L;
-  private static final Long DAY_PRICE = 15L;
-  private static final Long MINIMAL_HOUR_PRICE = 1L;
-  private static final Long HOUR_DISCOUNT = 1L;
+  public static final Long HALF_HOUR_PRICE = 3L;
+  public static final Long ONE_HOUR_PRICE = 4L;
+  public static final Long DAY_PRICE = 15L;
+  public static final Long MINIMAL_HOUR_PRICE = 1L;
+  public static final Long HOUR_DISCOUNT = 1L;
 
   public static RentCost getRentCost() {
     var rentCost = new RentCost();
