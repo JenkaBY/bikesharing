@@ -12,8 +12,10 @@ import java.time.LocalDateTime;
 public class RentOperationUtils {
   public static final Long TOTAL_COST = 4L;
   public static final Long DEPOSIT = 4L;
+  public static final Long TO_BE_REFUND_AMOUNT = 0L;
+  public static final Long TO_BE_PAID_AMOUNT = 0L;
   public static final LocalDateTime START_TIME = LocalDateTime.of(2021, 1, 1, 1, 0);
-  public static final LocalDateTime END_TIME = START_TIME.plusHours(24);
+  public static final LocalDateTime END_TIME = START_TIME.plusHours(1);
   public static final RentTimeUnit TIME_UNIT_HOUR = RentTimeUnit.HOUR;
   public static final Long TIME_UNIT_AMOUNT = 1L;
 
@@ -78,6 +80,8 @@ public class RentOperationUtils {
     finishRentOperationResponse.setEquipmentRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
     finishRentOperationResponse.setStartTime(START_TIME);
     finishRentOperationResponse.setFinishedAtTime(END_TIME);
+    finishRentOperationResponse.setToBePaidAmount(TO_BE_PAID_AMOUNT);
+    finishRentOperationResponse.setToBeRefundAmount(TO_BE_REFUND_AMOUNT);
     return finishRentOperationResponse;
   }
 }
