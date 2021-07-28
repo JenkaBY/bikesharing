@@ -1,6 +1,7 @@
 package com.godeltech.bikesharing.controller;
 
 import com.godeltech.bikesharing.mapper.RentOperationMapper;
+import com.godeltech.bikesharing.models.RentOperationModel;
 import com.godeltech.bikesharing.models.request.FinishRentOperationRequest;
 import com.godeltech.bikesharing.models.request.StartRentOperationRequest;
 import com.godeltech.bikesharing.models.response.FinishRentOperationResponse;
@@ -37,7 +38,8 @@ public class RentOperationController {
   public ResponseEntity<FinishRentOperationResponse> finishRentOperation(
       @Valid @RequestBody FinishRentOperationRequest request) {
     var rentOperationModel = rentOperationMapper.mapToModel(request);
-    var response = rentOperationMapper.mapToFinishResponse(rentService.startRentOperation(rentOperationModel));
+    RentOperationModel finishedRent = rentService.finishRentOperation(rentOperationModel);
+    var response = rentOperationMapper.mapToFinishResponse(finishedRent);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 }

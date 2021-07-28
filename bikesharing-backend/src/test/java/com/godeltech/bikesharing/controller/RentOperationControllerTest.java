@@ -1,6 +1,7 @@
 package com.godeltech.bikesharing.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -92,8 +93,7 @@ public class RentOperationControllerTest {
         .andDo(print())
         .andExpect(status().isOk())
         .andReturn();
-    var actualResponseFromServer =
-        (StartRentOperationResponse) jsonMapper.getResponse(result, StartRentOperationResponse.class);
+    var actualResponseFromServer = jsonMapper.getResponse(result, StartRentOperationResponse.class);
 
     verify(rentService).startRentOperation(rentOperationModel);
     assertEquals(expectedStartResponse, actualResponseFromServer);
@@ -103,8 +103,8 @@ public class RentOperationControllerTest {
   public void shouldGetProperFinishResponse() throws Exception {
     rentOperationModel.setToBeRefundAmount(TO_BE_REFUND_AMOUNT);
     rentOperationModel.setToBePaidAmount(TO_BE_PAID_AMOUNT);
-    when(rentOperationMapper.mapToModel(finishRequest)).thenReturn(rentOperationModel);
-    when(rentService.finishRentOperation(rentOperationModel)).thenReturn(rentOperationModel);
+    when(rentOperationMapper.mapToModel(any(FinishRentOperationRequest.class))).thenReturn(rentOperationModel);
+    when(rentService.finishRentOperation(any(RentOperationModel.class))).thenReturn(rentOperationModel);
     when(rentOperationMapper.mapToFinishResponse(rentOperationModel))
         .thenReturn(RentOperationUtils.getFinishRentOperationResponse(ID));
 
@@ -116,10 +116,9 @@ public class RentOperationControllerTest {
         .andDo(print())
         .andExpect(status().isOk())
         .andReturn();
-    var actualResponseFromServer =
-        (FinishRentOperationResponse) jsonMapper.getResponse(result, FinishRentOperationResponse.class);
+    var actualResponseFromServer = jsonMapper.getResponse(result, FinishRentOperationResponse.class);
 
-    verify(rentService).startRentOperation(rentOperationModel);
+    verify(rentService).finishRentOperation(rentOperationModel);
     assertEquals(expectedFinishResponse, actualResponseFromServer);
   }
 

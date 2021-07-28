@@ -17,9 +17,9 @@ public class JsonMapper {
     return objectMapper.writeValueAsString(request);
   }
 
-  public <T> Object getResponse(MvcResult result, T clazz)
+  public <T> T getResponse(MvcResult result, Class<T> clazz)
       throws UnsupportedEncodingException, JsonProcessingException {
     var jsonString = result.getResponse().getContentAsString();
-    return objectMapper.readValue(jsonString, clazz.getClass());
+    return (T) objectMapper.readValue(jsonString, clazz);
   }
 }
