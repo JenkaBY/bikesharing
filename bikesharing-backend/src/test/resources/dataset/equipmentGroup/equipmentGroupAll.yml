@@ -1,10 +1,10 @@
 equipment_group:
   - id: 1
     code: "BICYCLE"
-    name: "bicycle"
+    name: "Bicycle"
   - id: 2
     code: "SCOOTER"
-    name: "scooter"
+    name: "Scooter"
   - id: 3
     code: "E_BICYCLE"
     name: "e-bicycle"

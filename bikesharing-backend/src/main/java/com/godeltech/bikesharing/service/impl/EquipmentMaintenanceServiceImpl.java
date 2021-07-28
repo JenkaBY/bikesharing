@@ -4,12 +4,13 @@ import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.ServiceOperationMapper;
 import com.godeltech.bikesharing.models.ServiceOperationModel;
 import com.godeltech.bikesharing.models.lookup.EquipmentStatusModel;
-import com.godeltech.bikesharing.models.request.StartEquipmentMaintenanceRequest;
 import com.godeltech.bikesharing.persistence.entity.ServiceOperation;
 import com.godeltech.bikesharing.persistence.repository.ServiceOperationRepository;
 import com.godeltech.bikesharing.service.EquipmentItemService;
 import com.godeltech.bikesharing.service.EquipmentMaintenanceService;
+import com.godeltech.bikesharing.service.impl.lookup.EquipmentStatusServiceImpl;
 import com.godeltech.bikesharing.service.impl.lookup.ServiceTypeServiceImpl;
+import com.godeltech.bikesharing.service.util.RentOperationValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,19 +23,59 @@ import org.springframework.transaction.annotation.Transactional;
 public class EquipmentMaintenanceServiceImpl implements EquipmentMaintenanceService {
   private final ServiceOperationMapper mapper;
   private final ServiceOperationRepository repository;
+  private final RentOperationValidator validator;
   private final ServiceTypeServiceImpl serviceTypeService;
+  private final EquipmentStatusServiceImpl equipmentStatusService;
   private final EquipmentItemService equipmentItemService;
 
+
   @Override
-  public ServiceOperationModel startEquipmentServiceOperation(StartEquipmentMaintenanceRequest request) {
-    log.info("putEquipmentHandlingRequest with request: {}", request);
-    equipmentItemService.updateEquipmentItemStatus(request.getEquipmentRegistrationNumber(),
-        EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_SERVICE);
-    var equipmentItemModel = equipmentItemService.getByRegistrationNumber(request.getEquipmentRegistrationNumber());
-    var serviceType = serviceTypeService.getByCode(request.getServiceTypeCode());
-    var serviceOperation = mapper.mapToEntity(request, equipmentItemModel, serviceType);
-    serviceOperation = repository.save(serviceOperation);
-    return mapper.mapToModel(serviceOperation);
+  public ServiceOperationModel startEquipmentServiceOperation(ServiceOperationModel serviceOperation) {
+    log.info("startEquipmentServiceOperation with model: {}", serviceOperation);
+    var registrationNumber = serviceOperation.getEquipmentItemModel().getRegistrationNumber();
+    var equipmentItemModel = equipmentItemService.getByRegistrationNumber(registrationNumber);
+
+    validator.checkEquipmentItemIsFree(equipmentItemModel);
+    var serviceStatusCode = EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_SERVICE;
+    equipmentItemService.updateEquipmentItemStatus(registrationNumber, serviceStatusCode);
+    equipmentItemModel.setEquipmentStatus(equipmentStatusService.getByCode(serviceStatusCode));
+
+    var serviceType = serviceTypeService.getByCode(serviceOperation.getServiceTypeModel().getCode());
+    var toBeSavedServiceOperation = mapper.mapToEntity(serviceOperation, equipmentItemModel, serviceType);
+    var createdServiceOperation = repository.save(toBeSavedServiceOperation);
+
+    return mapper.mapToModel(createdServiceOperation);
+  }
+
+  @Override
+  public ServiceOperationModel finishEquipmentServiceOperation(ServiceOperationModel serviceOperation) {
+    log.info("finishEquipmentServiceOperation with model: {}", serviceOperation);
+    var registrationNumber = serviceOperation.getEquipmentItemModel().getRegistrationNumber();
+    var equipmentItemModel = equipmentItemService.getByRegistrationNumber(registrationNumber);
+    var serviceOperationFromBase = getByEquipmentItemRegistrationNumberWhereEndDateIsNull(registrationNumber);
+    serviceOperationFromBase.setFinishedOnDate(serviceOperation.getFinishedOnDate());
+
+    validator.checkEquipmentItemIsInService(equipmentItemModel);
+    var isFreeStatusCode = EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_FREE;
+    equipmentItemService.updateEquipmentItemStatus(registrationNumber, isFreeStatusCode);
+    equipmentItemModel.setEquipmentStatus(equipmentStatusService.getByCode(isFreeStatusCode));
+
+    var toBeSavedServiceOperation = mapper
+        .mapToEntity(serviceOperationFromBase, equipmentItemModel);
+    var finishedServiceOperation = repository.save(toBeSavedServiceOperation);
+
+    return mapper.mapToModel(finishedServiceOperation);
+  }
+
+  private ServiceOperationModel getByEquipmentItemRegistrationNumberWhereEndDateIsNull(String registrationNumber) {
+    log.info("getByEquipmentItemRegistrationNumberWhereEndDateIsNull by registrationNumber: {}",
+        registrationNumber);
+    return repository
+        .getByEquipmentItemRegistrationNumberEndDateIsNull(registrationNumber)
+        .map(mapper::mapToModel)
+        .orElseThrow(() -> new ResourceNotFoundException(String
+            .format("ServiceOperationModel with registrationNumber: %s where EndDate is Null, was not found",
+                registrationNumber)));
   }
 
   @Override

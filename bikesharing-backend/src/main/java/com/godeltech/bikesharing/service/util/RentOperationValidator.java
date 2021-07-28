@@ -25,4 +25,12 @@ public class RentOperationValidator {
           String.format("The status is not IN_USE for equipmentItem: %s", equipmentItemModel));
     }
   }
+
+  public void checkEquipmentItemIsInService(EquipmentItemModel equipmentItemModel) {
+    log.info("checkEquipmentItemIsFree for model: {}", equipmentItemModel);
+    if (!equipmentItemModel.getEquipmentStatus().getCode().equals(EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_SERVICE)) {
+      throw new ResourceStatusNotAppropriateException(
+          String.format("The status is not SERVICE for equipmentItem: %s", equipmentItemModel));
+    }
+  }
 }

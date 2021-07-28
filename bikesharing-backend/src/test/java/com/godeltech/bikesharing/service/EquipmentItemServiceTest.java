@@ -19,7 +19,7 @@ public class EquipmentItemServiceTest extends AbstractIntegrationTest {
       "/dataset/equipmentGroup/equipmentGroupAll.yml",
       "/dataset/equipmentStatus/equipmentStatusAll.yml",
       "/dataset/equipmentItem/equipmentItemFree.yml"
-  },
+      },
       cleanBefore = true, useSequenceFiltering = false)
   public void setUp() {
   }

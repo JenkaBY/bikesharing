@@ -19,7 +19,7 @@ class EquipmentItemMapperTest {
     equipmentItem.setId(ID);
     var expected = EquipmentItemUtils.getEquipmentItemModel(ID);
 
-    var actual =equipmentItemMapper.mapToModel(equipmentItem);
+    var actual = equipmentItemMapper.mapToModel(equipmentItem);
 
     assertEquals(expected, actual);
   }

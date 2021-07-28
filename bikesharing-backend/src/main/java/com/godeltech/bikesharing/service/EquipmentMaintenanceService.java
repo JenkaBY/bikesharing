@@ -1,10 +1,11 @@
 package com.godeltech.bikesharing.service;
 
 import com.godeltech.bikesharing.models.ServiceOperationModel;
-import com.godeltech.bikesharing.models.request.StartEquipmentMaintenanceRequest;
 
 public interface EquipmentMaintenanceService {
-  ServiceOperationModel startEquipmentServiceOperation(StartEquipmentMaintenanceRequest request);
+  ServiceOperationModel startEquipmentServiceOperation(ServiceOperationModel serviceOperation);
+
+  ServiceOperationModel finishEquipmentServiceOperation(ServiceOperationModel serviceOperation);
 
   ServiceOperationModel getById(Long id);
 }

@@ -1,0 +1,4 @@
+service_operation:
+  - id: 1
+    service_type_id: 1
+    equipment_item_id: 1

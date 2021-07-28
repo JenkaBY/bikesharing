@@ -1,0 +1,8 @@
+service_operation:
+  - id: 1
+    issue_description: "something got broken"
+    service_type_id: 1
+    equipment_item_id: 1
+    start_date: "2021-01-01"
+    updated: 2021-07-01 13:23:01.000000
+    created: 2021-07-01 13:23:01.000000

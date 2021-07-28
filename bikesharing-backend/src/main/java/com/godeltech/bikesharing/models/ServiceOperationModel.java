@@ -13,7 +13,6 @@ public class ServiceOperationModel {
   private ServiceTypeModel serviceTypeModel;
   private String issueDescription;
   private String comments;
-  private LocalDate startDate;
-  private LocalDate endDate;
-
+  private LocalDate startDate = LocalDate.now();
+  private LocalDate finishedOnDate;
 }

@@ -15,8 +15,7 @@ class ServiceOperationMapperTest {
 
   @Test
   void shouldMapEntityToModel() {
-    var serviceOperation = ServiceOperationUtils.getServiceOperation();
-    serviceOperation.setId(ID);
+    var serviceOperation = ServiceOperationUtils.getServiceOperation(ID);
     serviceOperation.getEquipmentItem().setId(ID);
     var expected = ServiceOperationUtils.getServiceOperationModel(ID);
 
@@ -26,9 +25,21 @@ class ServiceOperationMapperTest {
   }
 
   @Test
+  void shouldMapRequestToModel() {
+    var serviceOperation = ServiceOperationUtils.getStartEquipmentMaintenanceRequest();
+    var expected = ServiceOperationUtils.getServiceOperationModel(null);
+
+    var actual = serviceOperationMapper.mapToModel(serviceOperation);
+
+    assertEquals(expected.getServiceTypeModel().getCode(), actual.getServiceTypeModel().getCode());
+    assertEquals(expected.getEquipmentItemModel().getRegistrationNumber(),
+        actual.getEquipmentItemModel().getRegistrationNumber());
+    assertEquals(expected.getIssueDescription(), actual.getIssueDescription());
+  }
+
+  @Test
   void shouldMapEntityToResponse() {
-    var serviceOperation = ServiceOperationUtils.getServiceOperation();
-    serviceOperation.setId(ID);
+    var serviceOperation = ServiceOperationUtils.getServiceOperation(ID);
     serviceOperation.getEquipmentItem().setId(ID);
     var expected = ServiceOperationUtils.getEquipmentHandlingResponse(ID);
 

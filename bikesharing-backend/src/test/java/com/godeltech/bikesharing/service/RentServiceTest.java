@@ -21,12 +21,12 @@ public class RentServiceTest extends AbstractIntegrationTest {
 
   @BeforeEach
   @DataSet(value = {
-      "/dataset/clientAccount/clientAccountInitial.yml",
-      "/dataset/equipmentGroup/equipmentGroupAll.yml",
-      "/dataset/equipmentStatus/equipmentStatusAll.yml",
-      "/dataset/rentStatus/rentStatusAll.yml",
-      "/dataset/rentCost/rentCostAll.yml",
-  },
+          "/dataset/clientAccount/clientAccountInitial.yml",
+          "/dataset/equipmentGroup/equipmentGroupAll.yml",
+          "/dataset/equipmentStatus/equipmentStatusAll.yml",
+          "/dataset/rentStatus/rentStatusAll.yml",
+          "/dataset/rentCost/rentCostAll.yml",
+      },
       cleanBefore = true, useSequenceFiltering = false)
   public void setUp() {
   }
@@ -55,15 +55,15 @@ public class RentServiceTest extends AbstractIntegrationTest {
 
   @Test
   @DataSet(value = {
-      "/dataset/equipmentItem/equipmentItemInUse.yml",
-      "dataset/clientAccount/clientAccountInitial.yml",
-      "dataset/rentOperation/rentOperationInitial.yml"
-  },
+          "/dataset/equipmentItem/equipmentItemInUse.yml",
+          "dataset/clientAccount/clientAccountInitial.yml",
+          "dataset/rentOperation/rentOperationInitial.yml"
+      },
       useSequenceFiltering = false)
   @ExpectedDataSet(value = {
-      "dataset/equipmentItem/equipmentItemFree.yml",
-      "dataset/rentOperation/rentOperationClosed.yml"
-  })
+          "dataset/equipmentItem/equipmentItemFree.yml",
+          "dataset/rentOperation/rentOperationClosed.yml"
+      })
   public void shouldFinishRentOperationProperly() {
     var finishRentOperationRequest = RentOperationUtils.getFinishRentOperationRequest();
     finishRentOperationRequest.setFinishedAtTime(rentOperationModel.getStartTime().plusMinutes(MINUTES_PASSED));

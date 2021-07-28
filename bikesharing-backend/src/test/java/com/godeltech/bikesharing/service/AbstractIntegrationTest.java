@@ -1,6 +1,7 @@
 package com.godeltech.bikesharing.service;
 
 import com.godeltech.bikesharing.mapper.RentOperationMapper;
+import com.godeltech.bikesharing.mapper.ServiceOperationMapper;
 import com.godeltech.bikesharing.support.IntegrationTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,6 +17,8 @@ public class AbstractIntegrationTest {
   protected EquipmentMaintenanceService equipmentMaintenanceService;
   @Autowired
   protected RentOperationMapper rentOperationMapper;
+  @Autowired
+  protected ServiceOperationMapper serviceOperationMapper;
   @Autowired
   protected RentCostService rentCostService;
 
