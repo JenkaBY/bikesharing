@@ -5,7 +5,8 @@ import com.godeltech.bikesharing.models.ServiceOperationModel;
 import com.godeltech.bikesharing.models.lookup.ServiceTypeModel;
 import com.godeltech.bikesharing.models.request.FinishEquipmentMaintenanceRequest;
 import com.godeltech.bikesharing.models.request.StartEquipmentMaintenanceRequest;
-import com.godeltech.bikesharing.models.response.EquipmentMaintenanceResponse;
+import com.godeltech.bikesharing.models.response.FinishEquipmentMaintenanceResponse;
+import com.godeltech.bikesharing.models.response.StartEquipmentMaintenanceResponse;
 import com.godeltech.bikesharing.persistence.entity.ServiceOperation;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -25,9 +26,13 @@ public interface ServiceOperationMapper {
   @Mapping(target = "equipmentItemModel.registrationNumber", source = "request.equipmentRegistrationNumber")
   ServiceOperationModel mapToModel(FinishEquipmentMaintenanceRequest request);
 
-  @Mapping(target = "serviceTypeCode", source = "serviceOperation.serviceType.code")
-  @Mapping(target = "equipmentRegistrationNumber", source = "serviceOperation.equipmentItem.registrationNumber")
-  EquipmentMaintenanceResponse mapToResponse(ServiceOperation serviceOperation);
+  @Mapping(target = "serviceTypeCode", source = "serviceOperation.serviceTypeModel.code")
+  @Mapping(target = "equipmentRegistrationNumber", source = "serviceOperation.equipmentItemModel.registrationNumber")
+  StartEquipmentMaintenanceResponse mapToStartResponse(ServiceOperationModel serviceOperation);
+
+  @Mapping(target = "serviceTypeCode", source = "serviceOperation.serviceTypeModel.code")
+  @Mapping(target = "equipmentRegistrationNumber", source = "serviceOperation.equipmentItemModel.registrationNumber")
+  FinishEquipmentMaintenanceResponse mapToFinishResponse(ServiceOperationModel serviceOperation);
 
   @Mapping(target = "comments", ignore = true)
   @Mapping(target = "id", source = "model.id")

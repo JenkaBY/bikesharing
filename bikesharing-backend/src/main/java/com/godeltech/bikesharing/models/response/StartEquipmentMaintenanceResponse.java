@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class EquipmentMaintenanceResponse {
+public class StartEquipmentMaintenanceResponse {
   private Long id;
   private String equipmentRegistrationNumber;
   private String serviceTypeCode;

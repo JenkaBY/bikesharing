@@ -34,6 +34,7 @@ public class EquipmentMaintenanceServiceTest extends AbstractIntegrationTest {
     var serviceOperationModel = serviceOperationMapper.mapToModel(startRequest);
     var actualServiceOperation = equipmentMaintenanceService.startEquipmentServiceOperation(serviceOperationModel);
     var expectedServiceOperation = ServiceOperationUtils.getServiceOperationModel(ID);
+    expectedServiceOperation.setFinishedOnDate(null);
     expectedServiceOperation.setStartDate(LocalDate.now());
 
     assertEquals(expectedServiceOperation, actualServiceOperation);
