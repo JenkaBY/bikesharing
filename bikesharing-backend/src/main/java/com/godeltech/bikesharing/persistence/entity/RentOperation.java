@@ -33,6 +33,8 @@ public class RentOperation extends AuditableEntity {
   @Column(name = "end_time")
   private LocalDateTime finishedAtTime;
 
+  private Long fines;
+
   private String comments;
 
   @ManyToOne(fetch = FetchType.LAZY)

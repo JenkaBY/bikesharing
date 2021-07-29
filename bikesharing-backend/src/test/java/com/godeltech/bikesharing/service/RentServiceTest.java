@@ -17,6 +17,7 @@ public class RentServiceTest extends AbstractIntegrationTest {
   private static final RentTimeUnit TIME_UNIT_HOUR = RentTimeUnit.HOUR;
   private static final Long TIME_UNIT_AMOUNT = 1L;
   private static final Long MINUTES_PASSED = 120L;
+  private static final Long ID = 1L;
   private final RentOperationModel rentOperationModel = RentOperationUtils.getRentOperationModel(null);
 
   @BeforeEach
@@ -65,11 +66,11 @@ public class RentServiceTest extends AbstractIntegrationTest {
           "dataset/rentOperation/rentOperationClosed.yml"
       })
   public void shouldFinishRentOperationProperly() {
-    var finishRentOperationRequest = RentOperationUtils.getFinishRentOperationRequest();
+    var finishRentOperationRequest = RentOperationUtils.getFinishRentOperationRequest(ID);
     finishRentOperationRequest.setFinishedAtTime(rentOperationModel.getStartTime().plusMinutes(MINUTES_PASSED));
     var rentOperationModel = rentOperationMapper.mapToModel(finishRentOperationRequest);
 
-    var actualRentOperation = rentService.finishRentOperation(rentOperationModel);
+    var actualRentOperation = rentService.finishRentOperation(rentOperationModel, ID);
 
     var expectedRentOperation = rentService.getById(actualRentOperation.getId());
     expectedRentOperation.setToBePaidAmount(4L);

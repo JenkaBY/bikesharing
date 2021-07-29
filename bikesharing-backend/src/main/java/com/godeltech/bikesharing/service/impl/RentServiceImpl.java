@@ -1,5 +1,6 @@
 package com.godeltech.bikesharing.service.impl;
 
+import com.godeltech.bikesharing.exception.RequestIdIsNotEqualToPathVariableException;
 import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.RentOperationMapper;
 import com.godeltech.bikesharing.models.RentOperationModel;
@@ -70,13 +71,11 @@ public class RentServiceImpl implements RentService {
   }
 
   @Override
-  public RentOperationModel finishRentOperation(RentOperationModel rentOperation) {
-    log.info("finishRentOperation with model: {}", rentOperation);
-    var registrationNumber = rentOperation.getEquipmentItem().getRegistrationNumber();
-    var rentStatusLastingCode = RentStatusModel.RENT_STATUS_LASTING;
-    var rentOperationModelFromBase =
-        getByEquipmentItemRegistrationNumberAndRentStatusCode(registrationNumber, rentStatusLastingCode);
-
+  public RentOperationModel finishRentOperation(RentOperationModel rentOperation, Long id) {
+    log.info("finishRentOperation with model: {} and urlId-variable: {}", rentOperation, id);
+    checkIdFromModelEqualsToPathVariable(rentOperation, id);
+    var rentOperationModelFromBase = getById(id);
+    var registrationNumber = rentOperationModelFromBase.getEquipmentItem().getRegistrationNumber();
 
     var equipmentItemModel = rentOperationModelFromBase.getEquipmentItem();
     validator.checkEquipmentItemIsInUse(equipmentItemModel);
@@ -88,14 +87,21 @@ public class RentServiceImpl implements RentService {
     rentOperationModelFromBase.setRentStatus(rentStatusClosed);
 
     var calculatedFinishRentDetails =
-        calculator.getCalculatedFinishRentDetails(rentOperationModelFromBase,rentOperation.getFinishedAtTime());
+        calculator.getCalculatedFinishRentDetails(rentOperationModelFromBase, rentOperation.getFinishedAtTime());
 
     rentOperationModelFromBase.setFinishedAtTime(rentOperation.getFinishedAtTime());
     var toBeSavedRentOperation = rentOperationMapper
         .mapToEntity(rentOperationModelFromBase, equipmentItemModel, calculatedFinishRentDetails);
     var finishedRentOperation = repository.save(toBeSavedRentOperation);
 
-    return rentOperationMapper.mapToModel(finishedRentOperation,calculatedFinishRentDetails);
+    return rentOperationMapper.mapToModel(finishedRentOperation, calculatedFinishRentDetails);
+  }
+
+  private void checkIdFromModelEqualsToPathVariable(RentOperationModel rentOperation, Long id) {
+    if (!rentOperation.getId().equals(id)) {
+      throw new RequestIdIsNotEqualToPathVariableException(String
+          .format("Object from request has index: %s and doesn't match index from url: %s", rentOperation.getId(), id));
+    }
   }
 
   @Override

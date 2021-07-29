@@ -1,5 +1,6 @@
 package com.godeltech.bikesharing.controller.handler;
 
+import com.godeltech.bikesharing.exception.RequestIdIsNotEqualToPathVariableException;
 import com.godeltech.bikesharing.exception.ResourceExistingException;
 import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.exception.ResourceStatusNotAppropriateException;
@@ -47,6 +48,13 @@ public class RestExceptionHandler {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
   }
 
+  @ExceptionHandler(RequestIdIsNotEqualToPathVariableException.class)
+  public ResponseEntity<GeneralError> handleRequestIdIsNotEqualToPathVariableException(
+      RequestIdIsNotEqualToPathVariableException e) {
+    log.error(e.getMessage(), e);
+    var error = mapper.mapToError(e);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+  }
 
   @ExceptionHandler(ConstraintViolationException.class)
   public ResponseEntity<GeneralError> handleConstraintValidationException(ConstraintViolationException e) {

@@ -4,12 +4,11 @@ import com.godeltech.bikesharing.models.ServiceOperationModel;
 import com.godeltech.bikesharing.models.lookup.EquipmentStatusModel;
 import com.godeltech.bikesharing.models.request.FinishEquipmentMaintenanceRequest;
 import com.godeltech.bikesharing.models.request.StartEquipmentMaintenanceRequest;
+import com.godeltech.bikesharing.models.response.EquipmentMaintenanceResponse;
 import com.godeltech.bikesharing.models.response.FinishEquipmentMaintenanceResponse;
-import com.godeltech.bikesharing.models.response.StartEquipmentMaintenanceResponse;
 import com.godeltech.bikesharing.persistence.entity.ServiceOperation;
 import com.godeltech.bikesharing.persistence.entity.lookup.EquipmentStatus;
 import java.time.LocalDate;
-import liquibase.pro.packaged.E;
 
 public class ServiceOperationUtils {
 
@@ -64,8 +63,8 @@ public class ServiceOperationUtils {
     return request;
   }
 
-  public static StartEquipmentMaintenanceResponse getStartEquipmentMaintenanceResponse(Long id) {
-    var equipmentMaintenanceResponse = new StartEquipmentMaintenanceResponse();
+  public static EquipmentMaintenanceResponse getStartEquipmentMaintenanceResponse(Long id) {
+    var equipmentMaintenanceResponse = new EquipmentMaintenanceResponse();
     equipmentMaintenanceResponse.setId(id);
     equipmentMaintenanceResponse.setEquipmentRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
     equipmentMaintenanceResponse.setServiceTypeCode(ServiceTypeUtils.CODE);

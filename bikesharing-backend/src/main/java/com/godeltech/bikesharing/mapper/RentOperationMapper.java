@@ -8,7 +8,7 @@ import com.godeltech.bikesharing.models.RentOperationModel;
 import com.godeltech.bikesharing.models.request.FinishRentOperationRequest;
 import com.godeltech.bikesharing.models.request.StartRentOperationRequest;
 import com.godeltech.bikesharing.models.response.FinishRentOperationResponse;
-import com.godeltech.bikesharing.models.response.StartRentOperationResponse;
+import com.godeltech.bikesharing.models.response.RentOperationResponse;
 import com.godeltech.bikesharing.persistence.entity.RentOperation;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -24,11 +24,11 @@ public interface RentOperationMapper {
 
   RentOperationModel mapToModel(RentOperation rentOperation);
 
+  @Mapping(target = "rentTimeModel", source = "request.rentTimeRequest")
   @Mapping(target = "equipmentItem.registrationNumber", source = "equipmentRegistrationNumber")
   @Mapping(target = "clientAccount.phoneNumber", source = "clientPhoneNumber")
   RentOperationModel mapToModel(StartRentOperationRequest request);
 
-  @Mapping(target = "equipmentItem.registrationNumber", source = "equipmentRegistrationNumber")
   RentOperationModel mapToModel(FinishRentOperationRequest request);
 
   @Mapping(target = "totalCost", source = "rentOperation.totalCost")
@@ -37,7 +37,7 @@ public interface RentOperationMapper {
 
   @Mapping(target = "equipmentRegistrationNumber", source = "rentOperationModel.equipmentItem.registrationNumber")
   @Mapping(target = "clientPhoneNumber", source = "rentOperationModel.clientAccount.phoneNumber")
-  StartRentOperationResponse mapToStartResponse(RentOperationModel rentOperationModel);
+  RentOperationResponse mapToStartResponse(RentOperationModel rentOperationModel);
 
   @Mapping(target = "equipmentRegistrationNumber", source = "rentOperationModel.equipmentItem.registrationNumber")
   @Mapping(target = "clientPhoneNumber", source = "rentOperationModel.clientAccount.phoneNumber")

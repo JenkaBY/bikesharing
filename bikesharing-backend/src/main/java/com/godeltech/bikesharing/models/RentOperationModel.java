@@ -17,6 +17,7 @@ public class RentOperationModel {
   private ClientAccountModel clientAccount;
   private LocalDateTime startTime = LocalDateTime.now();
   private LocalDateTime finishedAtTime;
+  private Long fines;
   private String comments;
   private RentTimeModel rentTimeModel;
 

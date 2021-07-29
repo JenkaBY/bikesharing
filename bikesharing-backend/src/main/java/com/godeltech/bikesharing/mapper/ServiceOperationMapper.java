@@ -6,8 +6,8 @@ import com.godeltech.bikesharing.models.ServiceOperationModel;
 import com.godeltech.bikesharing.models.lookup.ServiceTypeModel;
 import com.godeltech.bikesharing.models.request.FinishEquipmentMaintenanceRequest;
 import com.godeltech.bikesharing.models.request.StartEquipmentMaintenanceRequest;
+import com.godeltech.bikesharing.models.response.EquipmentMaintenanceResponse;
 import com.godeltech.bikesharing.models.response.FinishEquipmentMaintenanceResponse;
-import com.godeltech.bikesharing.models.response.StartEquipmentMaintenanceResponse;
 import com.godeltech.bikesharing.persistence.entity.ServiceOperation;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -29,7 +29,7 @@ public interface ServiceOperationMapper {
 
   @Mapping(target = "serviceTypeCode", source = "serviceOperation.serviceTypeModel.code")
   @Mapping(target = "equipmentRegistrationNumber", source = "serviceOperation.equipmentItemModel.registrationNumber")
-  StartEquipmentMaintenanceResponse mapToStartResponse(ServiceOperationModel serviceOperation);
+  EquipmentMaintenanceResponse mapToStartResponse(ServiceOperationModel serviceOperation);
 
   @Mapping(target = "serviceTypeCode", source = "serviceOperation.serviceTypeModel.code")
   @Mapping(target = "equipmentRegistrationNumber", source = "serviceOperation.equipmentItemModel.registrationNumber")

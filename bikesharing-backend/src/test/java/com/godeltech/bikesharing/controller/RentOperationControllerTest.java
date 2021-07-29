@@ -1,10 +1,10 @@
 package com.godeltech.bikesharing.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -16,7 +16,7 @@ import com.godeltech.bikesharing.models.request.FinishRentOperationRequest;
 import com.godeltech.bikesharing.models.request.RentTimeRequest;
 import com.godeltech.bikesharing.models.request.StartRentOperationRequest;
 import com.godeltech.bikesharing.models.response.FinishRentOperationResponse;
-import com.godeltech.bikesharing.models.response.StartRentOperationResponse;
+import com.godeltech.bikesharing.models.response.RentOperationResponse;
 import com.godeltech.bikesharing.service.RentService;
 import com.godeltech.bikesharing.service.util.JsonMapper;
 import com.godeltech.bikesharing.utils.RentOperationUtils;
@@ -31,8 +31,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest({RentOperationController.class, GeneralErrorMapper.class, JsonMapper.class})
 public class RentOperationControllerTest {
-  private static final String URL_TEMPLATE_START = "/v1/bikesharing/rentoperation/start";
-  private static final String URL_TEMPLATE_FINISH = "/v1/bikesharing/rentoperation/finish";
+  private static final String URL_TEMPLATE = "/v1/bikesharing/rentoperation/";
   private static final Long ID = 1L;
   private static final RentTimeRequest WRONG_RENT_TIME_REQUEST =
       RentTimeModelUtils.getRentTimeRequest(RentTimeUnit.DAY, 3L);
@@ -53,14 +52,14 @@ public class RentOperationControllerTest {
 
   private StartRentOperationRequest startRequest;
   private FinishRentOperationRequest finishRequest;
-  private StartRentOperationResponse expectedStartResponse;
+  private RentOperationResponse expectedStartResponse;
   private FinishRentOperationResponse expectedFinishResponse;
 
   @BeforeEach
   public void setUp() {
     startRequest = RentOperationUtils.getStartRentOperationRequest();
-    finishRequest = RentOperationUtils.getFinishRentOperationRequest();
-    expectedStartResponse = RentOperationUtils.getStartRentOperationResponse(ID);
+    finishRequest = RentOperationUtils.getFinishRentOperationRequest(ID);
+    expectedStartResponse = RentOperationUtils.getRentOperationResponse(ID);
     expectedFinishResponse = RentOperationUtils.getFinishRentOperationResponse(ID);
   }
 
@@ -70,7 +69,7 @@ public class RentOperationControllerTest {
     startRequest.setRentTimeRequest(WRONG_RENT_TIME_REQUEST);
 
     var content = jsonMapper.getJsonRequest(startRequest);
-    mockMvc.perform(post(URL_TEMPLATE_START)
+    mockMvc.perform(post(URL_TEMPLATE)
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON)
         .content(content))
@@ -83,17 +82,17 @@ public class RentOperationControllerTest {
     when(rentOperationMapper.mapToModel(startRequest)).thenReturn(rentOperationModel);
     when(rentService.startRentOperation(rentOperationModel)).thenReturn(rentOperationModel);
     when(rentOperationMapper.mapToStartResponse(rentOperationModel))
-        .thenReturn(RentOperationUtils.getStartRentOperationResponse(ID));
+        .thenReturn(RentOperationUtils.getRentOperationResponse(ID));
 
     var content = jsonMapper.getJsonRequest(startRequest);
-    var result = mockMvc.perform(post(URL_TEMPLATE_START)
+    var result = mockMvc.perform(post(URL_TEMPLATE)
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON)
         .content(content))
         .andDo(print())
         .andExpect(status().isOk())
         .andReturn();
-    var actualResponseFromServer = jsonMapper.getResponse(result, StartRentOperationResponse.class);
+    var actualResponseFromServer = jsonMapper.getResponse(result, RentOperationResponse.class);
 
     verify(rentService).startRentOperation(rentOperationModel);
     assertEquals(expectedStartResponse, actualResponseFromServer);
@@ -103,13 +102,13 @@ public class RentOperationControllerTest {
   public void shouldGetProperFinishResponse() throws Exception {
     rentOperationModel.setToBeRefundAmount(TO_BE_REFUND_AMOUNT);
     rentOperationModel.setToBePaidAmount(TO_BE_PAID_AMOUNT);
-    when(rentOperationMapper.mapToModel(any(FinishRentOperationRequest.class))).thenReturn(rentOperationModel);
-    when(rentService.finishRentOperation(any(RentOperationModel.class))).thenReturn(rentOperationModel);
+    when(rentOperationMapper.mapToModel(finishRequest)).thenReturn(rentOperationModel);
+    when(rentService.finishRentOperation(rentOperationModel, ID)).thenReturn(rentOperationModel);
     when(rentOperationMapper.mapToFinishResponse(rentOperationModel))
         .thenReturn(RentOperationUtils.getFinishRentOperationResponse(ID));
 
     var content = jsonMapper.getJsonRequest(finishRequest);
-    var result = mockMvc.perform(post(URL_TEMPLATE_FINISH)
+    var result = mockMvc.perform(put(URL_TEMPLATE + ID)
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON)
         .content(content))
@@ -118,7 +117,7 @@ public class RentOperationControllerTest {
         .andReturn();
     var actualResponseFromServer = jsonMapper.getResponse(result, FinishRentOperationResponse.class);
 
-    verify(rentService).finishRentOperation(rentOperationModel);
+    verify(rentService).finishRentOperation(rentOperationModel, ID);
     assertEquals(expectedFinishResponse, actualResponseFromServer);
   }
 

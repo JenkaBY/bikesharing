@@ -5,7 +5,7 @@ import com.godeltech.bikesharing.models.enums.RentTimeUnit;
 import com.godeltech.bikesharing.models.request.FinishRentOperationRequest;
 import com.godeltech.bikesharing.models.request.StartRentOperationRequest;
 import com.godeltech.bikesharing.models.response.FinishRentOperationResponse;
-import com.godeltech.bikesharing.models.response.StartRentOperationResponse;
+import com.godeltech.bikesharing.models.response.RentOperationResponse;
 import com.godeltech.bikesharing.persistence.entity.RentOperation;
 import java.time.LocalDateTime;
 
@@ -54,8 +54,8 @@ public class RentOperationUtils {
     return startRentOperationRequest;
   }
 
-  public static StartRentOperationResponse getStartRentOperationResponse(Long id) {
-    var startRentOperationResponse = new StartRentOperationResponse();
+  public static RentOperationResponse getRentOperationResponse(Long id) {
+    var startRentOperationResponse = new RentOperationResponse();
     startRentOperationResponse.setId(id);
     startRentOperationResponse.setDeposit(DEPOSIT);
     startRentOperationResponse.setClientPhoneNumber(ClientAccountUtils.PHONE_NUMBER);
@@ -65,9 +65,9 @@ public class RentOperationUtils {
     return startRentOperationResponse;
   }
 
-  public static FinishRentOperationRequest getFinishRentOperationRequest() {
+  public static FinishRentOperationRequest getFinishRentOperationRequest(Long id) {
     var finishRentOperationRequest = new FinishRentOperationRequest();
-    finishRentOperationRequest.setEquipmentRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
+    finishRentOperationRequest.setId(id);
     finishRentOperationRequest.setFinishedAtTime(END_TIME);
     return finishRentOperationRequest;
   }

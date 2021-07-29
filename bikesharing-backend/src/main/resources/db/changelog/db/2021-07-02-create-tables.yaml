@@ -255,6 +255,9 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: fines
+                  type: bigint
+              - column:
                   name: comments
                   type: character varying(255)
               - column:

@@ -7,7 +7,7 @@ public interface RentService {
 
   RentOperationModel getByEquipmentItemRegistrationNumberAndRentStatusCode(String registrationNumber, String code);
 
-  RentOperationModel finishRentOperation(RentOperationModel rentOperation);
+  RentOperationModel finishRentOperation(RentOperationModel rentOperation, Long id);
 
   RentOperationModel getById(Long id);
 }

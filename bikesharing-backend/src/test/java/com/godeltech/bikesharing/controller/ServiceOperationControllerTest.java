@@ -12,8 +12,8 @@ import com.godeltech.bikesharing.mapper.ServiceOperationMapper;
 import com.godeltech.bikesharing.models.ServiceOperationModel;
 import com.godeltech.bikesharing.models.request.FinishEquipmentMaintenanceRequest;
 import com.godeltech.bikesharing.models.request.StartEquipmentMaintenanceRequest;
+import com.godeltech.bikesharing.models.response.EquipmentMaintenanceResponse;
 import com.godeltech.bikesharing.models.response.FinishEquipmentMaintenanceResponse;
-import com.godeltech.bikesharing.models.response.StartEquipmentMaintenanceResponse;
 import com.godeltech.bikesharing.service.EquipmentMaintenanceService;
 import com.godeltech.bikesharing.service.util.JsonMapper;
 import com.godeltech.bikesharing.utils.ServiceOperationUtils;
@@ -45,7 +45,7 @@ class ServiceOperationControllerTest {
 
   private StartEquipmentMaintenanceRequest startRequest;
   private FinishEquipmentMaintenanceRequest finishRequest;
-  private StartEquipmentMaintenanceResponse expectedStartResponse;
+  private EquipmentMaintenanceResponse expectedStartResponse;
   private FinishEquipmentMaintenanceResponse expectedFinishResponse;
 
   @BeforeEach
@@ -85,7 +85,7 @@ class ServiceOperationControllerTest {
         .andDo(print())
         .andExpect(status().isOk())
         .andReturn();
-    var actualResponseFromServer = jsonMapper.getResponse(result, StartEquipmentMaintenanceResponse.class);
+    var actualResponseFromServer = jsonMapper.getResponse(result, EquipmentMaintenanceResponse.class);
 
     verify(equipmentMaintenanceService).startEquipmentServiceOperation(serviceOperationModel);
     assertEquals(expectedStartResponse, actualResponseFromServer);

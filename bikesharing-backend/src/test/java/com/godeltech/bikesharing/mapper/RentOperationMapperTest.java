@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = {
     RentOperationMapperImpl.class,
+    RentTimeMapperImpl.class,
     RentStatusMapperImpl.class,
     ClientAccountMapperImpl.class,
     EquipmentItemMapperImpl.class,
@@ -42,7 +43,7 @@ class RentOperationMapperTest {
     var rentOperation = RentOperationUtils.getRentOperationModel(ID);
     rentOperation.getEquipmentItem().setId(ID);
     rentOperation.getClientAccount().setId(ID);
-    var expected = RentOperationUtils.getStartRentOperationResponse(ID);
+    var expected = RentOperationUtils.getRentOperationResponse(ID);
 
     var actual = rentOperationMapper.mapToStartResponse(rentOperation);
 
@@ -66,14 +67,12 @@ class RentOperationMapperTest {
 
   @Test
   void shouldMapFinishRequestToModel() {
-    var request = RentOperationUtils.getFinishRentOperationRequest();
-    var expected = RentOperationUtils.getRentOperationModel(null);
+    var request = RentOperationUtils.getFinishRentOperationRequest(ID);
+    var expected = RentOperationUtils.getRentOperationModel(ID);
 
     var actual = rentOperationMapper.mapToModel(request);
 
-    assertNotNull(actual.getEquipmentItem());
-    assertEquals(expected.getEquipmentItem().getRegistrationNumber(),
-        actual.getEquipmentItem().getRegistrationNumber());
+    assertEquals(expected.getId(), actual.getId());
     assertNotNull(actual.getFinishedAtTime());
   }
 }

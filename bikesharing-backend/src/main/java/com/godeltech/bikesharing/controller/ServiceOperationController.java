@@ -3,8 +3,8 @@ package com.godeltech.bikesharing.controller;
 import com.godeltech.bikesharing.mapper.ServiceOperationMapper;
 import com.godeltech.bikesharing.models.request.FinishEquipmentMaintenanceRequest;
 import com.godeltech.bikesharing.models.request.StartEquipmentMaintenanceRequest;
+import com.godeltech.bikesharing.models.response.EquipmentMaintenanceResponse;
 import com.godeltech.bikesharing.models.response.FinishEquipmentMaintenanceResponse;
-import com.godeltech.bikesharing.models.response.StartEquipmentMaintenanceResponse;
 import com.godeltech.bikesharing.service.EquipmentMaintenanceService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class ServiceOperationController {
   private final ServiceOperationMapper serviceOperationMapper;
 
   @PostMapping("/start")
-  public ResponseEntity<StartEquipmentMaintenanceResponse> startRentOperation(
+  public ResponseEntity<EquipmentMaintenanceResponse> startRentOperation(
       @Valid @RequestBody StartEquipmentMaintenanceRequest request) {
     var serviceOperationModel = serviceOperationMapper.mapToModel(request);
     var response = serviceOperationMapper
