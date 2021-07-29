@@ -13,7 +13,13 @@ import com.godeltech.bikesharing.persistence.entity.RentOperation;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(uses = {
+    EquipmentItemMapper.class,
+    ClientAccountMapper.class,
+    RentCostMapper.class,
+    RentTimeMapper.class
+})
+
 public interface RentOperationMapper {
 
   RentOperationModel mapToModel(RentOperation rentOperation);

@@ -3,12 +3,22 @@ package com.godeltech.bikesharing.mapper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.godeltech.bikesharing.mapper.lookup.EquipmentGroupMapperImpl;
+import com.godeltech.bikesharing.mapper.lookup.EquipmentStatusMapperImpl;
+import com.godeltech.bikesharing.mapper.lookup.RentStatusMapperImpl;
 import com.godeltech.bikesharing.utils.RentOperationUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(classes = RentOperationMapperImpl.class)
+@SpringBootTest(classes = {
+    RentOperationMapperImpl.class,
+    RentStatusMapperImpl.class,
+    ClientAccountMapperImpl.class,
+    EquipmentItemMapperImpl.class,
+    EquipmentGroupMapperImpl.class,
+    EquipmentStatusMapperImpl.class
+})
 class RentOperationMapperTest {
   private static final Long ID = 1L;
   @Autowired

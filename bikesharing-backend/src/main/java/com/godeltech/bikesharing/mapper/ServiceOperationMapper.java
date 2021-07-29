@@ -1,5 +1,6 @@
 package com.godeltech.bikesharing.mapper;
 
+import com.godeltech.bikesharing.mapper.lookup.ServiceTypeMapper;
 import com.godeltech.bikesharing.models.EquipmentItemModel;
 import com.godeltech.bikesharing.models.ServiceOperationModel;
 import com.godeltech.bikesharing.models.lookup.ServiceTypeModel;
@@ -11,7 +12,7 @@ import com.godeltech.bikesharing.persistence.entity.ServiceOperation;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(uses = {ServiceTypeMapper.class, EquipmentItemMapper.class})
 public interface ServiceOperationMapper {
 
   @Mapping(target = "finishedOnDate", source = "serviceOperation.endDate")
