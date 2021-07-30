@@ -14,5 +14,5 @@ public interface ClientAccountMapper {
   ClientAccount mapToEntity(ClientAccountModel model);
 
   @Mapping(target = "rating", constant = "0")
-  ClientAccount mapRequestToEntity(CreateClientAccountRequest request);
+  ClientAccountModel mapRequestToModel(CreateClientAccountRequest request);
 }

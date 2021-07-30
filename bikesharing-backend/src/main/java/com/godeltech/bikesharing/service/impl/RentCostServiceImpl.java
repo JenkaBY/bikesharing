@@ -25,6 +25,7 @@ public class RentCostServiceImpl implements RentCostService {
 
   @Override
   public RentCostModel getByEquipmentGroupCode(String equipmentGroupCode) {
+    log.info("getByEquipmentGroupCode: {}",equipmentGroupCode);
     return repository.findByEquipmentGroupCode(equipmentGroupCode).map(mapper::mapToModel)
         .orElseThrow(() -> new ResourceNotFoundException(RentCost.class.getSimpleName(), "equipmentGroupCode",
             equipmentGroupCode));
@@ -32,10 +33,19 @@ public class RentCostServiceImpl implements RentCostService {
 
   @Override
   public RentCostModel save(RentCostModel rentCostModel) {
+    log.info("save: {}",rentCostModel);
     validator.checkRentCostExists(rentCostModel);
     rentCostModel.setEquipmentGroup(equipmentGroupService
         .getByCode(rentCostModel.getEquipmentGroup().getCode()));
     var rentCost = repository.save(mapper.mapToEntity(rentCostModel));
     return mapper.mapToModel(rentCost);
+  }
+
+  @Override
+  public RentCostModel getById(Long id) {
+    log.info("getById: {}",id);
+    return repository.findById(id).map(mapper::mapToModel)
+        .orElseThrow(() -> new ResourceNotFoundException(RentCost.class.getSimpleName(), "id",
+            id));
   }
 }

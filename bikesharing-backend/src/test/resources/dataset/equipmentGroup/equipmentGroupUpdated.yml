@@ -1,0 +1,13 @@
+equipment_group:
+  - id: 1
+    code: "BICYCLE"
+    name: "SuperBicycle"
+  - id: 2
+    code: "SCOOTER"
+    name: "Scooter"
+  - id: 3
+    code: "E_BICYCLE"
+    name: "e-bicycle"
+  - id: 4
+    code: "E_SCOOTER"
+    name: "e-scooter"

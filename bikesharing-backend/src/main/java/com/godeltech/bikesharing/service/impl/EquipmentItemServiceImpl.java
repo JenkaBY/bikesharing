@@ -42,6 +42,15 @@ public class EquipmentItemServiceImpl implements EquipmentItemService {
   }
 
   @Override
+  @Transactional(readOnly = true)
+  public EquipmentItemModel getById(Long id) {
+    log.info("getById: {}", id);
+    return repository.findById(id).map(mapper::mapToModel)
+        .orElseThrow(() -> new ResourceNotFoundException(EquipmentItem.class.getSimpleName(), "id",
+            id));
+  }
+
+  @Override
   public void updateEquipmentItemStatus(String registrationNumber, String status) {
     log.info("setEquipmentItemStatusInUse for registrationNumber: {} set status: {}", registrationNumber, status);
     repository.updateEquipmentItemStatus(registrationNumber, status);

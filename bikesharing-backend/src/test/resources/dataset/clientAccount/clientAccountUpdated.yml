@@ -1,0 +1,8 @@
+client_account:
+  - id: 1
+    phone_number: "+100223334455"
+    rating: 1
+    name: "FelixTheCat"
+    address: "London, Downing st. 10"
+    comments: "BlaBlaBlaaaaa"
+    created: 2021-07-12 13:23:01.000000

@@ -1,6 +1,7 @@
 package com.godeltech.bikesharing.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.godeltech.bikesharing.utils.ClientAccountUtils;
 import org.junit.jupiter.api.Test;
@@ -25,12 +26,16 @@ class ClientAccountMapperTest {
   }
 
   @Test
-  void shouldMapRequestToEntity() {
+  void shouldMapRequestToModel() {
     var clientAccountRequest = ClientAccountUtils.getNewClientAccountRequest();
 
-    var actual = clientAccountMapper.mapRequestToEntity(clientAccountRequest);
+    var actual = clientAccountMapper.mapRequestToModel(clientAccountRequest);
 
-    var expected = ClientAccountUtils.getClientAccount();
-    assertEquals(expected, actual);
+    var expected = ClientAccountUtils.getClientAccountModel(null);
+
+    assertEquals(expected.getPhoneNumber(), actual.getPhoneNumber());
+    assertEquals(expected.getName(), actual.getName());
+    assertEquals(expected.getAddress(), actual.getAddress());
+    assertNotNull(actual.getRating());
   }
 }

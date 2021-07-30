@@ -7,7 +7,11 @@ public interface EquipmentItemService {
 
   EquipmentItemModel save(EquipmentItemModel equipmentItemModel);
 
+  EquipmentItemModel getById(Long id);
+
   void updateEquipmentItemStatus(String registrationNumber, String status);
 
   String getEquipmentStatusCodeByRegistrationNumber(String equipmentRegistrationNumber);
+
+  //TODO get list With Status
 }
