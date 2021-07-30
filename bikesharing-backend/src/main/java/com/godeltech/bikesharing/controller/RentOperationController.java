@@ -23,8 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @Validated
-//FIXME remove '/' character from the end and move it to PutMapping("/{id}")
-@RequestMapping(path = "/v1/bikesharing/rentoperation/")
+@RequestMapping(path = "/v1/bikesharing/rentoperation")
 public class RentOperationController {
   private final RentService rentService;
   private final RentOperationMapper rentOperationMapper;
@@ -37,7 +36,7 @@ public class RentOperationController {
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
-  @PutMapping("{id}")
+  @PutMapping("/{id}")
   public ResponseEntity<FinishRentOperationResponse> finishRentOperation(
       @Valid @RequestBody FinishRentOperationRequest request, @Min(1) @PathVariable Long id) {
     var rentOperationModel = rentOperationMapper.mapToModel(request);

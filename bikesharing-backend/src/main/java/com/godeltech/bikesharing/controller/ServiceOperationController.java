@@ -9,12 +9,15 @@ import com.godeltech.bikesharing.service.EquipmentMaintenanceService;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,9 +35,8 @@ public class ServiceOperationController {
     return ResponseEntity.of(Optional.empty());
   }
 
-  @PostMapping("/start")
-//  FIXME rename to startMaintenanceService
-  public ResponseEntity<EquipmentMaintenanceResponse> startRentOperation(
+  @PostMapping()
+  public ResponseEntity<EquipmentMaintenanceResponse> startMaintenanceService(
       @Valid @RequestBody StartEquipmentMaintenanceRequest request) {
     var serviceOperationModel = serviceOperationMapper.mapToModel(request);
     var response = serviceOperationMapper
@@ -42,15 +44,12 @@ public class ServiceOperationController {
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
-  // TODO The PUT method should be here. the similar as in RentOperationController
-//    @PutMapping("/{id}")
-  @PostMapping("/finish")
-  //  FIXME rename to finishMaintenanceService
-  public ResponseEntity<FinishEquipmentMaintenanceResponse> finishRentOperation(
-      @Valid @RequestBody FinishEquipmentMaintenanceRequest request) {
+  @PutMapping("/{id}")
+  public ResponseEntity<FinishEquipmentMaintenanceResponse> finishMaintenanceService(
+      @Valid @RequestBody FinishEquipmentMaintenanceRequest request, @Min(1) @PathVariable Long id) {
     var serviceOperationModel = serviceOperationMapper.mapToModel(request);
     var finishedService = equipmentMaintenanceService
-        .finishEquipmentServiceOperation(serviceOperationModel);
+        .finishEquipmentServiceOperation(serviceOperationModel, id);
     var response = serviceOperationMapper.mapToFinishResponse(finishedService);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }

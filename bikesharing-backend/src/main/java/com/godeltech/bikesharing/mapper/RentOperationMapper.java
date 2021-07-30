@@ -29,6 +29,9 @@ public interface RentOperationMapper {
   @Mapping(target = "clientAccount.phoneNumber", source = "clientPhoneNumber")
   RentOperationModel mapToModel(StartRentOperationRequest request);
 
+
+  @Mapping(target = "comments", source = "request.comment")
+  @Mapping(target = "fines", source = "request.finesAmount")
   RentOperationModel mapToModel(FinishRentOperationRequest request);
 
   @Mapping(target = "totalCost", source = "rentOperation.totalCost")

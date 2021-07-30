@@ -67,12 +67,11 @@ class RentOperationMapperTest {
 
   @Test
   void shouldMapFinishRequestToModel() {
-    var request = RentOperationUtils.getFinishRentOperationRequest(ID);
+    var request = RentOperationUtils.getFinishRentOperationRequest();
     var expected = RentOperationUtils.getRentOperationModel(ID);
 
     var actual = rentOperationMapper.mapToModel(request);
 
-    assertEquals(expected.getId(), actual.getId());
-    assertNotNull(actual.getFinishedAtTime());
+    assertEquals(expected.getFinishedAtTime(), actual.getFinishedAtTime());
   }
 }

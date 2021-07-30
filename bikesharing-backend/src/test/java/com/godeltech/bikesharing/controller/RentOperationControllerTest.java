@@ -58,7 +58,7 @@ public class RentOperationControllerTest {
   @BeforeEach
   public void setUp() {
     startRequest = RentOperationUtils.getStartRentOperationRequest();
-    finishRequest = RentOperationUtils.getFinishRentOperationRequest(ID);
+    finishRequest = RentOperationUtils.getFinishRentOperationRequest();
     expectedStartResponse = RentOperationUtils.getRentOperationResponse(ID);
     expectedFinishResponse = RentOperationUtils.getFinishRentOperationResponse(ID);
   }

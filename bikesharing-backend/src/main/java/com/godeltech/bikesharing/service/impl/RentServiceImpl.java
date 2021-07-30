@@ -1,6 +1,5 @@
 package com.godeltech.bikesharing.service.impl;
 
-import com.godeltech.bikesharing.exception.RequestIdIsNotEqualToPathVariableException;
 import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.RentOperationMapper;
 import com.godeltech.bikesharing.models.RentOperationModel;
@@ -73,8 +72,6 @@ public class RentServiceImpl implements RentService {
   @Override
   public RentOperationModel finishRentOperation(RentOperationModel rentOperation, Long id) {
     log.info("finishRentOperation with model: {} and urlId-variable: {}", rentOperation, id);
-//    FIXME You get rid of this validation when remove 'id' field from FinishRentOperationRequest
-    checkIdFromModelEqualsToPathVariable(rentOperation, id);
     var rentOperationModelFromBase = getById(id);
     var registrationNumber = rentOperationModelFromBase.getEquipmentItem().getRegistrationNumber();
 
@@ -96,13 +93,6 @@ public class RentServiceImpl implements RentService {
     var finishedRentOperation = repository.save(toBeSavedRentOperation);
 
     return rentOperationMapper.mapToModel(finishedRentOperation, calculatedFinishRentDetails);
-  }
-
-  private void checkIdFromModelEqualsToPathVariable(RentOperationModel rentOperation, Long id) {
-    if (!rentOperation.getId().equals(id)) {
-      throw new RequestIdIsNotEqualToPathVariableException(String
-          .format("Object from request has index: %s and doesn't match index from url: %s", rentOperation.getId(), id));
-    }
   }
 
   @Override

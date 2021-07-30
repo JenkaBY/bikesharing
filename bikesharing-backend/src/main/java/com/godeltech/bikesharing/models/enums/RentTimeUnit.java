@@ -1,16 +1,17 @@
 package com.godeltech.bikesharing.models.enums;
 
+import java.time.Duration;
 import lombok.Getter;
 
 @Getter
 public enum RentTimeUnit {
-  HALF_HOUR(30),
-  HOUR(60),
-  DAY(24 * 60);
-//TODO Let's try to use Duration class in this field. I think it will be more readable, understandable and flexible
-  private final long durationInMin;
+  HALF_HOUR(Duration.ofMinutes(30)),
+  HOUR(Duration.ofHours(1)),
+  DAY(Duration.ofDays(1));
 
-  RentTimeUnit(long durationInMin) {
-    this.durationInMin = durationInMin;
+  private final Duration duration;
+
+  RentTimeUnit(Duration duration) {
+    this.duration = duration;
   }
 }

@@ -76,7 +76,6 @@ public class ServiceOperationUtils {
 
   public static FinishEquipmentMaintenanceRequest getFinishEquipmentMaintenanceRequest() {
     var request = new FinishEquipmentMaintenanceRequest();
-    request.setId(ID);
     request.setFinishedOnDate(END_DATE);
     return request;
   }

@@ -66,7 +66,7 @@ public class RentServiceTest extends AbstractIntegrationTest {
           "dataset/rentOperation/rentOperationClosed.yml"
       })
   public void shouldFinishRentOperationProperly() {
-    var finishRentOperationRequest = RentOperationUtils.getFinishRentOperationRequest(ID);
+    var finishRentOperationRequest = RentOperationUtils.getFinishRentOperationRequest();
     finishRentOperationRequest.setFinishedAtTime(rentOperationModel.getStartTime().plusMinutes(MINUTES_PASSED));
     var rentOperationModel = rentOperationMapper.mapToModel(finishRentOperationRequest);
 

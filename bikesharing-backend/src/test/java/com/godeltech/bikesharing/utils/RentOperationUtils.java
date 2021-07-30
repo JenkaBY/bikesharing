@@ -65,9 +65,8 @@ public class RentOperationUtils {
     return startRentOperationResponse;
   }
 
-  public static FinishRentOperationRequest getFinishRentOperationRequest(Long id) {
+  public static FinishRentOperationRequest getFinishRentOperationRequest() {
     var finishRentOperationRequest = new FinishRentOperationRequest();
-    finishRentOperationRequest.setId(id);
     finishRentOperationRequest.setFinishedAtTime(END_TIME);
     return finishRentOperationRequest;
   }

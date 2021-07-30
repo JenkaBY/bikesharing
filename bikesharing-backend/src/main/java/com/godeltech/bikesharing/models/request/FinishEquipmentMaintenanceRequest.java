@@ -11,10 +11,6 @@ import lombok.RequiredArgsConstructor;
 public class FinishEquipmentMaintenanceRequest {
 
   @NotNull
-  @Min(1)
-  private Long id;
-
-  @NotNull
   private LocalDate finishedOnDate;
 
   private String comments;

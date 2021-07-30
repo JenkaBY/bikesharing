@@ -12,9 +12,9 @@ import javax.validation.Payload;
 
 @Target({TYPE, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = ValidNotNullCommentsValidator.class)
+@Constraint(validatedBy = ValidFinesAndCommentsValidator.class)
 @Documented
-public @interface ValidNotNullComments {
+public @interface ValidFinesAndComments {
 
   String message() default "{ValidNotNullComments.message}";
 
