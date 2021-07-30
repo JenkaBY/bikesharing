@@ -24,7 +24,6 @@ public interface ServiceOperationMapper {
   @Mapping(target = "equipmentItemModel.registrationNumber", source = "request.equipmentRegistrationNumber")
   ServiceOperationModel mapToModel(StartEquipmentMaintenanceRequest request);
 
-  @Mapping(target = "equipmentItemModel.registrationNumber", source = "request.equipmentRegistrationNumber")
   ServiceOperationModel mapToModel(FinishEquipmentMaintenanceRequest request);
 
   @Mapping(target = "serviceTypeCode", source = "serviceOperation.serviceTypeModel.code")

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -27,8 +28,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest({ServiceOperationController.class, GeneralErrorMapper.class, JsonMapper.class})
 class ServiceOperationControllerTest {
-  private static final String URL_TEMPLATE_START = "/v1/bikesharing/serviceoperation/start";
-  private static final String URL_TEMPLATE_FINISH = "/v1/bikesharing/serviceoperation/finish";
+  private static final String URL_TEMPLATE = "/v1/bikesharing/serviceoperation/";
   private static final Long ID = 1L;
   private static final ServiceOperationModel serviceOperationModel = ServiceOperationUtils.getServiceOperationModel(ID);
 
@@ -61,7 +61,7 @@ class ServiceOperationControllerTest {
     startRequest.setEquipmentRegistrationNumber("");
 
     var content = jsonMapper.getJsonRequest(startRequest);
-    mockMvc.perform(post(URL_TEMPLATE_START)
+    mockMvc.perform(post(URL_TEMPLATE)
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON)
         .content(content))
@@ -78,7 +78,7 @@ class ServiceOperationControllerTest {
         .thenReturn(ServiceOperationUtils.getStartEquipmentMaintenanceResponse(ID));
 
     var content = jsonMapper.getJsonRequest(startRequest);
-    var result = mockMvc.perform(post(URL_TEMPLATE_START)
+    var result = mockMvc.perform(post(URL_TEMPLATE)
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON)
         .content(content))
@@ -94,13 +94,13 @@ class ServiceOperationControllerTest {
   @Test
   public void shouldGetProperFinishResponse() throws Exception {
     when(serviceOperationMapper.mapToModel(finishRequest)).thenReturn(serviceOperationModel);
-    when(equipmentMaintenanceService.finishEquipmentServiceOperation(serviceOperationModel))
+    when(equipmentMaintenanceService.finishEquipmentServiceOperation(serviceOperationModel,ID))
         .thenReturn(serviceOperationModel);
     when(serviceOperationMapper.mapToFinishResponse(serviceOperationModel))
         .thenReturn(ServiceOperationUtils.getFinishEquipmentMaintenanceResponse(ID));
 
     var content = jsonMapper.getJsonRequest(finishRequest);
-    var result = mockMvc.perform(post(URL_TEMPLATE_FINISH)
+    var result = mockMvc.perform(put(URL_TEMPLATE + ID)
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON)
         .content(content))
@@ -109,7 +109,7 @@ class ServiceOperationControllerTest {
         .andReturn();
     var actualResponseFromServer = jsonMapper.getResponse(result, FinishEquipmentMaintenanceResponse.class);
 
-    verify(equipmentMaintenanceService).finishEquipmentServiceOperation(serviceOperationModel);
+    verify(equipmentMaintenanceService).finishEquipmentServiceOperation(serviceOperationModel,ID);
     assertEquals(expectedFinishResponse, actualResponseFromServer);
   }
 }

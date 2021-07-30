@@ -54,7 +54,7 @@ public class EquipmentMaintenanceServiceTest extends AbstractIntegrationTest {
       })
   public void shouldFinishServiceOperationProperly() {
     var serviceOperationModel = serviceOperationMapper.mapToModel(finishRequest);
-    var actualServiceOperation = equipmentMaintenanceService.finishEquipmentServiceOperation(serviceOperationModel);
+    var actualServiceOperation = equipmentMaintenanceService.finishEquipmentServiceOperation(serviceOperationModel, ID);
     var expectedServiceOperation = ServiceOperationUtils.getServiceOperationModel(ID);
     var expectedEquipmentItem = EquipmentItemUtils.getEquipmentItemModel(ID);
     expectedServiceOperation.setEquipmentItemModel(expectedEquipmentItem);

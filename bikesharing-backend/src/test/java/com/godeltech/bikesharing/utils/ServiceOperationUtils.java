@@ -15,6 +15,7 @@ public class ServiceOperationUtils {
   public static final LocalDate START_DATE = LocalDate.of(2021, 1, 1);
   public static final LocalDate END_DATE = START_DATE.plusDays(1);
   public static final String ISSUE_DESCRIPTION = "something got broken";
+  public static final Long ID = 1L;
 
   public static ServiceOperation getServiceOperation(Long id) {
     var serviceOperation = new ServiceOperation();
@@ -75,7 +76,7 @@ public class ServiceOperationUtils {
 
   public static FinishEquipmentMaintenanceRequest getFinishEquipmentMaintenanceRequest() {
     var request = new FinishEquipmentMaintenanceRequest();
-    request.setEquipmentRegistrationNumber(EquipmentItemUtils.REGISTRATION_NUMBER);
+    request.setId(ID);
     request.setFinishedOnDate(END_DATE);
     return request;
   }

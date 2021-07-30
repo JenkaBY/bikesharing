@@ -19,20 +19,25 @@ public class ValidNotNullCommentsValidator
     }
     collectViolations(value);
     if (!violations.isEmpty()) {
-      context.disableDefaultConstraintViolation();
-      violations.forEach(v -> context.buildConstraintViolationWithTemplate(v.getTemplate())
-          .addPropertyNode(v.getProperty())
-          .addConstraintViolation());
+      putViolationsToContext(context);
       return false;
     }
     return true;
   }
 
+  private void putViolationsToContext(ConstraintValidatorContext context) {
+    context.disableDefaultConstraintViolation();
+    violations.forEach(v -> context.buildConstraintViolationWithTemplate(v.getTemplate())
+        .addPropertyNode(v.getProperty())
+        .addConstraintViolation());
+    violations.clear();
+  }
+
   private void collectViolations(FinishRentOperationRequest value) {
     if (!(value.getFines() == null) && (value.getComments() == null)) {
       violations.add(new Violation("comments", "Please put some comments for fines"));
-
     }
+
     if (!(value.getFines() == null) && (value.getFines() <= 0)) {
       violations.add(new Violation("fines", "If fines present make sure its amount is over ZERO"));
     }

@@ -11,6 +11,7 @@ import com.godeltech.bikesharing.service.EquipmentMaintenanceService;
 import com.godeltech.bikesharing.service.impl.lookup.EquipmentStatusServiceImpl;
 import com.godeltech.bikesharing.service.impl.lookup.ServiceTypeServiceImpl;
 import com.godeltech.bikesharing.service.util.RentOperationValidator;
+import com.godeltech.bikesharing.service.util.ResourceUpdateValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class EquipmentMaintenanceServiceImpl implements EquipmentMaintenanceServ
   private final ServiceOperationMapper mapper;
   private final ServiceOperationRepository repository;
   private final RentOperationValidator validator;
+  private final ResourceUpdateValidator resourceUpdateValidator;
   private final ServiceTypeServiceImpl serviceTypeService;
   private final EquipmentStatusServiceImpl equipmentStatusService;
   private final EquipmentItemService equipmentItemService;
@@ -48,11 +50,13 @@ public class EquipmentMaintenanceServiceImpl implements EquipmentMaintenanceServ
   }
 
   @Override
-  public ServiceOperationModel finishEquipmentServiceOperation(ServiceOperationModel serviceOperation) {
-    log.info("finishEquipmentServiceOperation with model: {}", serviceOperation);
-    var registrationNumber = serviceOperation.getEquipmentItemModel().getRegistrationNumber();
+  public ServiceOperationModel finishEquipmentServiceOperation(ServiceOperationModel serviceOperation,
+                                                               Long id) {
+    log.info("finishEquipmentServiceOperation with model: {} and urlId-variable: {}", serviceOperation, id);
+    resourceUpdateValidator.checkIdFromModelEqualsToPathVariable(serviceOperation.getId(), id);
+    var serviceOperationFromBase = getById(id);
+    var registrationNumber = serviceOperationFromBase.getEquipmentItemModel().getRegistrationNumber();
     var equipmentItemModel = equipmentItemService.getByRegistrationNumber(registrationNumber);
-    var serviceOperationFromBase = getByEquipmentItemRegistrationNumberWhereEndDateIsNull(registrationNumber);
     serviceOperationFromBase.setFinishedOnDate(serviceOperation.getFinishedOnDate());
 
     validator.checkEquipmentItemIsInService(equipmentItemModel);

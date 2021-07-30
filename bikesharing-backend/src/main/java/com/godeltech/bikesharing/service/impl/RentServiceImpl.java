@@ -1,6 +1,5 @@
 package com.godeltech.bikesharing.service.impl;
 
-import com.godeltech.bikesharing.exception.RequestIdIsNotEqualToPathVariableException;
 import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.RentOperationMapper;
 import com.godeltech.bikesharing.models.RentOperationModel;
@@ -15,6 +14,7 @@ import com.godeltech.bikesharing.service.calculator.RentCostTimeCalculator;
 import com.godeltech.bikesharing.service.impl.lookup.EquipmentStatusServiceImpl;
 import com.godeltech.bikesharing.service.impl.lookup.RentStatusServiceImpl;
 import com.godeltech.bikesharing.service.util.RentOperationValidator;
+import com.godeltech.bikesharing.service.util.ResourceUpdateValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class RentServiceImpl implements RentService {
   private final RentOperationRepository repository;
   private final RentOperationValidator validator;
+  private final ResourceUpdateValidator resourceUpdateValidator;
   private final RentCostTimeCalculator calculator;
   private final EquipmentItemService equipmentItemService;
   private final EquipmentStatusServiceImpl equipmentStatusService;
@@ -73,7 +74,7 @@ public class RentServiceImpl implements RentService {
   @Override
   public RentOperationModel finishRentOperation(RentOperationModel rentOperation, Long id) {
     log.info("finishRentOperation with model: {} and urlId-variable: {}", rentOperation, id);
-    checkIdFromModelEqualsToPathVariable(rentOperation, id);
+    resourceUpdateValidator.checkIdFromModelEqualsToPathVariable(rentOperation.getId(), id);
     var rentOperationModelFromBase = getById(id);
     var registrationNumber = rentOperationModelFromBase.getEquipmentItem().getRegistrationNumber();
 
@@ -95,13 +96,6 @@ public class RentServiceImpl implements RentService {
     var finishedRentOperation = repository.save(toBeSavedRentOperation);
 
     return rentOperationMapper.mapToModel(finishedRentOperation, calculatedFinishRentDetails);
-  }
-
-  private void checkIdFromModelEqualsToPathVariable(RentOperationModel rentOperation, Long id) {
-    if (!rentOperation.getId().equals(id)) {
-      throw new RequestIdIsNotEqualToPathVariableException(String
-          .format("Object from request has index: %s and doesn't match index from url: %s", rentOperation.getId(), id));
-    }
   }
 
   @Override
