@@ -11,5 +11,4 @@ public interface ClientService {
 
   ClientAccountModel getOrCreateByPhoneNumber(String clientPhoneNumber);
 
-  ClientAccountModel getByRentOperationAndEquipmentRegistrationNumber(String registrationNumber);
 }
