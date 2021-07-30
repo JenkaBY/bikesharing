@@ -73,6 +73,7 @@ public class RentServiceImpl implements RentService {
   @Override
   public RentOperationModel finishRentOperation(RentOperationModel rentOperation, Long id) {
     log.info("finishRentOperation with model: {} and urlId-variable: {}", rentOperation, id);
+//    FIXME You get rid of this validation when remove 'id' field from FinishRentOperationRequest
     checkIdFromModelEqualsToPathVariable(rentOperation, id);
     var rentOperationModelFromBase = getById(id);
     var registrationNumber = rentOperationModelFromBase.getEquipmentItem().getRegistrationNumber();
