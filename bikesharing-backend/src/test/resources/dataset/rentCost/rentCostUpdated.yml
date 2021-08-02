@@ -1,0 +1,33 @@
+equipment_rentcost:
+  - id: 1
+    equipment_group_id: 1
+    h_half_price: 3
+    h_price: 8
+    day_price: 20
+    min_price_4_h: 1
+    h_discount: 1
+    created: 2021-07-12 13:23:01.000000
+  - id: 2
+    equipment_group_id: 2
+    h_half_price: 3
+    h_price: 4
+    day_price: 15
+    min_price_4_h: 1
+    h_discount: 1
+    created: 2021-07-12 13:23:01.000000
+  - id: 3
+    equipment_group_id: 3
+    h_half_price: 3
+    h_price: 4
+    day_price: 15
+    min_price_4_h: 1
+    h_discount: 1
+    created: 2021-07-12 13:23:01.000000
+  - id: 4
+    equipment_group_id: 4
+    h_half_price: 3
+    h_price: 4
+    day_price: 15
+    min_price_4_h: 1
+    h_discount: 1
+    created: 2021-07-12 13:23:01.000000

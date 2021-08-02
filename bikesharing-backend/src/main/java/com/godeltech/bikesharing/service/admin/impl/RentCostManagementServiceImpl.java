@@ -2,7 +2,6 @@ package com.godeltech.bikesharing.service.admin.impl;
 
 import com.godeltech.bikesharing.mapper.RentCostMapper;
 import com.godeltech.bikesharing.models.RentCostModel;
-import com.godeltech.bikesharing.persistence.repository.RentCostRepository;
 import com.godeltech.bikesharing.service.RentCostService;
 import com.godeltech.bikesharing.service.admin.RentCostManagementService;
 import com.godeltech.bikesharing.service.impl.lookup.EquipmentGroupServiceImpl;
@@ -17,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class RentCostManagementServiceImpl implements RentCostManagementService {
 
-  private final RentCostRepository repository;
   private final RentCostService rentCostService;
   private final EquipmentGroupServiceImpl equipmentGroupService;
   private final RentCostMapper mapper;
@@ -27,7 +25,7 @@ public class RentCostManagementServiceImpl implements RentCostManagementService 
     log.info("save: {} with equipmentGroupCode {}", model, equipmentGroupCode);
     var equipmentGroupModel = equipmentGroupService.getByCode(equipmentGroupCode);
     var entityToBeSaved = mapper.mapToEntity(model, equipmentGroupModel);
-    return mapper.mapToModel(repository.save(entityToBeSaved));
+    return rentCostService.save(mapper.mapToModel(entityToBeSaved));
   }
 
   @Override
@@ -37,5 +35,4 @@ public class RentCostManagementServiceImpl implements RentCostManagementService 
     model.setId(id);
     return rentCostService.save(model);
   }
-
 }

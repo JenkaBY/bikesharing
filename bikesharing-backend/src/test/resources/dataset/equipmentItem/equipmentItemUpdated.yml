@@ -1,0 +1,10 @@
+equipment_item:
+  - id: 1
+    registration_number: "equipmentNum1"
+    name: "Aist Classic"
+    equipment_group_id: 1
+    equipment_status_id: 3
+    factory_number: "factoryNum1"
+    purchase_date: "2021-01-23"
+    comments: "Needs to be serviced"
+    created: 2021-07-12 13:23:01.000000

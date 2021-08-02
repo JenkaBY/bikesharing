@@ -16,7 +16,8 @@ public class RentCostValidator {
   public void checkRentCostExists(RentCostModel rentCostModel) {
     log.info("checkRentCostExists for model: {}", rentCostModel);
     var rentCost = repository.findByEquipmentGroupCode(rentCostModel.getEquipmentGroup().getCode());
-    if (rentCost.isPresent()) {
+    if ((rentCost.isPresent() && rentCostModel.getId() == null)
+        || rentCost.isPresent() && !rentCostModel.getId().equals(rentCost.get().getId())) {
       throw new ResourceExistingPersistenceException(
           String.format("RentCost for equipmentGroupCode: %s already EXISTS - try Update with id: %s",
               rentCostModel.getEquipmentGroup().getCode(), rentCost.get().getId()));

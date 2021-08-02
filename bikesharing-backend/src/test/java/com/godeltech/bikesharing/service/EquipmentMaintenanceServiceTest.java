@@ -29,7 +29,7 @@ public class EquipmentMaintenanceServiceTest extends AbstractIntegrationTest {
   @ExpectedDataSet(value = {
       "/dataset/equipmentItem/equipmentItemInService.yml",
       "/dataset/serviceOperation/serviceOperationStarted.yml"
-  })
+      })
   public void shouldStartServiceOperationProperly() {
     var serviceOperationModel = serviceOperationMapper.mapToModel(startRequest);
     var actualServiceOperation = equipmentMaintenanceService.startEquipmentServiceOperation(serviceOperationModel);
