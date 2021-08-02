@@ -5,7 +5,7 @@ import com.godeltech.bikesharing.models.request.FinishEquipmentMaintenanceReques
 import com.godeltech.bikesharing.models.request.StartEquipmentMaintenanceRequest;
 import com.godeltech.bikesharing.models.response.EquipmentMaintenanceResponse;
 import com.godeltech.bikesharing.models.response.FinishEquipmentMaintenanceResponse;
-import com.godeltech.bikesharing.service.EquipmentMaintenanceService;
+import com.godeltech.bikesharing.service.equipmentmaintenance.EquipmentMaintenanceService;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -31,6 +31,7 @@ public class ServiceOperationController {
   private final ServiceOperationMapper serviceOperationMapper;
 
   @GetMapping
+  //TODO Implement method
   public ResponseEntity<List<EquipmentMaintenanceResponse>> getAllEquipmentMaintenances() {
     return ResponseEntity.of(Optional.empty());
   }

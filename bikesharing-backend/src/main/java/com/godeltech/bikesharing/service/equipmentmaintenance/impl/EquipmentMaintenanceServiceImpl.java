@@ -1,4 +1,4 @@
-package com.godeltech.bikesharing.service.impl;
+package com.godeltech.bikesharing.service.equipmentmaintenance.impl;
 
 import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.ServiceOperationMapper;
@@ -7,7 +7,7 @@ import com.godeltech.bikesharing.models.lookup.EquipmentStatusModel;
 import com.godeltech.bikesharing.persistence.entity.ServiceOperation;
 import com.godeltech.bikesharing.persistence.repository.ServiceOperationRepository;
 import com.godeltech.bikesharing.service.EquipmentItemService;
-import com.godeltech.bikesharing.service.EquipmentMaintenanceService;
+import com.godeltech.bikesharing.service.equipmentmaintenance.EquipmentMaintenanceService;
 import com.godeltech.bikesharing.service.impl.lookup.EquipmentStatusServiceImpl;
 import com.godeltech.bikesharing.service.impl.lookup.ServiceTypeServiceImpl;
 import com.godeltech.bikesharing.service.util.RentOperationValidator;

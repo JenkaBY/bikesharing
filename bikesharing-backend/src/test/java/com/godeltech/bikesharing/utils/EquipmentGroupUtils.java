@@ -1,6 +1,8 @@
 package com.godeltech.bikesharing.utils;
 
 import com.godeltech.bikesharing.models.lookup.EquipmentGroupModel;
+import com.godeltech.bikesharing.models.request.EquipmentGroupRequest;
+import com.godeltech.bikesharing.models.response.lookup.EquipmentGroupResponse;
 import com.godeltech.bikesharing.persistence.entity.lookup.EquipmentGroup;
 
 public class EquipmentGroupUtils {
@@ -22,5 +24,20 @@ public class EquipmentGroupUtils {
     equipmentGroupModel.setName(NAME);
     equipmentGroupModel.setCode(CODE);
     return equipmentGroupModel;
+  }
+
+  public static EquipmentGroupRequest getEquipmentGroupRequest() {
+    var equipmentGroupRequest = new EquipmentGroupRequest();
+    equipmentGroupRequest.setCode(CODE);
+    equipmentGroupRequest.setName(NAME);
+    return equipmentGroupRequest;
+  }
+
+  public static EquipmentGroupResponse getEquipmentGroupResponse(Long id) {
+    var equipmentGroupResponse = new EquipmentGroupResponse();
+    equipmentGroupResponse.setId(id);
+    equipmentGroupResponse.setCode(CODE);
+    equipmentGroupResponse.setName(NAME);
+    return equipmentGroupResponse;
   }
 }

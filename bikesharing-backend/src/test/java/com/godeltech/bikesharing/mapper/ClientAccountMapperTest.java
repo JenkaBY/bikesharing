@@ -3,6 +3,7 @@ package com.godeltech.bikesharing.mapper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.godeltech.bikesharing.models.ClientAccountModel;
 import com.godeltech.bikesharing.utils.ClientAccountUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,32 +11,40 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = ClientAccountMapperImpl.class)
 class ClientAccountMapperTest {
-  private static final Long CLIENT_ACCOUNT_ID = 1L;
+  private static final Long ID = 1L;
+  private static final ClientAccountModel clientAccountModel = ClientAccountUtils.getClientAccountModel(ID);
+
   @Autowired
   private ClientAccountMapper clientAccountMapper;
 
   @Test
   void shouldMapEntityToModel() {
     var clientAccount = ClientAccountUtils.getClientAccount();
-    clientAccount.setId(CLIENT_ACCOUNT_ID);
-    var expected = ClientAccountUtils.getClientAccountModel(CLIENT_ACCOUNT_ID);
+    clientAccount.setId(ID);
 
     var actual = clientAccountMapper.mapToModel(clientAccount);
 
-    assertEquals(expected, actual);
+    assertEquals(clientAccountModel, actual);
   }
 
   @Test
   void shouldMapRequestToModel() {
-    var clientAccountRequest = ClientAccountUtils.getNewClientAccountRequest();
+    var clientAccountRequest = ClientAccountUtils.getClientAccountRequest();
 
-    var actual = clientAccountMapper.mapRequestToModel(clientAccountRequest);
+    var actual = clientAccountMapper.mapToModel(clientAccountRequest);
+    actual.setId(ID);
+    actual.setRating(1);
 
-    var expected = ClientAccountUtils.getClientAccountModel(null);
-
-    assertEquals(expected.getPhoneNumber(), actual.getPhoneNumber());
-    assertEquals(expected.getName(), actual.getName());
-    assertEquals(expected.getAddress(), actual.getAddress());
+    assertEquals(clientAccountModel, actual);
     assertNotNull(actual.getRating());
+  }
+
+  @Test
+  void shouldMapModelToResponse() {
+    var expected = ClientAccountUtils.getClientAccountResponse(ID);
+
+    var actual = clientAccountMapper.mapToResponse(clientAccountModel);
+
+    assertEquals(expected, actual);
   }
 }

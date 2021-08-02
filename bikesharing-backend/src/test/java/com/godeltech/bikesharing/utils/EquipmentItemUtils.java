@@ -2,6 +2,9 @@ package com.godeltech.bikesharing.utils;
 
 
 import com.godeltech.bikesharing.models.EquipmentItemModel;
+import com.godeltech.bikesharing.models.lookup.EquipmentStatusModel;
+import com.godeltech.bikesharing.models.request.EquipmentItemRequest;
+import com.godeltech.bikesharing.models.response.EquipmentItemResponse;
 import com.godeltech.bikesharing.persistence.entity.EquipmentItem;
 import java.time.LocalDate;
 
@@ -21,7 +24,7 @@ public class EquipmentItemUtils {
     equipmentItem.setPurchaseDate(PURCHASE_DATE);
     equipmentItem.setComments(COMMENTS);
     equipmentItem.setEquipmentGroup(EquipmentGroupUtils.getEquipmentGroup());
-    equipmentItem.setEquipmentStatus(EquipmentStatusUtils.getEquipmentStatus());
+    equipmentItem.setEquipmentStatus(EquipmentStatusUtils.getEquipmentStatusFree());
     return equipmentItem;
   }
 
@@ -34,7 +37,31 @@ public class EquipmentItemUtils {
     equipmentItemModel.setPurchaseDate(PURCHASE_DATE);
     equipmentItemModel.setComments(COMMENTS);
     equipmentItemModel.setEquipmentGroup(EquipmentGroupUtils.getEquipmentGroupModel());
-    equipmentItemModel.setEquipmentStatus(EquipmentStatusUtils.getEquipmentStatusModel());
+    equipmentItemModel.setEquipmentStatus(EquipmentStatusUtils.getEquipmentStatusFreeModel());
     return equipmentItemModel;
+  }
+
+  public static EquipmentItemRequest getEquipmentItemRequest() {
+    var equipmentItem = new EquipmentItemRequest();
+    equipmentItem.setRegistrationNumber(REGISTRATION_NUMBER);
+    equipmentItem.setFactoryNumber(FACTORY_NUMBER);
+    equipmentItem.setName(NAME);
+    equipmentItem.setPurchaseDate(PURCHASE_DATE);
+    equipmentItem.setComment(COMMENTS);
+    equipmentItem.setEquipmentGroupCode(EquipmentGroupUtils.CODE);
+    equipmentItem.setEquipmentStatusCode(EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_FREE);
+    return equipmentItem;
+  }
+
+  public static EquipmentItemResponse getEquipmentItemResponse(Long id) {
+    var equipmentItem = new EquipmentItemResponse();
+    equipmentItem.setRegistrationNumber(REGISTRATION_NUMBER);
+    equipmentItem.setFactoryNumber(FACTORY_NUMBER);
+    equipmentItem.setName(NAME);
+    equipmentItem.setPurchaseDate(PURCHASE_DATE);
+    equipmentItem.setComments(COMMENTS);
+    equipmentItem.setEquipmentGroup(EquipmentGroupUtils.getEquipmentGroupResponse(id));
+    equipmentItem.setEquipmentStatus(EquipmentStatusUtils.getEquipmentStatusResponse(id));
+    return equipmentItem;
   }
 }

@@ -1,11 +1,12 @@
-package com.godeltech.bikesharing.models.request;
+package com.godeltech.bikesharing.models.response;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class CreateClientAccountRequest {
+public class ClientAccountResponse {
+  private Long id;
   private String phoneNumber;
   private String name;
   private String address;

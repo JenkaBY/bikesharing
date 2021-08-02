@@ -15,7 +15,7 @@ import com.godeltech.bikesharing.models.request.FinishEquipmentMaintenanceReques
 import com.godeltech.bikesharing.models.request.StartEquipmentMaintenanceRequest;
 import com.godeltech.bikesharing.models.response.EquipmentMaintenanceResponse;
 import com.godeltech.bikesharing.models.response.FinishEquipmentMaintenanceResponse;
-import com.godeltech.bikesharing.service.EquipmentMaintenanceService;
+import com.godeltech.bikesharing.service.equipmentmaintenance.EquipmentMaintenanceService;
 import com.godeltech.bikesharing.service.util.JsonMapper;
 import com.godeltech.bikesharing.utils.ServiceOperationUtils;
 import org.junit.jupiter.api.BeforeEach;

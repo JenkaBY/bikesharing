@@ -8,5 +8,5 @@ public interface EquipmentItemManagementService {
 
   EquipmentItemModel update(EquipmentItemModel model, Long id);
 
-  void safeDeleteEquipmentItem(Long id);// delete method in controller
+  void setOutOfUse(String registrationNumber);
 }

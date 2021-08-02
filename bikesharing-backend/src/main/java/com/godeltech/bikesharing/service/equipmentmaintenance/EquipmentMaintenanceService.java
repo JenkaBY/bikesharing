@@ -1,4 +1,4 @@
-package com.godeltech.bikesharing.service;
+package com.godeltech.bikesharing.service.equipmentmaintenance;
 
 import com.godeltech.bikesharing.models.ServiceOperationModel;
 

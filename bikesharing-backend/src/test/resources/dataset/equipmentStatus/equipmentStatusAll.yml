@@ -8,3 +8,6 @@ equipment_status:
   - id: 3
     code: "FREE"
     name: "equipment is free"
+  - id: 4
+    code: "BROKEN"
+    name: "equipment is out of use"

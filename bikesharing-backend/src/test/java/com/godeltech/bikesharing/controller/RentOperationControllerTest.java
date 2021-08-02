@@ -31,7 +31,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest({RentOperationController.class, GeneralErrorMapper.class, JsonMapper.class})
 public class RentOperationControllerTest {
-  private static final String URL_TEMPLATE = "/v1/bikesharing/rentoperation/";
+  private static final String URL_TEMPLATE = "/v1/bikesharing/rentoperation";
   private static final Long ID = 1L;
   private static final RentTimeRequest WRONG_RENT_TIME_REQUEST =
       RentTimeModelUtils.getRentTimeRequest(RentTimeUnit.DAY, 3L);
@@ -108,7 +108,7 @@ public class RentOperationControllerTest {
         .thenReturn(RentOperationUtils.getFinishRentOperationResponse(ID));
 
     var content = jsonMapper.getJsonRequest(finishRequest);
-    var result = mockMvc.perform(put(URL_TEMPLATE + ID)
+    var result = mockMvc.perform(put(URL_TEMPLATE + "/" + ID)
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON)
         .content(content))

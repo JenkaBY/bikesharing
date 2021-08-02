@@ -5,6 +5,8 @@ import com.godeltech.bikesharing.mapper.lookup.EquipmentStatusMapper;
 import com.godeltech.bikesharing.models.EquipmentItemModel;
 import com.godeltech.bikesharing.models.lookup.EquipmentGroupModel;
 import com.godeltech.bikesharing.models.lookup.EquipmentStatusModel;
+import com.godeltech.bikesharing.models.request.EquipmentItemRequest;
+import com.godeltech.bikesharing.models.response.EquipmentItemResponse;
 import com.godeltech.bikesharing.persistence.entity.EquipmentItem;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,6 +15,11 @@ import org.mapstruct.Mapping;
 public interface EquipmentItemMapper {
 
   EquipmentItemModel mapToModel(EquipmentItem equipment);
+
+  @Mapping(target = "comments", source = "request.comment")
+  @Mapping(target = "equipmentGroup.code", source = "request.equipmentGroupCode")
+  @Mapping(target = "equipmentStatus.code", source = "request.equipmentStatusCode")
+  EquipmentItemModel mapToModel(EquipmentItemRequest request);
 
   EquipmentItem mapToEntity(EquipmentItemModel model);
 
@@ -23,4 +30,6 @@ public interface EquipmentItemMapper {
   EquipmentItem mapToEntity(EquipmentItemModel model,
                             EquipmentGroupModel equipmentGroupModel,
                             EquipmentStatusModel equipmentStatusModel);
+
+  EquipmentItemResponse mapToResponse(EquipmentItemModel model);
 }

@@ -3,12 +3,10 @@ package com.godeltech.bikesharing.service.admin.impl;
 import com.godeltech.bikesharing.mapper.EquipmentItemMapper;
 import com.godeltech.bikesharing.models.EquipmentItemModel;
 import com.godeltech.bikesharing.models.lookup.EquipmentStatusModel;
-import com.godeltech.bikesharing.persistence.repository.EquipmentItemRepository;
 import com.godeltech.bikesharing.service.EquipmentItemService;
 import com.godeltech.bikesharing.service.admin.EquipmentItemManagementService;
 import com.godeltech.bikesharing.service.impl.lookup.EquipmentGroupServiceImpl;
 import com.godeltech.bikesharing.service.impl.lookup.EquipmentStatusServiceImpl;
-import javax.el.MethodNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class EquipmentItemManagementServiceImpl implements EquipmentItemManagementService {
 
-  private final EquipmentItemRepository repository;
   private final EquipmentGroupServiceImpl equipmentGroupService;
   private final EquipmentStatusServiceImpl equipmentStatusService;
   private final EquipmentItemService equipmentItemService;
@@ -33,7 +30,7 @@ public class EquipmentItemManagementServiceImpl implements EquipmentItemManageme
     var equipmentStatusFreeCode = EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_FREE;
     var equipmentStatusModel = equipmentStatusService.getByCode(equipmentStatusFreeCode);
     var entityToBeSaved = mapper.mapToEntity(model, equipmentGroupModel, equipmentStatusModel);
-    return mapper.mapToModel(repository.save(entityToBeSaved));
+    return equipmentItemService.save(mapper.mapToModel(entityToBeSaved));
   }
 
 
@@ -41,12 +38,17 @@ public class EquipmentItemManagementServiceImpl implements EquipmentItemManageme
   public EquipmentItemModel update(EquipmentItemModel model, Long id) {
     log.info("update: {} for id: {}", model, id);
     var entityFromBase = equipmentItemService.getById(id);
+    var equipmentGroupModel = equipmentGroupService.getByCode(model.getEquipmentGroup().getCode());
+    var equipmentStatusModel = equipmentStatusService.getByCode(model.getEquipmentStatus().getCode());
     model.setId(id);
-    return equipmentItemService.save(model);
+    var entityToBeUpdated = mapper.mapToEntity(model, equipmentGroupModel, equipmentStatusModel);
+    return equipmentItemService.save(mapper.mapToModel(entityToBeUpdated));
   }
 
   @Override
-  public void safeDeleteEquipmentItem(Long id) {
-    throw new MethodNotFoundException("Implementation needed");
+  public void setOutOfUse(String registrationNumber) {
+    log.info("setOutOfUse: for registrationNumber: {}", registrationNumber);
+    var equipmentCodeOutOfUse = EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_BROKEN;
+    equipmentItemService.updateEquipmentItemStatus(registrationNumber, equipmentCodeOutOfUse);
   }
 }

@@ -32,7 +32,9 @@ public class RentCostManagementServiceImpl implements RentCostManagementService 
   public RentCostModel update(RentCostModel model, Long id) {
     log.info("update: {} for id: {}", model, id);
     var entityFromBase = rentCostService.getById(id);
+    var equipmentGroupModel = equipmentGroupService.getByCode(model.getEquipmentGroup().getCode());
     model.setId(id);
-    return rentCostService.save(model);
+    var entityToBeUpdated = mapper.mapToEntity(model, equipmentGroupModel);
+    return rentCostService.save(mapper.mapToModel(entityToBeUpdated));
   }
 }

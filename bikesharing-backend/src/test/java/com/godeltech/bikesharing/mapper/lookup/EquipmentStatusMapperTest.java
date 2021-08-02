@@ -2,7 +2,6 @@ package com.godeltech.bikesharing.mapper.lookup;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.godeltech.bikesharing.models.lookup.EquipmentStatusModel;
 import com.godeltech.bikesharing.utils.EquipmentStatusUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,8 @@ class EquipmentStatusMapperTest {
 
   @Test
   void shouldMapEntityToModel() {
-    var equipmentStatus = EquipmentStatusUtils.getEquipmentStatus();
-    var expected = EquipmentStatusUtils.getEquipmentStatusModel();
+    var equipmentStatus = EquipmentStatusUtils.getEquipmentStatusFree();
+    var expected = EquipmentStatusUtils.getEquipmentStatusFreeModel();
 
     var actual = equipmentStatusMapper.mapToModel(equipmentStatus);
 

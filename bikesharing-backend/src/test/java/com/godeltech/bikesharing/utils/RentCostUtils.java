@@ -1,6 +1,8 @@
 package com.godeltech.bikesharing.utils;
 
 import com.godeltech.bikesharing.models.RentCostModel;
+import com.godeltech.bikesharing.models.request.RentCostRequest;
+import com.godeltech.bikesharing.models.response.RentCostResponse;
 import com.godeltech.bikesharing.persistence.entity.RentCost;
 
 public class RentCostUtils {
@@ -31,5 +33,28 @@ public class RentCostUtils {
     rentCostModel.setMinimalHourPrice(MINIMAL_HOUR_PRICE);
     rentCostModel.setHourDiscount(HOUR_DISCOUNT);
     return rentCostModel;
+  }
+
+  public static RentCostRequest getRentCostRequest() {
+    var rentCost = new RentCostRequest();
+    rentCost.setEquipmentGroupCode(EquipmentGroupUtils.CODE);
+    rentCost.setHalfHourPrice(HALF_HOUR_PRICE);
+    rentCost.setOneHourPrice(ONE_HOUR_PRICE);
+    rentCost.setDayPrice(DAY_PRICE);
+    rentCost.setMinimalHourPrice(MINIMAL_HOUR_PRICE);
+    rentCost.setHourDiscount(HOUR_DISCOUNT);
+    return rentCost;
+  }
+
+  public static RentCostResponse getRentCostResponse(Long id) {
+    var rentCost = new RentCostResponse();
+    rentCost.setId(id);
+    rentCost.setEquipmentGroup(EquipmentGroupUtils.getEquipmentGroupResponse(id));
+    rentCost.setHalfHourPrice(HALF_HOUR_PRICE);
+    rentCost.setOneHourPrice(ONE_HOUR_PRICE);
+    rentCost.setDayPrice(DAY_PRICE);
+    rentCost.setMinimalHourPrice(MINIMAL_HOUR_PRICE);
+    rentCost.setHourDiscount(HOUR_DISCOUNT);
+    return rentCost;
   }
 }
