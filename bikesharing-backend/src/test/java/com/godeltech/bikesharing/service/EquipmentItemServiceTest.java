@@ -11,7 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class EquipmentItemServiceTest extends AbstractIntegrationTest {
-
+  private static final String STATUS_FREE = EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_FREE;
+  private static final String STATUS_SERVICE = EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_SERVICE;
+  private static final String STATUS_IN_USE = EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_IN_USE;
   private final EquipmentItemModel equipmentModel = EquipmentItemUtils.getEquipmentItemModel(null);
 
   @BeforeEach
@@ -29,32 +31,44 @@ public class EquipmentItemServiceTest extends AbstractIntegrationTest {
     var actual = equipmentItemService
         .getEquipmentStatusCodeByRegistrationNumber(equipmentModel.getRegistrationNumber());
 
-    assertEquals(EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_FREE, actual);
+    assertEquals(STATUS_FREE, actual);
   }
 
   @Test
   public void shouldSetEquipmentItemStatusInUse() {
-    equipmentItemService.updateEquipmentItemStatus(equipmentModel.getRegistrationNumber(),
-        EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_IN_USE);
+    equipmentItemService.updateEquipmentItemStatus(equipmentModel.getRegistrationNumber(), STATUS_IN_USE);
 
     var actual = equipmentItemService.getByRegistrationNumber(equipmentModel.getRegistrationNumber());
 
-    assertActualStatus(EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_IN_USE, actual);
+    assertActualStatus(STATUS_IN_USE, actual);
   }
 
   @Test
   public void shouldSetEquipmentItemStatusService() {
-    equipmentItemService.updateEquipmentItemStatus(equipmentModel.getRegistrationNumber(),
-        EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_SERVICE);
+    equipmentItemService.updateEquipmentItemStatus(equipmentModel.getRegistrationNumber(), STATUS_SERVICE);
 
     var actual = equipmentItemService.getByRegistrationNumber(equipmentModel.getRegistrationNumber());
 
-    assertActualStatus(EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_SERVICE, actual);
+    assertActualStatus(STATUS_SERVICE, actual);
   }
 
   private void assertActualStatus(String statusCode, EquipmentItemModel actual) {
     assertNotNull(actual);
     assertNotNull(actual.getEquipmentStatus());
     assertEquals(statusCode, actual.getEquipmentStatus().getCode());
+  }
+
+  @Test
+  @DataSet(value = {
+      "/dataset/equipmentItem/equipmentItemAll.yml"
+  })
+  public void shouldGetListOfItemsWithStatus() {
+    equipmentItemService.updateEquipmentItemStatus(equipmentModel.getRegistrationNumber(), STATUS_SERVICE);
+
+    var actualFree = equipmentItemService.getAllByStatusCode(STATUS_FREE);
+    var actualService = equipmentItemService.getAllByStatusCode(STATUS_SERVICE);
+
+    assertEquals(5, actualFree.size());
+    assertEquals(1, actualService.size());
   }
 }

@@ -8,14 +8,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.godeltech.bikesharing.mapper.ClientAccountMapper;
 import com.godeltech.bikesharing.mapper.GeneralErrorMapper;
-import com.godeltech.bikesharing.models.ClientAccountModel;
-import com.godeltech.bikesharing.models.request.ClientAccountRequest;
-import com.godeltech.bikesharing.models.response.ClientAccountResponse;
-import com.godeltech.bikesharing.service.admin.ClientAccountManagementService;
+import com.godeltech.bikesharing.mapper.lookup.EquipmentGroupMapper;
+import com.godeltech.bikesharing.models.lookup.EquipmentGroupModel;
+import com.godeltech.bikesharing.models.request.EquipmentGroupRequest;
+import com.godeltech.bikesharing.models.response.lookup.EquipmentGroupResponse;
+import com.godeltech.bikesharing.service.admin.EquipmentGroupManagementService;
 import com.godeltech.bikesharing.service.util.JsonMapper;
-import com.godeltech.bikesharing.utils.ClientAccountUtils;
+import com.godeltech.bikesharing.utils.EquipmentGroupUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +24,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest({ClientAccountController.class, GeneralErrorMapper.class, JsonMapper.class})
-class ClientAccountControllerTest {
-  private static final String URL_TEMPLATE = "/v1/bikesharing/admin/client";
-  private static final String UPDATED_NAME = "SuperMario";
+@WebMvcTest({EquipmentGroupManagementController.class, GeneralErrorMapper.class, JsonMapper.class})
+class EquipmentGroupManagementControllerTest {
+  private static final String URL_TEMPLATE = "/v1/bikesharing/admin/equipment_group";
+  private static final String UPDATED_NAME = "SuperGroupName";
   private static final Long ID = 1L;
-
-  private static ClientAccountModel clientAccount;
-  private static ClientAccountResponse expectedResponse;
-  private static ClientAccountRequest request;
+  private static EquipmentGroupModel equipmentGroup;
+  private static EquipmentGroupResponse expectedResponse;
+  private static EquipmentGroupRequest request;
 
   @Autowired
   private MockMvc mockMvc;
@@ -41,21 +40,22 @@ class ClientAccountControllerTest {
   private JsonMapper jsonMapper;
 
   @MockBean
-  private ClientAccountManagementService managementService;
+  private EquipmentGroupManagementService managementService;
   @MockBean
-  private ClientAccountMapper mapper;
+  private EquipmentGroupMapper mapper;
 
   @BeforeEach
   public void setUp() {
-    request = ClientAccountUtils.getClientAccountRequest();
-    clientAccount = ClientAccountUtils.getClientAccountModel(ID);
-    expectedResponse = ClientAccountUtils.getClientAccountResponse(ID);
+    request = EquipmentGroupUtils.getEquipmentGroupRequest();
+    equipmentGroup = EquipmentGroupUtils.getEquipmentGroupModel();
+    equipmentGroup.setId(ID);
+    expectedResponse = EquipmentGroupUtils.getEquipmentGroupResponse(ID);
   }
 
   @Test
   public void shouldFailWithBabRequestCode() throws Exception {
     request.setName("");
-    request.setPhoneNumber("-123456");
+    request.setCode("someCode");
 
     var content = jsonMapper.getJsonRequest(request);
     mockMvc.perform(post(URL_TEMPLATE)
@@ -68,9 +68,9 @@ class ClientAccountControllerTest {
 
   @Test
   public void shouldGetProperResponseOnCreate() throws Exception {
-    when(mapper.mapToModel(request)).thenReturn(clientAccount);
-    when(managementService.save(clientAccount)).thenReturn(clientAccount);
-    when(mapper.mapToResponse(clientAccount))
+    when(mapper.mapToModel(request)).thenReturn(equipmentGroup);
+    when(managementService.save(equipmentGroup)).thenReturn(equipmentGroup);
+    when(mapper.mapToResponse(equipmentGroup))
         .thenReturn(expectedResponse);
 
     var content = jsonMapper.getJsonRequest(request);
@@ -81,20 +81,20 @@ class ClientAccountControllerTest {
         .andDo(print())
         .andExpect(status().isOk())
         .andReturn();
-    var actualResponseFromServer = jsonMapper.getResponse(result, ClientAccountResponse.class);
+    var actualResponseFromServer = jsonMapper.getResponse(result, EquipmentGroupResponse.class);
 
-    verify(managementService).save(clientAccount);
+    verify(managementService).save(equipmentGroup);
     assertEquals(expectedResponse, actualResponseFromServer);
   }
 
   @Test
   public void shouldGetProperResponseOnUpdate() throws Exception {
     request.setName(UPDATED_NAME);
-    clientAccount.setName(UPDATED_NAME);
+    equipmentGroup.setName(UPDATED_NAME);
     expectedResponse.setName(UPDATED_NAME);
-    when(mapper.mapToModel(request)).thenReturn(clientAccount);
-    when(managementService.update(clientAccount, ID)).thenReturn(clientAccount);
-    when(mapper.mapToResponse(clientAccount))
+    when(mapper.mapToModel(request)).thenReturn(equipmentGroup);
+    when(managementService.update(equipmentGroup, ID)).thenReturn(equipmentGroup);
+    when(mapper.mapToResponse(equipmentGroup))
         .thenReturn(expectedResponse);
 
     var content = jsonMapper.getJsonRequest(request);
@@ -105,9 +105,9 @@ class ClientAccountControllerTest {
         .andDo(print())
         .andExpect(status().isOk())
         .andReturn();
-    var actualResponseFromServer = jsonMapper.getResponse(result, ClientAccountResponse.class);
+    var actualResponseFromServer = jsonMapper.getResponse(result, EquipmentGroupResponse.class);
 
-    verify(managementService).update(clientAccount, ID);
+    verify(managementService).update(equipmentGroup, ID);
     assertEquals(expectedResponse, actualResponseFromServer);
   }
 }

@@ -3,21 +3,19 @@ package com.godeltech.bikesharing.controller.admin;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.godeltech.bikesharing.mapper.EquipmentItemMapper;
+import com.godeltech.bikesharing.mapper.ClientAccountMapper;
 import com.godeltech.bikesharing.mapper.GeneralErrorMapper;
-import com.godeltech.bikesharing.models.EquipmentItemModel;
-import com.godeltech.bikesharing.models.request.EquipmentItemRequest;
-import com.godeltech.bikesharing.models.response.EquipmentItemResponse;
-import com.godeltech.bikesharing.service.admin.EquipmentItemManagementService;
+import com.godeltech.bikesharing.models.ClientAccountModel;
+import com.godeltech.bikesharing.models.request.ClientAccountRequest;
+import com.godeltech.bikesharing.models.response.ClientAccountResponse;
+import com.godeltech.bikesharing.service.admin.ClientAccountManagementService;
 import com.godeltech.bikesharing.service.util.JsonMapper;
-import com.godeltech.bikesharing.utils.EquipmentGroupUtils;
-import com.godeltech.bikesharing.utils.EquipmentItemUtils;
+import com.godeltech.bikesharing.utils.ClientAccountUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +24,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest({EquipmentItemController.class, GeneralErrorMapper.class, JsonMapper.class})
-class EquipmentItemControllerTest {
-  private static final String URL_TEMPLATE = "/v1/bikesharing/admin/equipmentitem";
-  private static final String UPDATED_NAME = "SuperEquipment";
-  private static final String GROUP_CODE = EquipmentGroupUtils.CODE;
+@WebMvcTest({ClientAccountManagementController.class, GeneralErrorMapper.class, JsonMapper.class})
+class ClientAccountManagementControllerTest {
+  private static final String URL_TEMPLATE = "/v1/bikesharing/admin/client";
+  private static final String UPDATED_NAME = "SuperMario";
   private static final Long ID = 1L;
 
-  private static EquipmentItemModel rentCost;
-  private static EquipmentItemResponse expectedResponse;
-  private static EquipmentItemRequest request;
+  private static ClientAccountModel clientAccount;
+  private static ClientAccountResponse expectedResponse;
+  private static ClientAccountRequest request;
 
   @Autowired
   private MockMvc mockMvc;
@@ -44,20 +41,21 @@ class EquipmentItemControllerTest {
   private JsonMapper jsonMapper;
 
   @MockBean
-  private EquipmentItemManagementService managementService;
+  private ClientAccountManagementService managementService;
   @MockBean
-  private EquipmentItemMapper mapper;
+  private ClientAccountMapper mapper;
 
   @BeforeEach
   public void setUp() {
-    request = EquipmentItemUtils.getEquipmentItemRequest();
-    rentCost = EquipmentItemUtils.getEquipmentItemModel(ID);
-    expectedResponse = EquipmentItemUtils.getEquipmentItemResponse(ID);
+    request = ClientAccountUtils.getClientAccountRequest();
+    clientAccount = ClientAccountUtils.getClientAccountModel(ID);
+    expectedResponse = ClientAccountUtils.getClientAccountResponse(ID);
   }
 
   @Test
   public void shouldFailWithBabRequestCode() throws Exception {
-    request.setRegistrationNumber(null);
+    request.setName("");
+    request.setPhoneNumber("-123456");
 
     var content = jsonMapper.getJsonRequest(request);
     mockMvc.perform(post(URL_TEMPLATE)
@@ -69,22 +67,10 @@ class EquipmentItemControllerTest {
   }
 
   @Test
-  public void shouldGetProperResponseOnDelete() throws Exception {
-    var registrationNumber = request.getRegistrationNumber();
-
-    mockMvc.perform(delete(URL_TEMPLATE + "/" + registrationNumber)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk());
-
-    verify(managementService).setOutOfUse(registrationNumber);
-  }
-
-  @Test
   public void shouldGetProperResponseOnCreate() throws Exception {
-    when(mapper.mapToModel(request)).thenReturn(rentCost);
-    when(managementService.saveWithGroupCode(rentCost, GROUP_CODE)).thenReturn(rentCost);
-    when(mapper.mapToResponse(rentCost))
+    when(mapper.mapToModel(request)).thenReturn(clientAccount);
+    when(managementService.save(clientAccount)).thenReturn(clientAccount);
+    when(mapper.mapToResponse(clientAccount))
         .thenReturn(expectedResponse);
 
     var content = jsonMapper.getJsonRequest(request);
@@ -95,20 +81,20 @@ class EquipmentItemControllerTest {
         .andDo(print())
         .andExpect(status().isOk())
         .andReturn();
-    var actualResponseFromServer = jsonMapper.getResponse(result, EquipmentItemResponse.class);
+    var actualResponseFromServer = jsonMapper.getResponse(result, ClientAccountResponse.class);
 
-    verify(managementService).saveWithGroupCode(rentCost, GROUP_CODE);
+    verify(managementService).save(clientAccount);
     assertEquals(expectedResponse, actualResponseFromServer);
   }
 
   @Test
   public void shouldGetProperResponseOnUpdate() throws Exception {
     request.setName(UPDATED_NAME);
-    rentCost.setName(UPDATED_NAME);
+    clientAccount.setName(UPDATED_NAME);
     expectedResponse.setName(UPDATED_NAME);
-    when(mapper.mapToModel(request)).thenReturn(rentCost);
-    when(managementService.update(rentCost, ID)).thenReturn(rentCost);
-    when(mapper.mapToResponse(rentCost))
+    when(mapper.mapToModel(request)).thenReturn(clientAccount);
+    when(managementService.update(clientAccount, ID)).thenReturn(clientAccount);
+    when(mapper.mapToResponse(clientAccount))
         .thenReturn(expectedResponse);
 
     var content = jsonMapper.getJsonRequest(request);
@@ -119,9 +105,9 @@ class EquipmentItemControllerTest {
         .andDo(print())
         .andExpect(status().isOk())
         .andReturn();
-    var actualResponseFromServer = jsonMapper.getResponse(result, EquipmentItemResponse.class);
+    var actualResponseFromServer = jsonMapper.getResponse(result, ClientAccountResponse.class);
 
-    verify(managementService).update(rentCost, ID);
+    verify(managementService).update(clientAccount, ID);
     assertEquals(expectedResponse, actualResponseFromServer);
   }
 }

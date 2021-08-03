@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @Validated
-@RequestMapping(path = "/v1/bikesharing/admin/equipmentitem")
-public class EquipmentItemController {
+@RequestMapping(path = "/v1/bikesharing/admin/equipment_item")
+public class EquipmentItemManagementController {
   private final EquipmentItemManagementService managementService;
   private final EquipmentItemMapper mapper;
 
@@ -40,9 +40,9 @@ public class EquipmentItemController {
   public ResponseEntity<EquipmentItemResponse> update(
       @Valid @RequestBody EquipmentItemRequest request, @Min(1) @PathVariable Long id) {
     var rentCost = mapper.mapToModel(request);
-    var updatedEquipmentGroup = managementService
+    var updatedEquipmentItem = managementService
         .update(rentCost, id);
-    var response = mapper.mapToResponse(updatedEquipmentGroup);
+    var response = mapper.mapToResponse(updatedEquipmentItem);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 

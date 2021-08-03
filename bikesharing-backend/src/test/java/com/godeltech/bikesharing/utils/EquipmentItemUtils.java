@@ -55,6 +55,7 @@ public class EquipmentItemUtils {
 
   public static EquipmentItemResponse getEquipmentItemResponse(Long id) {
     var equipmentItem = new EquipmentItemResponse();
+    equipmentItem.setId(id);
     equipmentItem.setRegistrationNumber(REGISTRATION_NUMBER);
     equipmentItem.setFactoryNumber(FACTORY_NUMBER);
     equipmentItem.setName(NAME);

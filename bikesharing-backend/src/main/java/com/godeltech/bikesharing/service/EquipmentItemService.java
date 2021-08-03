@@ -1,6 +1,7 @@
 package com.godeltech.bikesharing.service;
 
 import com.godeltech.bikesharing.models.EquipmentItemModel;
+import java.util.List;
 
 public interface EquipmentItemService {
   EquipmentItemModel getByRegistrationNumber(String registrationNumber);
@@ -13,5 +14,5 @@ public interface EquipmentItemService {
 
   String getEquipmentStatusCodeByRegistrationNumber(String equipmentRegistrationNumber);
 
-  //TODO get list With Status
+  List<EquipmentItemModel> getAllByStatusCode(String statusCode);
 }

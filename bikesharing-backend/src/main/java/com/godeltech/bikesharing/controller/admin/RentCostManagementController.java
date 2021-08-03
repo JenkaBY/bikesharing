@@ -1,9 +1,9 @@
 package com.godeltech.bikesharing.controller.admin;
 
-import com.godeltech.bikesharing.mapper.lookup.EquipmentGroupMapper;
-import com.godeltech.bikesharing.models.request.EquipmentGroupRequest;
-import com.godeltech.bikesharing.models.response.lookup.EquipmentGroupResponse;
-import com.godeltech.bikesharing.service.admin.EquipmentGroupManagementService;
+import com.godeltech.bikesharing.mapper.RentCostMapper;
+import com.godeltech.bikesharing.models.request.RentCostRequest;
+import com.godeltech.bikesharing.models.response.RentCostResponse;
+import com.godeltech.bikesharing.service.admin.RentCostManagementService;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
@@ -20,26 +20,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @Validated
-@RequestMapping(path = "/v1/bikesharing/admin/equipmentgroup")
-public class EquipmentGroupController {
-  private final EquipmentGroupManagementService managementService;
-  private final EquipmentGroupMapper mapper;
+@RequestMapping(path = "/v1/bikesharing/admin/rent_cost")
+public class RentCostManagementController {
+  private final RentCostManagementService managementService;
+  private final RentCostMapper mapper;
 
   @PostMapping()
-  public ResponseEntity<EquipmentGroupResponse> create(
-      @Valid @RequestBody EquipmentGroupRequest request) {
-    var equipmentGroupModel = mapper.mapToModel(request);
+  public ResponseEntity<RentCostResponse> create(
+      @Valid @RequestBody RentCostRequest request) {
+    var rentCost = mapper.mapToModel(request);
     var response = mapper
-        .mapToResponse(managementService.save(equipmentGroupModel));
+        .mapToResponse(managementService.saveWithGroupCode(rentCost, request.getEquipmentGroupCode()));
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<EquipmentGroupResponse> update(
-      @Valid @RequestBody EquipmentGroupRequest request, @Min(1) @PathVariable Long id) {
-    var equipmentGroupModel = mapper.mapToModel(request);
+  public ResponseEntity<RentCostResponse> update(
+      @Valid @RequestBody RentCostRequest request, @Min(1) @PathVariable Long id) {
+    var rentCost = mapper.mapToModel(request);
     var updatedEquipmentGroup = managementService
-        .update(equipmentGroupModel, id);
+        .update(rentCost, id);
     var response = mapper.mapToResponse(updatedEquipmentGroup);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }

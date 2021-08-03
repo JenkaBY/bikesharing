@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Validated
 @RequestMapping(path = "/v1/bikesharing/admin/client")
-public class ClientAccountController {
+public class ClientAccountManagementController {
   private final ClientAccountManagementService managementService;
   private final ClientAccountMapper mapper;
 

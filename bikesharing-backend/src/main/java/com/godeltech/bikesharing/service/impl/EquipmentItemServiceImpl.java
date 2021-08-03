@@ -8,10 +8,13 @@ import com.godeltech.bikesharing.persistence.repository.EquipmentItemRepository;
 import com.godeltech.bikesharing.service.EquipmentItemService;
 import com.godeltech.bikesharing.service.impl.lookup.EquipmentGroupServiceImpl;
 import com.godeltech.bikesharing.service.impl.lookup.EquipmentStatusServiceImpl;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 @Slf4j
 @Service
@@ -56,10 +59,24 @@ public class EquipmentItemServiceImpl implements EquipmentItemService {
     repository.updateEquipmentItemStatus(registrationNumber, status);
   }
 
+  @Transactional(readOnly = true)
   @Override
   public String getEquipmentStatusCodeByRegistrationNumber(String equipmentRegistrationNumber) {
     log.info("getEquipmentItemStatusCode for registrationNumber: {}", equipmentRegistrationNumber);
     getByRegistrationNumber(equipmentRegistrationNumber);
     return repository.getEquipmentStatusCodeByRegistrationNumber(equipmentRegistrationNumber);
+  }
+
+  @Transactional(readOnly = true)
+  @Override
+  public List<EquipmentItemModel> getAllByStatusCode(String statusCode) {
+    log.info("getAllByStatusCode with statusCode: {}", statusCode);
+    var equipmentItems = repository.findByEquipmentStatusCode(statusCode);
+    if (CollectionUtils.isEmpty(equipmentItems)) {
+      throw new ResourceNotFoundException(String.format("No equipmentItems with statusCode: %s found", statusCode));
+    }
+    return equipmentItems.stream()
+        .map(mapper::mapToModel)
+        .collect(Collectors.toList());
   }
 }
