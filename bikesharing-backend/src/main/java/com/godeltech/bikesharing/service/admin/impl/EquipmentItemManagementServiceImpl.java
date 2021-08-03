@@ -24,9 +24,9 @@ public class EquipmentItemManagementServiceImpl implements EquipmentItemManageme
   private final EquipmentItemMapper mapper;
 
   @Override
-  public EquipmentItemModel saveWithGroupCode(EquipmentItemModel model, String equipmentGroupCode) {
+  public EquipmentItemModel create(EquipmentItemModel model) {
     log.info("save: {}", model);
-    var equipmentGroupModel = equipmentGroupService.getByCode(equipmentGroupCode);
+    var equipmentGroupModel = equipmentGroupService.getByCode(model.getEquipmentGroup().getCode());
     var equipmentStatusFreeCode = EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_FREE;
     var equipmentStatusModel = equipmentStatusService.getByCode(equipmentStatusFreeCode);
     var entityToBeSaved = mapper.mapToEntity(model, equipmentGroupModel, equipmentStatusModel);
@@ -37,7 +37,7 @@ public class EquipmentItemManagementServiceImpl implements EquipmentItemManageme
   @Override
   public EquipmentItemModel update(EquipmentItemModel model, Long id) {
     log.info("update: {} for id: {}", model, id);
-    var entityFromBase = equipmentItemService.getById(id);
+
     var equipmentGroupModel = equipmentGroupService.getByCode(model.getEquipmentGroup().getCode());
     var equipmentStatusModel = equipmentStatusService.getByCode(model.getEquipmentStatus().getCode());
     model.setId(id);
