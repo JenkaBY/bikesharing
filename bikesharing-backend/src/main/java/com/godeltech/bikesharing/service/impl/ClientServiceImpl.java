@@ -18,14 +18,28 @@ import org.springframework.transaction.annotation.Transactional;
 public class ClientServiceImpl implements ClientService {
 
   private final ClientAccountRepository repository;
-  private final ClientAccountMapper clientAccountMapper;
+  private final ClientAccountMapper mapper;
 
   @Override
   @Transactional(readOnly = true)
   public ClientAccountModel getByPhoneNumber(String phoneNum) {
     log.info("getByPhoneNumber: {}", phoneNum);
-    return repository.findByPhoneNumber(phoneNum).map(clientAccountMapper::mapToModel)
+    return repository.findByPhoneNumber(phoneNum).map(mapper::mapToModel)
         .orElseThrow(() -> new ResourceNotFoundException(ClientAccount.class.getSimpleName(), "phoneNumber", phoneNum));
+  }
+
+  @Override
+  public ClientAccountModel save(ClientAccountModel model) {
+    log.info("save: {}", model);
+    var entityToBeSaved = mapper.mapToEntity(model);
+    return mapper.mapToModel(repository.save(entityToBeSaved));
+  }
+
+  @Override
+  public ClientAccountModel update(ClientAccountModel model, Long id) {
+    log.info("update: {} for id: {}", model, id);
+    model.setId(id);
+    return save(model);
   }
 
   @Override
@@ -34,13 +48,13 @@ public class ClientServiceImpl implements ClientService {
     var searchPattern = getSearchPattern(clientPhoneNumber);
     var clientAccount = repository.findByPhoneNumberEndsWith(searchPattern)
         .orElseGet(() -> createAccountByPhoneNumber(clientPhoneNumber));
-    return clientAccountMapper.mapToModel(clientAccount);
+    return mapper.mapToModel(clientAccount);
   }
 
   @Override
   public ClientAccountModel getById(Long id) {
     log.info("getById: {}", id);
-    return repository.findById(id).map(clientAccountMapper::mapToModel)
+    return repository.findById(id).map(mapper::mapToModel)
         .orElseThrow(() -> new ResourceNotFoundException(ClientAccount.class.getSimpleName(), "id", id));
   }
 

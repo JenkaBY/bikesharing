@@ -3,7 +3,7 @@ package com.godeltech.bikesharing.controller.admin;
 import com.godeltech.bikesharing.mapper.ClientAccountMapper;
 import com.godeltech.bikesharing.models.request.ClientAccountRequest;
 import com.godeltech.bikesharing.models.response.ClientAccountResponse;
-import com.godeltech.bikesharing.service.admin.ClientAccountManagementService;
+import com.godeltech.bikesharing.service.ClientService;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RequestMapping(path = "/v1/bikesharing/admin/client")
 public class ClientAccountManagementController {
-  private final ClientAccountManagementService managementService;
+  private final ClientService service;
   private final ClientAccountMapper mapper;
 
   @PostMapping()
@@ -30,7 +30,7 @@ public class ClientAccountManagementController {
       @Valid @RequestBody ClientAccountRequest request) {
     var clientAccountModel = mapper.mapToModel(request);
     var response = mapper
-        .mapToResponse(managementService.save(clientAccountModel));
+        .mapToResponse(service.save(clientAccountModel));
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
@@ -38,8 +38,7 @@ public class ClientAccountManagementController {
   public ResponseEntity<ClientAccountResponse> update(
       @Valid @RequestBody ClientAccountRequest request, @Min(1) @PathVariable Long id) {
     var clientAccountModel = mapper.mapToModel(request);
-    var updatedAccount = managementService
-        .update(clientAccountModel, id);
+    var updatedAccount = service.update(clientAccountModel, id);
     var response = mapper.mapToResponse(updatedAccount);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }

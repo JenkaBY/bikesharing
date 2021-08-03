@@ -25,10 +25,10 @@ public class JsonMapper {
     return objectMapper.readValue(jsonString, clazz);
   }
 
-  public <T> List<T> getResponseToList(MvcResult result, TypeReference <List<T>> type)
+  public <T> List<T> getResponseToList(MvcResult result, TypeReference<List<T>> type)
       throws UnsupportedEncodingException, JsonProcessingException {
     var jsonString = result.getResponse().getContentAsString();
 
-    return  objectMapper.readValue(jsonString, type);
+    return objectMapper.readValue(jsonString, type);
   }
 }

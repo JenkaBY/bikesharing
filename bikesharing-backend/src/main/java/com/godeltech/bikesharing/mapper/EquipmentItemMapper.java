@@ -25,11 +25,10 @@ public interface EquipmentItemMapper {
 
   @Mapping(target = "id", source = "model.id")
   @Mapping(target = "name", source = "model.name")
-  @Mapping(target = "equipmentGroup", source = "equipmentGroupModel")
-  @Mapping(target = "equipmentStatus", source = "equipmentStatusModel")
-  EquipmentItem mapToEntity(EquipmentItemModel model,
-                            EquipmentGroupModel equipmentGroupModel,
-                            EquipmentStatusModel equipmentStatusModel);
+  @Mapping(target = "equipmentGroup", source = "equipmentGroup")
+  @Mapping(target = "equipmentStatus", source = "equipmentStatus")
+  EquipmentItem mapToEntity(EquipmentItemModel model, EquipmentGroupModel equipmentGroup,
+                            EquipmentStatusModel equipmentStatus);
 
   EquipmentItemResponse mapToResponse(EquipmentItemModel model);
 }

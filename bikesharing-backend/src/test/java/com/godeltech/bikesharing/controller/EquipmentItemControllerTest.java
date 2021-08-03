@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -15,12 +13,9 @@ import com.godeltech.bikesharing.mapper.GeneralErrorMapper;
 import com.godeltech.bikesharing.models.EquipmentItemModel;
 import com.godeltech.bikesharing.models.lookup.EquipmentStatusModel;
 import com.godeltech.bikesharing.models.response.EquipmentItemResponse;
-import com.godeltech.bikesharing.models.response.RentOperationResponse;
 import com.godeltech.bikesharing.service.EquipmentItemService;
 import com.godeltech.bikesharing.service.util.JsonMapper;
 import com.godeltech.bikesharing.utils.EquipmentItemUtils;
-import com.godeltech.bikesharing.utils.RentOperationUtils;
-import java.lang.reflect.Type;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,13 +45,14 @@ class EquipmentItemControllerTest {
   private EquipmentItemMapper mapper;
 
   @Test
-  public void shouldFailWithBabRequestCode() throws Exception {
+  public void shouldFailWithNotFoundCode() throws Exception {
     when(service.getAllByStatusCode(CODE_FREE))
-        .thenThrow(new ResourceNotFoundException(String.format("No equipmentItems with statusCode: %s found", CODE_FREE)));
-    mockMvc.perform(get(URL_TEMPLATE + "/" + CODE_FREE)
+        .thenThrow(
+            new ResourceNotFoundException(String.format("No equipmentItems with statusCode: %s found", CODE_FREE)));
+    mockMvc.perform(get(URL_TEMPLATE + "?statusCode=" + CODE_FREE)
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk());
+        .andExpect(status().isNotFound());
 
     verify(service).getAllByStatusCode(CODE_FREE);
   }
@@ -71,11 +67,11 @@ class EquipmentItemControllerTest {
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andReturn();
-    var type = new TypeReference<List<EquipmentItemModel>>() {};
+    var type = new TypeReference<List<EquipmentItemResponse>>() {};
     var actualResponseFromServer = jsonMapper.getResponseToList(result, type);
 
     verify(service).getAllByStatusCode(CODE_FREE);
-    assertEquals(List.of(model), actualResponseFromServer);
+    assertEquals(List.of(response), actualResponseFromServer);
   }
 
 }

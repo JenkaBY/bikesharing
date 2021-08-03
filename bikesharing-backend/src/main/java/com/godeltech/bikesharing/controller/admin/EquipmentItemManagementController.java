@@ -30,20 +30,18 @@ public class EquipmentItemManagementController {
   @PostMapping()
   public ResponseEntity<EquipmentItemResponse> create(
       @Valid @RequestBody EquipmentItemRequest request) {
-//    TODO rename it. It isn't a rentCostModel
-    var rentCost = mapper.mapToModel(request);
+    var equipmentItemModel = mapper.mapToModel(request);
     var response = mapper
-        .mapToResponse(managementService.create(rentCost));
+        .mapToResponse(managementService.create(equipmentItemModel));
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
   @PutMapping("/{id}")
   public ResponseEntity<EquipmentItemResponse> update(
       @Valid @RequestBody EquipmentItemRequest request, @Min(1) @PathVariable Long id) {
-    //    TODO rename it. It isn't rentCostModel
-    var rentCost = mapper.mapToModel(request);
+    var equipmentItemModel = mapper.mapToModel(request);
     var updatedEquipmentItem = managementService
-        .update(rentCost, id);
+        .update(equipmentItemModel, id);
     var response = mapper.mapToResponse(updatedEquipmentItem);
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }

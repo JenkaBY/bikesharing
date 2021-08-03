@@ -11,17 +11,13 @@ import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(classes = TotalCostDayCalculator.class)
 class TotalCostDayCalculatorTest {
   private static final RentCostModel rentcostmodel = RentCostUtils.getRentCostModel(null);
   private static final RentTimeModel rentTimemodel = RentTimeModelUtils.getRentTimeModel(RentTimeUnit.DAY, 0L);
   private static final Long DAY_PRICE = rentcostmodel.getDayPrice();
 
-  @Autowired
-  private TotalCostDayCalculator dayCalculator;
+  private static final TotalCostDayCalculator dayCalculator = new TotalCostDayCalculator();
 
   private static Stream<Arguments> provideRentTimeModels() {
     return Stream.of(

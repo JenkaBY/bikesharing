@@ -11,7 +11,7 @@ import com.godeltech.bikesharing.service.AbstractIntegrationTest;
 import com.godeltech.bikesharing.utils.ClientAccountUtils;
 import org.junit.jupiter.api.Test;
 
-public class ClientAccountManagementServiceTest extends AbstractIntegrationTest {
+public class ClientServiceTest extends AbstractIntegrationTest {
   private static final Long ID = 1L;
   private static final ClientAccountModel expected = ClientAccountUtils.getClientAccountModel(ID);
   private static final ClientAccountRequest clientAccountToBeCreated = ClientAccountUtils.getClientAccountRequest();
@@ -20,7 +20,7 @@ public class ClientAccountManagementServiceTest extends AbstractIntegrationTest 
   public void shouldSaveNewClient() {
     var clientAccount = clientAccountMapper.mapToModel(clientAccountToBeCreated);
 
-    var actual = clientAccountManagementService.save(clientAccount);
+    var actual = clientService.save(clientAccount);
 
     assertEquals(expected, actual);
   }
@@ -32,7 +32,7 @@ public class ClientAccountManagementServiceTest extends AbstractIntegrationTest 
   public void shouldUpdateClientAccount() {
     var clientAccount = clientAccountMapper.mapToModel(clientAccountToBeCreated);
 
-    var actual = clientAccountManagementService.update(clientAccount, ID);
+    var actual = clientService.update(clientAccount, ID);
 
     assertEquals(expected, actual);
   }

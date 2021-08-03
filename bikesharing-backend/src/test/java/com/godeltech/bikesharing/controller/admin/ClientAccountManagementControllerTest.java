@@ -13,7 +13,7 @@ import com.godeltech.bikesharing.mapper.GeneralErrorMapper;
 import com.godeltech.bikesharing.models.ClientAccountModel;
 import com.godeltech.bikesharing.models.request.ClientAccountRequest;
 import com.godeltech.bikesharing.models.response.ClientAccountResponse;
-import com.godeltech.bikesharing.service.admin.ClientAccountManagementService;
+import com.godeltech.bikesharing.service.ClientService;
 import com.godeltech.bikesharing.service.util.JsonMapper;
 import com.godeltech.bikesharing.utils.ClientAccountUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,7 +41,7 @@ class ClientAccountManagementControllerTest {
   private JsonMapper jsonMapper;
 
   @MockBean
-  private ClientAccountManagementService managementService;
+  private ClientService service;
   @MockBean
   private ClientAccountMapper mapper;
 
@@ -69,7 +69,7 @@ class ClientAccountManagementControllerTest {
   @Test
   public void shouldGetProperResponseOnCreate() throws Exception {
     when(mapper.mapToModel(request)).thenReturn(clientAccount);
-    when(managementService.save(clientAccount)).thenReturn(clientAccount);
+    when(service.save(clientAccount)).thenReturn(clientAccount);
     when(mapper.mapToResponse(clientAccount))
         .thenReturn(expectedResponse);
 
@@ -83,7 +83,7 @@ class ClientAccountManagementControllerTest {
         .andReturn();
     var actualResponseFromServer = jsonMapper.getResponse(result, ClientAccountResponse.class);
 
-    verify(managementService).save(clientAccount);
+    verify(service).save(clientAccount);
     assertEquals(expectedResponse, actualResponseFromServer);
   }
 
@@ -93,7 +93,7 @@ class ClientAccountManagementControllerTest {
     clientAccount.setName(UPDATED_NAME);
     expectedResponse.setName(UPDATED_NAME);
     when(mapper.mapToModel(request)).thenReturn(clientAccount);
-    when(managementService.update(clientAccount, ID)).thenReturn(clientAccount);
+    when(service.update(clientAccount, ID)).thenReturn(clientAccount);
     when(mapper.mapToResponse(clientAccount))
         .thenReturn(expectedResponse);
 
@@ -107,7 +107,7 @@ class ClientAccountManagementControllerTest {
         .andReturn();
     var actualResponseFromServer = jsonMapper.getResponse(result, ClientAccountResponse.class);
 
-    verify(managementService).update(clientAccount, ID);
+    verify(service).update(clientAccount, ID);
     assertEquals(expectedResponse, actualResponseFromServer);
   }
 }
