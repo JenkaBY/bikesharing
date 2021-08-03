@@ -33,7 +33,7 @@ class EquipmentItemManagementServiceTest extends AbstractIntegrationTest {
     request.setEquipmentStatusCode(null);
     var equipmentItem = equipmentItemMapper.mapToModel(request);
 
-    var actual = equipmentItemManagementService.saveWithGroupCode(equipmentItem, GROUP_CODE);
+    var actual = equipmentItemManagementService.create(equipmentItem);
 
     assertEquals(ID, actual.getId());
   }

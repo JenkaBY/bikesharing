@@ -30,15 +30,17 @@ public class EquipmentItemManagementController {
   @PostMapping()
   public ResponseEntity<EquipmentItemResponse> create(
       @Valid @RequestBody EquipmentItemRequest request) {
+//    TODO rename it. It isn't a rentCostModel
     var rentCost = mapper.mapToModel(request);
     var response = mapper
-        .mapToResponse(managementService.saveWithGroupCode(rentCost, request.getEquipmentGroupCode()));
+        .mapToResponse(managementService.create(rentCost));
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
   @PutMapping("/{id}")
   public ResponseEntity<EquipmentItemResponse> update(
       @Valid @RequestBody EquipmentItemRequest request, @Min(1) @PathVariable Long id) {
+    //    TODO rename it. It isn't rentCostModel
     var rentCost = mapper.mapToModel(request);
     var updatedEquipmentItem = managementService
         .update(rentCost, id);

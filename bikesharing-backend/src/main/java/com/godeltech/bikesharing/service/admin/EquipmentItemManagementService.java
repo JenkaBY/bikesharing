@@ -4,7 +4,7 @@ import com.godeltech.bikesharing.models.EquipmentItemModel;
 
 public interface EquipmentItemManagementService {
 
-  EquipmentItemModel saveWithGroupCode(EquipmentItemModel equipmentItemModel, String equipmentCode);
+  EquipmentItemModel create(EquipmentItemModel equipmentItemModel);
 
   EquipmentItemModel update(EquipmentItemModel model, Long id);
 

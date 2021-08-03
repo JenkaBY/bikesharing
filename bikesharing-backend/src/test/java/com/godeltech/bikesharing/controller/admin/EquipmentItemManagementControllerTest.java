@@ -83,7 +83,7 @@ class EquipmentItemManagementControllerTest {
   @Test
   public void shouldGetProperResponseOnCreate() throws Exception {
     when(mapper.mapToModel(request)).thenReturn(rentCost);
-    when(managementService.saveWithGroupCode(rentCost, GROUP_CODE)).thenReturn(rentCost);
+    when(managementService.create(rentCost)).thenReturn(rentCost);
     when(mapper.mapToResponse(rentCost))
         .thenReturn(expectedResponse);
 
@@ -97,7 +97,7 @@ class EquipmentItemManagementControllerTest {
         .andReturn();
     var actualResponseFromServer = jsonMapper.getResponse(result, EquipmentItemResponse.class);
 
-    verify(managementService).saveWithGroupCode(rentCost, GROUP_CODE);
+    verify(managementService).create(rentCost);
     assertEquals(expectedResponse, actualResponseFromServer);
   }
 

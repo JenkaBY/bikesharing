@@ -31,7 +31,6 @@ public class RentCostManagementServiceImpl implements RentCostManagementService 
   @Override
   public RentCostModel update(RentCostModel model, Long id) {
     log.info("update: {} for id: {}", model, id);
-    var entityFromBase = rentCostService.getById(id);
     var equipmentGroupModel = equipmentGroupService.getByCode(model.getEquipmentGroup().getCode());
     model.setId(id);
     var entityToBeUpdated = mapper.mapToEntity(model, equipmentGroupModel);

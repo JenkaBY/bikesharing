@@ -30,11 +30,11 @@ public class EquipmentGroupManagementServiceImpl implements EquipmentGroupManage
   @Override
   public EquipmentGroupModel update(EquipmentGroupModel model, Long id) {
     log.info("update: {} for id: {}", model, id);
-    var clientAccountFromBase = getById(id);
     model.setId(id);
     return save(model);
   }
 
+//FIXME Transactional doesn't work on private methods. Remove @Transactional
   @Transactional(readOnly = true)
   private EquipmentGroupModel getById(Long id) {
     log.info("getById: {}", id);

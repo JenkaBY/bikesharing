@@ -35,7 +35,9 @@ public class EquipmentMaintenanceServiceImpl implements EquipmentMaintenanceServ
     var registrationNumber = serviceOperation.getEquipmentItemModel().getRegistrationNumber();
     var equipmentItemModel = equipmentItemService.getByRegistrationNumber(registrationNumber);
 
+// TODO this validation is not necessary because equipment can be broken for example
     validator.checkEquipmentItemIsFree(equipmentItemModel);
+
     var serviceStatusCode = EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_SERVICE;
     equipmentItemService.updateEquipmentItemStatus(registrationNumber, serviceStatusCode);
     equipmentItemModel.setEquipmentStatus(equipmentStatusService.getByCode(serviceStatusCode));
@@ -67,7 +69,7 @@ public class EquipmentMaintenanceServiceImpl implements EquipmentMaintenanceServ
 
     return mapper.mapToModel(finishedServiceOperation);
   }
-
+//TODO remove if it isn't used
   private ServiceOperationModel getByEquipmentItemRegistrationNumberWhereEndDateIsNull(String registrationNumber) {
     log.info("getByEquipmentItemRegistrationNumberWhereEndDateIsNull by registrationNumber: {}",
         registrationNumber);
