@@ -45,7 +45,7 @@ class RentOperationMapperTest {
     rentOperation.getClientAccount().setId(ID);
     var expected = RentOperationUtils.getRentOperationResponse(ID);
 
-    var actual = rentOperationMapper.mapToStartResponse(rentOperation);
+    var actual = rentOperationMapper.mapToResponse(rentOperation);
 
     assertEquals(expected, actual);
   }

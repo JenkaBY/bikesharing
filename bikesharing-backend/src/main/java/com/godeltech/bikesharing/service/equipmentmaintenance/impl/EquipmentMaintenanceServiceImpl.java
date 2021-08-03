@@ -11,10 +11,13 @@ import com.godeltech.bikesharing.service.equipmentmaintenance.EquipmentMaintenan
 import com.godeltech.bikesharing.service.impl.lookup.EquipmentStatusServiceImpl;
 import com.godeltech.bikesharing.service.impl.lookup.ServiceTypeServiceImpl;
 import com.godeltech.bikesharing.service.util.RentOperationValidator;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 @Slf4j
 @Service
@@ -75,4 +78,16 @@ public class EquipmentMaintenanceServiceImpl implements EquipmentMaintenanceServ
     return mapper.mapToModel(serviceOperation);
   }
 
+  @Override
+  @Transactional(readOnly = true)
+  public List<ServiceOperationModel> getAllUnfinished() {
+    log.info("getAllUnfinished");
+    var serviceOperations = repository.findAllUnfinished();
+    if (CollectionUtils.isEmpty(serviceOperations)) {
+      throw new ResourceNotFoundException("No unfinished serviceOperations found");
+    }
+    return serviceOperations.stream()
+        .map(mapper::mapToModel)
+        .collect(Collectors.toList());
+  }
 }

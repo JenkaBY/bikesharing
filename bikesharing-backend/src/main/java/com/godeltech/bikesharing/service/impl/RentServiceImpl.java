@@ -14,10 +14,13 @@ import com.godeltech.bikesharing.service.calculator.RentCostTimeCalculator;
 import com.godeltech.bikesharing.service.impl.lookup.EquipmentStatusServiceImpl;
 import com.godeltech.bikesharing.service.impl.lookup.RentStatusServiceImpl;
 import com.godeltech.bikesharing.service.util.RentOperationValidator;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 @Slf4j
 @Service
@@ -30,7 +33,7 @@ public class RentServiceImpl implements RentService {
   private final EquipmentItemService equipmentItemService;
   private final EquipmentStatusServiceImpl equipmentStatusService;
   private final ClientService clientService;
-  private final RentOperationMapper rentOperationMapper;
+  private final RentOperationMapper mapper;
   private final RentStatusServiceImpl rentStatusService;
 
   @Override
@@ -49,11 +52,11 @@ public class RentServiceImpl implements RentService {
 
     var calculatedRentDetails = calculator.getCalculatedStartRentDetails(
         equipmentItemModel.getEquipmentGroup().getCode(), rentOperation.getRentTimeModel());
-    var toBeSavedRentOperation = rentOperationMapper
+    var toBeSavedRentOperation = mapper
         .mapToEntity(rentOperation, equipmentItemModel, client, calculatedRentDetails);
     var createdRentOperation = repository.save(toBeSavedRentOperation);
 
-    return rentOperationMapper.mapToModel(createdRentOperation);
+    return mapper.mapToModel(createdRentOperation);
   }
 
   @Override
@@ -63,7 +66,7 @@ public class RentServiceImpl implements RentService {
         registrationNumber, rentStatusCode);
     return repository
         .getByEquipmentItemRegistrationNumberAndRentStatusCode(registrationNumber, rentStatusCode)
-        .map(rentOperationMapper::mapToModel)
+        .map(mapper::mapToModel)
         .orElseThrow(() -> new ResourceNotFoundException(String
             .format("RentOperationModel with registrationNumber: %s and rentStatusCode: %s not found",
                 registrationNumber, rentStatusCode)));
@@ -88,11 +91,11 @@ public class RentServiceImpl implements RentService {
         calculator.getCalculatedFinishRentDetails(rentOperationModelFromBase, rentOperation.getFinishedAtTime());
 
     rentOperationModelFromBase.setFinishedAtTime(rentOperation.getFinishedAtTime());
-    var toBeSavedRentOperation = rentOperationMapper
+    var toBeSavedRentOperation = mapper
         .mapToEntity(rentOperationModelFromBase, equipmentItemModel, calculatedFinishRentDetails);
     var finishedRentOperation = repository.save(toBeSavedRentOperation);
 
-    return rentOperationMapper.mapToModel(finishedRentOperation, calculatedFinishRentDetails);
+    return mapper.mapToModel(finishedRentOperation, calculatedFinishRentDetails);
   }
 
   @Override
@@ -101,6 +104,19 @@ public class RentServiceImpl implements RentService {
     log.info("getById: {}", id);
     var entity = repository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException(RentOperation.class.getSimpleName(), "id", id));
-    return rentOperationMapper.mapToModel(entity);
+    return mapper.mapToModel(entity);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public List<RentOperationModel> getAllByStatusCode(String statusCode) {
+    log.info("getAllByStatusCode with statusCode: {}", statusCode);
+    var rentOperations = repository.findByRentStatusCode(statusCode);
+    if (CollectionUtils.isEmpty(rentOperations)) {
+      throw new ResourceNotFoundException(String.format("No rentOperations with statusCode: %s found", statusCode));
+    }
+    return rentOperations.stream()
+        .map(mapper::mapToModel)
+        .collect(Collectors.toList());
   }
 }

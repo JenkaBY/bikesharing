@@ -8,6 +8,7 @@ import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.godeltech.bikesharing.exception.ResourceStatusNotAppropriateException;
 import com.godeltech.bikesharing.models.RentOperationModel;
 import com.godeltech.bikesharing.models.enums.RentTimeUnit;
+import com.godeltech.bikesharing.models.lookup.RentStatusModel;
 import com.godeltech.bikesharing.utils.RentOperationUtils;
 import com.godeltech.bikesharing.utils.RentTimeModelUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +19,7 @@ public class RentServiceTest extends AbstractIntegrationTest {
   private static final Long TIME_UNIT_AMOUNT = 1L;
   private static final Long MINUTES_PASSED = 120L;
   private static final Long ID = 1L;
+  private static final String STATUS_LASTING = RentStatusModel.RENT_STATUS_LASTING;
   private final RentOperationModel rentOperationModel = RentOperationUtils.getRentOperationModel(null);
 
   @BeforeEach
@@ -76,6 +78,20 @@ public class RentServiceTest extends AbstractIntegrationTest {
     expectedRentOperation.setToBePaidAmount(4L);
     expectedRentOperation.setToBeRefundAmount(0L);
     assertEquals(expectedRentOperation, actualRentOperation);
+  }
+
+  @Test
+  @DataSet(value = {
+      "/dataset/equipmentItem/equipmentItemInUse.yml",
+      "dataset/clientAccount/clientAccountInitial.yml",
+      "dataset/rentOperation/rentOperationInitial.yml"
+      },
+      useSequenceFiltering = false)
+  public void shouldGetListOfItemsWithStatus() {
+
+    var actualService = rentService.getAllByStatusCode(STATUS_LASTING);
+
+    assertEquals(1, actualService.size());
   }
 
 }

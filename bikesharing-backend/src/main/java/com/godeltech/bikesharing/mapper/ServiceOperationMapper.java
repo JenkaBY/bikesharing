@@ -47,4 +47,8 @@ public interface ServiceOperationMapper {
   @Mapping(target = "id", source = "model.id")
   @Mapping(target = "equipmentItem", source = "equipmentItemModel")
   ServiceOperation mapToEntity(ServiceOperationModel model, EquipmentItemModel equipmentItemModel);
+
+  @Mapping(target = "serviceTypeCode", source = "serviceOperation.serviceTypeModel.code")
+  @Mapping(target = "equipmentRegistrationNumber", source = "serviceOperation.equipmentItemModel.registrationNumber")
+  EquipmentMaintenanceResponse mapToResponse(ServiceOperationModel serviceOperation);
 }

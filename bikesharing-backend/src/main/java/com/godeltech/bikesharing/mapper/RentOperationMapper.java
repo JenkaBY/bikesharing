@@ -40,7 +40,7 @@ public interface RentOperationMapper {
 
   @Mapping(target = "equipmentRegistrationNumber", source = "rentOperationModel.equipmentItem.registrationNumber")
   @Mapping(target = "clientPhoneNumber", source = "rentOperationModel.clientAccount.phoneNumber")
-  RentOperationResponse mapToStartResponse(RentOperationModel rentOperationModel);
+  RentOperationResponse mapToResponse(RentOperationModel rentOperationModel);
 
   @Mapping(target = "equipmentRegistrationNumber", source = "rentOperationModel.equipmentItem.registrationNumber")
   @Mapping(target = "clientPhoneNumber", source = "rentOperationModel.clientAccount.phoneNumber")

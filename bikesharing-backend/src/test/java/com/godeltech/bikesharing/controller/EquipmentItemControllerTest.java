@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -52,6 +53,7 @@ class EquipmentItemControllerTest {
     mockMvc.perform(get(URL_TEMPLATE + "?statusCode=" + CODE_FREE)
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON))
+        .andDo(print())
         .andExpect(status().isNotFound());
 
     verify(service).getAllByStatusCode(CODE_FREE);
@@ -65,6 +67,7 @@ class EquipmentItemControllerTest {
     var result = mockMvc.perform(get(URL_TEMPLATE + "?statusCode=" + CODE_FREE)
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON))
+        .andDo(print())
         .andExpect(status().isOk())
         .andReturn();
     var type = new TypeReference<List<EquipmentItemResponse>>() {};
