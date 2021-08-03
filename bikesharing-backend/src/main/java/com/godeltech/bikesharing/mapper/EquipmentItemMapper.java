@@ -17,8 +17,8 @@ public interface EquipmentItemMapper {
   EquipmentItemModel mapToModel(EquipmentItem equipment);
 
   @Mapping(target = "comments", source = "request.comment")
-  @Mapping(target = "equipmentGroup.code", source = "request.equipmentGroupCode")
-  @Mapping(target = "equipmentStatus.code", source = "request.equipmentStatusCode")
+  @Mapping(target = "equipmentGroup", source = "request.equipmentGroupCode")
+  @Mapping(target = "equipmentStatus", source = "request.equipmentStatusCode")
   EquipmentItemModel mapToModel(EquipmentItemRequest request);
 
   EquipmentItem mapToEntity(EquipmentItemModel model);

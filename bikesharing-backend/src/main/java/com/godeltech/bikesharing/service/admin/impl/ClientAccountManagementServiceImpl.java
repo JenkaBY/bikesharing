@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+//FIXME ...what is the difference between ClientAccountManagementService and ClientService ?
+// I suggest to use only ClientService
 @Slf4j
 @Service
 @Transactional
@@ -31,7 +33,6 @@ public class ClientAccountManagementServiceImpl implements ClientAccountManageme
   @Override
   public ClientAccountModel update(ClientAccountModel model, Long id) {
     log.info("update: {} for id: {}", model, id);
-    var clientAccountFromBase = clientService.getById(id);
     model.setId(id);
     return save(model);
   }
