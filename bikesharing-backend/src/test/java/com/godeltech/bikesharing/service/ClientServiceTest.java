@@ -1,13 +1,11 @@
-package com.godeltech.bikesharing.service.admin;
+package com.godeltech.bikesharing.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.godeltech.bikesharing.models.ClientAccountModel;
 import com.godeltech.bikesharing.models.request.ClientAccountRequest;
-import com.godeltech.bikesharing.service.AbstractIntegrationTest;
 import com.godeltech.bikesharing.utils.ClientAccountUtils;
 import org.junit.jupiter.api.Test;
 
