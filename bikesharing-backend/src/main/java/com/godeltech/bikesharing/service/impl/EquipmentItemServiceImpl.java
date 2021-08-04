@@ -8,10 +8,12 @@ import com.godeltech.bikesharing.persistence.repository.EquipmentItemRepository;
 import com.godeltech.bikesharing.service.EquipmentItemService;
 import com.godeltech.bikesharing.service.impl.lookup.EquipmentGroupServiceImpl;
 import com.godeltech.bikesharing.service.impl.lookup.EquipmentStatusServiceImpl;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,11 +70,19 @@ public class EquipmentItemServiceImpl implements EquipmentItemService {
 
   @Transactional(readOnly = true)
   @Override
-  public List<EquipmentItemModel> getAllByStatusCode(String statusCode) {
+  public Page<EquipmentItemModel> getAllByStatusCode(String statusCode, int pageNum) {
     log.info("Find all equipment items by statusCode with statusCode: {}", statusCode);
-    var equipmentItems = repository.findByEquipmentStatusCode(statusCode);
-    return equipmentItems.stream()
-        .map(mapper::mapToModel)
-        .collect(Collectors.toList());
+    Pageable pageable = PageRequest.of(pageNum - 1, PAGE_SIZE, Sort.by("name"));
+
+    Page<EquipmentItem> equipmentItemsOnPage;
+
+    if (statusCode == null) {
+      equipmentItemsOnPage = repository.findAll(pageable);
+    } else {
+      equipmentItemsOnPage = repository.findByEquipmentStatusCode(statusCode, pageable);
+    }
+
+    return equipmentItemsOnPage.map(mapper::mapToModel);
   }
+
 }

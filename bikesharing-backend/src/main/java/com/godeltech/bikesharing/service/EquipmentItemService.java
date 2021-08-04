@@ -1,9 +1,11 @@
 package com.godeltech.bikesharing.service;
 
 import com.godeltech.bikesharing.models.EquipmentItemModel;
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface EquipmentItemService {
+  int PAGE_SIZE = 10;
+
   EquipmentItemModel getByRegistrationNumber(String registrationNumber);
 
   EquipmentItemModel save(EquipmentItemModel equipmentItemModel);
@@ -14,5 +16,5 @@ public interface EquipmentItemService {
 
   String getEquipmentStatusCodeByRegistrationNumber(String equipmentRegistrationNumber);
 
-  List<EquipmentItemModel> getAllByStatusCode(String statusCode);
+  Page<EquipmentItemModel> getAllByStatusCode(String statusCode, int pageNum);
 }

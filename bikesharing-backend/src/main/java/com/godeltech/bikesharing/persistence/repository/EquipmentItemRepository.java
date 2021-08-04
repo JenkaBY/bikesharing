@@ -1,8 +1,9 @@
 package com.godeltech.bikesharing.persistence.repository;
 
 import com.godeltech.bikesharing.persistence.entity.EquipmentItem;
-import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -23,5 +24,5 @@ public interface EquipmentItemRepository extends JpaRepository<EquipmentItem, Lo
       + "where equipmentItem.registrationNumber = :registrationNumber")
   String getEquipmentStatusCodeByRegistrationNumber(String registrationNumber);
 
-  List<EquipmentItem> findByEquipmentStatusCode(String statusCode);
+  Page<EquipmentItem> findByEquipmentStatusCode(String statusCode, Pageable pageable);
 }
