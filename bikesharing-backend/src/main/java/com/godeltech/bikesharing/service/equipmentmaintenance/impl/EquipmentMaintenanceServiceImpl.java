@@ -81,7 +81,7 @@ public class EquipmentMaintenanceServiceImpl implements EquipmentMaintenanceServ
   @Override
   @Transactional(readOnly = true)
   public List<ServiceOperationModel> getAllUnfinished() {
-    log.info("getAllUnfinished");
+    log.info("Find all unfinished serviceOperations");
     var serviceOperations = repository.findAllUnfinished();
     if (CollectionUtils.isEmpty(serviceOperations)) {
       throw new ResourceNotFoundException("No unfinished serviceOperations found");

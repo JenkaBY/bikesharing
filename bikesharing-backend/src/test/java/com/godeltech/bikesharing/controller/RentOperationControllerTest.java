@@ -128,20 +128,6 @@ public class RentOperationControllerTest {
   }
 
   @Test
-  public void shouldFailWithNotFoundCode() throws Exception {
-    when(service.getAllByStatusCode(CODE_LASTING))
-        .thenThrow(
-            new ResourceNotFoundException(String.format("No equipmentItems with statusCode: %s found", CODE_LASTING)));
-    mockMvc.perform(get(URL_TEMPLATE + "?statusCode=" + CODE_LASTING)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
-        .andDo(print())
-        .andExpect(status().isNotFound());
-
-    verify(service).getAllByStatusCode(CODE_LASTING);
-  }
-
-  @Test
   public void shouldGetProperResponse() throws Exception {
     when(mapper.mapToResponse(model)).thenReturn(expectedStartResponse);
     when(service.getAllByStatusCode(CODE_LASTING)).thenReturn(List.of(model));

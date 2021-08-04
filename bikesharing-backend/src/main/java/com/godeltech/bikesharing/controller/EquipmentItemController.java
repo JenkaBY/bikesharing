@@ -23,6 +23,7 @@ public class EquipmentItemController {
   private final EquipmentItemMapper mapper;
 
   @GetMapping
+  //TODO paging
   public ResponseEntity<List<EquipmentItemResponse>> getAllByStatusCode(@RequestParam String statusCode) {
     var equipmentItems = service.getAllByStatusCode(statusCode);
     var response = equipmentItems.stream()

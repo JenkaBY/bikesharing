@@ -110,11 +110,8 @@ public class RentServiceImpl implements RentService {
   @Override
   @Transactional(readOnly = true)
   public List<RentOperationModel> getAllByStatusCode(String statusCode) {
-    log.info("getAllByStatusCode with statusCode: {}", statusCode);
+    log.info("Find all rentOperations with statusCode: {}", statusCode);
     var rentOperations = repository.findByRentStatusCode(statusCode);
-    if (CollectionUtils.isEmpty(rentOperations)) {
-      throw new ResourceNotFoundException(String.format("No rentOperations with statusCode: %s found", statusCode));
-    }
     return rentOperations.stream()
         .map(mapper::mapToModel)
         .collect(Collectors.toList());

@@ -33,6 +33,7 @@ public class RentOperationController {
   private final RentOperationMapper mapper;
 
   @GetMapping
+  //TODO paging
   public ResponseEntity<List<RentOperationResponse>> getAllByStatusCode(@RequestParam String statusCode) {
     var rentOperationModels = service.getAllByStatusCode(statusCode);
     var response = rentOperationModels.stream()

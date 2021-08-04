@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 @Slf4j
 @Service
@@ -70,11 +69,8 @@ public class EquipmentItemServiceImpl implements EquipmentItemService {
   @Transactional(readOnly = true)
   @Override
   public List<EquipmentItemModel> getAllByStatusCode(String statusCode) {
-    log.info("getAllByStatusCode with statusCode: {}", statusCode);
+    log.info("Find all equipment items by statusCode with statusCode: {}", statusCode);
     var equipmentItems = repository.findByEquipmentStatusCode(statusCode);
-    if (CollectionUtils.isEmpty(equipmentItems)) {
-      throw new ResourceNotFoundException(String.format("No equipmentItems with statusCode: %s found", statusCode));
-    }
     return equipmentItems.stream()
         .map(mapper::mapToModel)
         .collect(Collectors.toList());
