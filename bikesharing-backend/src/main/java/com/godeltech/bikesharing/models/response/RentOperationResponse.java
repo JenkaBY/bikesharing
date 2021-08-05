@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class RentOperationResponse {
+
   private Long id;
   private String equipmentRegistrationNumber;
   private String clientPhoneNumber;

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class EquipmentItemRequest {
+
   @NotBlank
   private String equipmentGroupCode;
 

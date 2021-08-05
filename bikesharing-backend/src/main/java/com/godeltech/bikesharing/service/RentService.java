@@ -4,6 +4,7 @@ import com.godeltech.bikesharing.models.RentOperationModel;
 import java.util.List;
 
 public interface RentService {
+
   RentOperationModel startRentOperation(RentOperationModel model);
 
   RentOperationModel getByEquipmentItemRegistrationNumberAndRentStatusCode(String registrationNumber, String code);

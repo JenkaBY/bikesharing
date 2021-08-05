@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class EquipmentStatusServiceImpl extends
     LookupEntityServiceImpl<EquipmentStatusModel, EquipmentStatus> {
+
   public EquipmentStatusServiceImpl(EquipmentStatusRepository repository, EquipmentStatusMapper mapper) {
     super(repository, mapper);
   }

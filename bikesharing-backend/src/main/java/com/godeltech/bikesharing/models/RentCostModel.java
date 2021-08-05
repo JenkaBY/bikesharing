@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class RentCostModel {
+
   private Long id;
   private EquipmentGroupModel equipmentGroup;
   private Long halfHourPrice;

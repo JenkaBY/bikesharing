@@ -5,6 +5,7 @@ import com.godeltech.bikesharing.models.enums.RentTimeUnit;
 import com.godeltech.bikesharing.models.request.RentTimeRequest;
 
 public class RentTimeModelUtils {
+
   public static RentTimeModel getRentTimeModel(RentTimeUnit rentTimeUnit, Long timeUnitAmount) {
     var rentTimeModel = new RentTimeModel();
     rentTimeModel.setRentTimeUnit(rentTimeUnit);

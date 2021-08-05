@@ -20,12 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RequestMapping(path = "/v1/bikesharing/equipment_item")
 public class EquipmentItemController {
+
   private final EquipmentItemService service;
   private final EquipmentItemMapper mapper;
 
   @GetMapping("/page/{pageNum}")
   public ResponseEntity<List<EquipmentItemResponse>> getAllByStatusCode(@PathVariable(name = "pageNum") int pageNum,
-                                                                        @RequestParam String statusCode) {
+      @RequestParam String statusCode) {
     var equipmentItems = service.getAllByStatusCode(statusCode, pageNum);
 
     var response = equipmentItems.stream()

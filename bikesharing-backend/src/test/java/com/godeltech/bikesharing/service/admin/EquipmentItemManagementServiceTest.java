@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class EquipmentItemManagementServiceTest extends AbstractIntegrationTest {
+
   private static final Long ID = 1L;
   private static final String GROUP_CODE = EquipmentGroupUtils.CODE;
   private static final String COMMENT = "Needs to be serviced";

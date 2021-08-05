@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class RentCostServiceImpl implements RentCostService {
+
   private final RentCostRepository repository;
   private final EquipmentGroupServiceImpl equipmentGroupService;
   private final RentCostMapper mapper;
@@ -25,7 +26,7 @@ public class RentCostServiceImpl implements RentCostService {
 
   @Override
   public RentCostModel getByEquipmentGroupCode(String equipmentGroupCode) {
-    log.info("getByEquipmentGroupCode: {}",equipmentGroupCode);
+    log.info("getByEquipmentGroupCode: {}", equipmentGroupCode);
     return repository.findByEquipmentGroupCode(equipmentGroupCode).map(mapper::mapToModel)
         .orElseThrow(() -> new ResourceNotFoundException(RentCost.class.getSimpleName(), "equipmentGroupCode",
             equipmentGroupCode));
@@ -33,7 +34,7 @@ public class RentCostServiceImpl implements RentCostService {
 
   @Override
   public RentCostModel save(RentCostModel rentCostModel) {
-    log.info("save: {}",rentCostModel);
+    log.info("save: {}", rentCostModel);
     validator.checkRentCostExists(rentCostModel);
     rentCostModel.setEquipmentGroup(equipmentGroupService
         .getByCode(rentCostModel.getEquipmentGroup().getCode()));
@@ -43,7 +44,7 @@ public class RentCostServiceImpl implements RentCostService {
 
   @Override
   public RentCostModel getById(Long id) {
-    log.info("getById: {}",id);
+    log.info("getById: {}", id);
     return repository.findById(id).map(mapper::mapToModel)
         .orElseThrow(() -> new ResourceNotFoundException(RentCost.class.getSimpleName(), "id",
             id));

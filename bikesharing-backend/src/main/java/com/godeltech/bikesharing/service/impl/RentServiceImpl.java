@@ -20,13 +20,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 @Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class RentServiceImpl implements RentService {
+
   private final RentOperationRepository repository;
   private final RentOperationValidator validator;
   private final RentCostTimeCalculator calculator;
@@ -61,7 +61,7 @@ public class RentServiceImpl implements RentService {
 
   @Override
   public RentOperationModel getByEquipmentItemRegistrationNumberAndRentStatusCode(String registrationNumber,
-                                                                                  String rentStatusCode) {
+      String rentStatusCode) {
     log.info("getByEquipmentItemRegistrationNumberAndRentStatusCode by registrationNumber: {} and rentStatusCode: {}",
         registrationNumber, rentStatusCode);
     return repository

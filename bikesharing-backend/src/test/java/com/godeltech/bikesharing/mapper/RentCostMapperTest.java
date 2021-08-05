@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
     EquipmentGroupMapperImpl.class
 })
 class RentCostMapperTest {
+
   private static final Long ID = 1L;
   @Autowired
   private RentCostMapper rentCostMapper;

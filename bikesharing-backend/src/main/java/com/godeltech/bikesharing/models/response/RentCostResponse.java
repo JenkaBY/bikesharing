@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class RentCostResponse {
+
   private Long id;
   private EquipmentGroupResponse equipmentGroup;
   private Long halfHourPrice;

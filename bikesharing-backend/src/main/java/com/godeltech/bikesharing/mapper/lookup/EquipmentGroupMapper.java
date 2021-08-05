@@ -9,6 +9,7 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface EquipmentGroupMapper extends LookupMapper<EquipmentGroupModel, EquipmentGroup> {
+
   EquipmentGroupModel mapToModel(EquipmentGroupRequest request);
 
   EquipmentGroupResponse mapToResponse(EquipmentGroupModel model);

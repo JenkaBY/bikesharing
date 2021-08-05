@@ -26,6 +26,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest({EquipmentGroupManagementController.class, GeneralErrorMapper.class, JsonMapper.class})
 class EquipmentGroupManagementControllerTest {
+
   private static final String URL_TEMPLATE = "/v1/bikesharing/admin/equipment_group";
   private static final String UPDATED_NAME = "SuperGroupName";
   private static final Long ID = 1L;

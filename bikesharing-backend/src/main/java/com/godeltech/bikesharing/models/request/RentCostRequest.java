@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class RentCostRequest {
+
   @NotBlank
   private String equipmentGroupCode;
   @NotNull

@@ -13,6 +13,7 @@ import com.godeltech.bikesharing.utils.RentCostUtils;
 import org.junit.jupiter.api.Test;
 
 class RentCostManagementServiceTest extends AbstractIntegrationTest {
+
   private static final Long ID = 1L;
   private static final RentCostModel rentCostModel = RentCostUtils.getRentCostModel(null);
   private static final String GROUP_CODE = EquipmentGroupUtils.CODE;

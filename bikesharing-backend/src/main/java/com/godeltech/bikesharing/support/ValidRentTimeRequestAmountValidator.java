@@ -34,6 +34,7 @@ public class ValidRentTimeRequestAmountValidator
   @RequiredArgsConstructor
   @Getter
   static class Conditions {
+
     private final long minVal;
     private final long maxVal;
     private final String template;

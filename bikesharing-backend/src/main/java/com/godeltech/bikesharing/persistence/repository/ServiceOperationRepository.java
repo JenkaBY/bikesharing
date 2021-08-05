@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface ServiceOperationRepository extends JpaRepository<ServiceOperation, Long> {
+
   @Query("SELECT serviceOperation "
       + "FROM ServiceOperation serviceOperation "
       + "WHERE serviceOperation.equipmentItem.registrationNumber = :registrationNumber "

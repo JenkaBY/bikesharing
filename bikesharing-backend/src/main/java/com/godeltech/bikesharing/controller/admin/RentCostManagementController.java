@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RequestMapping(path = "/v1/bikesharing/admin/rent_cost")
 public class RentCostManagementController {
+
   private final RentCostManagementService managementService;
   private final RentCostMapper mapper;
 

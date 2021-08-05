@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 public interface EquipmentItemRepository extends JpaRepository<EquipmentItem, Long> {
+
   Optional<EquipmentItem> findByRegistrationNumber(String registrationNumber);
 
   @Modifying(flushAutomatically = true, clearAutomatically = true)

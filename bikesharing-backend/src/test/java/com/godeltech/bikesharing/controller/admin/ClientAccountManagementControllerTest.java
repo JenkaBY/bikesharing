@@ -26,6 +26,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest({ClientAccountManagementController.class, GeneralErrorMapper.class, JsonMapper.class})
 class ClientAccountManagementControllerTest {
+
   private static final String URL_TEMPLATE = "/v1/bikesharing/admin/client";
   private static final String UPDATED_NAME = "SuperMario";
   private static final Long ID = 1L;

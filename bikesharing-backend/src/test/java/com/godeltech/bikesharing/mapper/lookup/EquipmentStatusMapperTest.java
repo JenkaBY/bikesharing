@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = EquipmentStatusMapperImpl.class)
 class EquipmentStatusMapperTest {
+
   @Autowired
   private EquipmentStatusMapper equipmentStatusMapper;
 

@@ -4,4 +4,5 @@ import com.godeltech.bikesharing.persistence.entity.lookup.EquipmentStatus;
 import com.godeltech.bikesharing.persistence.repository.LookupRepository;
 
 public interface EquipmentStatusRepository extends LookupRepository<EquipmentStatus> {
+
 }

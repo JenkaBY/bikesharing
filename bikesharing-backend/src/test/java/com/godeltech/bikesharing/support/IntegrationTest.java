@@ -25,4 +25,5 @@ import org.springframework.test.context.ContextConfiguration;
 @DBRider
 
 public @interface IntegrationTest {
+
 }
