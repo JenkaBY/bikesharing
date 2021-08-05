@@ -70,9 +70,9 @@ public class EquipmentItemServiceImpl implements EquipmentItemService {
 
   @Transactional(readOnly = true)
   @Override
-  public Page<EquipmentItemModel> getAllByStatusCode(String statusCode, int pageNum) {
+  public Page<EquipmentItemModel> getAllByStatusCode(String statusCode, int pageSize, int pageNumber) {
     log.info("Find all equipment items by statusCode with statusCode: {}", statusCode);
-    Pageable pageable = PageRequest.of(pageNum - 1, PAGE_SIZE, Sort.by("name"));
+    Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, Sort.by("name"));
 
     Page<EquipmentItem> equipmentItemsOnPage;
 

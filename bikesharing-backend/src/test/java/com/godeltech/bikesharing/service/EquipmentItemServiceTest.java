@@ -65,8 +65,8 @@ public class EquipmentItemServiceTest extends AbstractIntegrationTest {
   public void shouldGetListOfItemsWithStatus() {
     equipmentItemService.updateEquipmentItemStatus(equipmentModel.getRegistrationNumber(), STATUS_SERVICE);
 
-    var actualFree = equipmentItemService.getAllByStatusCode(STATUS_FREE,1);
-    var actualService = equipmentItemService.getAllByStatusCode(STATUS_SERVICE,1);
+    var actualFree = equipmentItemService.getAllByStatusCode(STATUS_FREE,10,1);
+    var actualService = equipmentItemService.getAllByStatusCode(STATUS_SERVICE,10,1);
 
     assertEquals(5, actualFree.getNumberOfElements());
     assertEquals(1, actualService.getNumberOfElements());
