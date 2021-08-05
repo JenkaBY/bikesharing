@@ -25,18 +25,28 @@ public class ValidRentTimeRequestAmountValidator
 
   @Override
   public boolean isValid(RentTimeRequest value, ConstraintValidatorContext context) {
-    context.disableDefaultConstraintViolation();
-    context.buildConstraintViolationWithTemplate(timeUnitMap.get(value.getRentTimeUnit()).template);
-    return value.getAmount() >= timeUnitMap.get(value.getRentTimeUnit()).minVal
-        && value.getAmount() <= timeUnitMap.get(value.getRentTimeUnit()).maxVal;
+    if (value == null) {
+      return true;
+    }
+    var intervalValidator = timeUnitMap.get(value.getRentTimeUnit());
+    if (!intervalValidator.isInRange(value.getAmount())) {
+      context.disableDefaultConstraintViolation();
+      context.buildConstraintViolationWithTemplate(intervalValidator.getTemplate());
+      return false;
+    }
+    return true;
   }
 
   @RequiredArgsConstructor
   @Getter
   static class Conditions {
 
-    private final long minVal;
-    private final long maxVal;
+    private final long minIncluded;
+    private final long maxIncluded;
     private final String template;
+
+    boolean isInRange(long value) {
+      return value >= minIncluded && value <= maxIncluded;
+    }
   }
 }
