@@ -36,7 +36,7 @@ public interface RentOperationMapper {
 
   @Mapping(target = "totalCost", source = "rentOperation.totalCost")
   RentOperationModel mapToModel(RentOperation rentOperation,
-      CalculatedFinishRentDetailsModel calculatedFinishRentDetailsModel);
+                                CalculatedFinishRentDetailsModel calculatedFinishRentDetailsModel);
 
   @Mapping(target = "equipmentRegistrationNumber", source = "rentOperationModel.equipmentItem.registrationNumber")
   @Mapping(target = "clientPhoneNumber", source = "rentOperationModel.clientAccount.phoneNumber")
@@ -56,13 +56,13 @@ public interface RentOperationMapper {
   @Mapping(target = "finishedAtTime",
       expression = "java(rentOperationModel.getStartTime().plusMinutes(calculatedRentDetailsModel.getPaidMinutes()))")
   RentOperation mapToEntity(RentOperationModel rentOperationModel, EquipmentItemModel equipmentItemModel,
-      ClientAccountModel clientAccountModel,
-      CalculatedRentDetailsModel calculatedRentDetailsModel);
+                            ClientAccountModel clientAccountModel,
+                            CalculatedRentDetailsModel calculatedRentDetailsModel);
 
   @Mapping(target = "id", source = "rentOperationModel.id")
   @Mapping(target = "comments", ignore = true)
   @Mapping(target = "equipmentItem", source = "equipmentItemModel")
   @Mapping(target = "totalCost", source = "calculatedFinishRentDetailsModel.totalCost")
   RentOperation mapToEntity(RentOperationModel rentOperationModel, EquipmentItemModel equipmentItemModel,
-      CalculatedFinishRentDetailsModel calculatedFinishRentDetailsModel);
+                            CalculatedFinishRentDetailsModel calculatedFinishRentDetailsModel);
 }

@@ -57,11 +57,10 @@ class EquipmentItemControllerTest {
         .andDo(print())
         .andExpect(status().isOk())
         .andReturn();
-    var type = new TypeReference<List<EquipmentItemResponse>>() {
-    };
+    var type = new TypeReference<List<EquipmentItemResponse>>() {};
     var actualResponseFromServer = jsonMapper.getResponseToList(result, type);
 
-    verify(service).getAllByStatusCode(CODE_FREE, PAGE_NUM);
+    verify(service).getAllByStatusCode(CODE_FREE,PAGE_NUM);
     assertEquals(List.of(response), actualResponseFromServer);
   }
 

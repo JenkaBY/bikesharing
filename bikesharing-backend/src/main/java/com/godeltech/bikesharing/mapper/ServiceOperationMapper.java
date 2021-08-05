@@ -39,7 +39,7 @@ public interface ServiceOperationMapper {
   @Mapping(target = "equipmentItem", source = "equipmentItemModel")
   @Mapping(target = "serviceType", source = "serviceType")
   ServiceOperation mapToEntity(ServiceOperationModel model, EquipmentItemModel equipmentItemModel,
-      ServiceTypeModel serviceType);
+                               ServiceTypeModel serviceType);
 
   @Mapping(target = "serviceType", source = "model.serviceTypeModel")
   @Mapping(target = "endDate", source = "model.finishedOnDate")

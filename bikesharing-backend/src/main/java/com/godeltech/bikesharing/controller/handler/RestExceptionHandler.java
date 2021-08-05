@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 @RequiredArgsConstructor
 public class RestExceptionHandler {
-
   private final GeneralErrorMapper mapper;
 
   @ExceptionHandler(ResourceNotFoundException.class)

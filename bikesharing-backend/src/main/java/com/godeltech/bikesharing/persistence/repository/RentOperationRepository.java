@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RentOperationRepository extends JpaRepository<RentOperation, Long> {
-
   Optional<RentOperation> getByEquipmentItemRegistrationNumberAndRentStatusCode(String registrationNumber, String code);
 
   List<RentOperation> findByRentStatusCode(String statusCode);

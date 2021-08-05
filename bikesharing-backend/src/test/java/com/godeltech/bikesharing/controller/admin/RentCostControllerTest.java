@@ -27,7 +27,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest({RentCostManagementController.class, GeneralErrorMapper.class, JsonMapper.class})
 class RentCostControllerTest {
-
   private static final String URL_TEMPLATE = "/v1/bikesharing/admin/rent_cost";
   private static final Long UPDATED_PRICE = 8L;
   private static final String GROUP_CODE = EquipmentGroupUtils.CODE;

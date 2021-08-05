@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class RentTimeModel {
-
   private RentTimeUnit rentTimeUnit;
   private Long amount;
 }

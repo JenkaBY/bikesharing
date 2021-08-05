@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @ValidRentTimeRequestAmount
 public class RentTimeRequest {
-
   private RentTimeUnit rentTimeUnit;
 
   private Long amount;

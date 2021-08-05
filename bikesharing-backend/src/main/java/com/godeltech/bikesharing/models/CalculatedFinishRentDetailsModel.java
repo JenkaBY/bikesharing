@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 public class CalculatedFinishRentDetailsModel {
-
   private final long totalCost;
   private final long toBePaidAmount;
   private final long toBeRefundAmount;

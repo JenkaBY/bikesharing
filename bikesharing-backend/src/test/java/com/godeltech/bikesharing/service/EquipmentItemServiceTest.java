@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class EquipmentItemServiceTest extends AbstractIntegrationTest {
-
   private static final String STATUS_FREE = EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_FREE;
   private static final String STATUS_SERVICE = EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_SERVICE;
   private static final String STATUS_IN_USE = EquipmentStatusModel.EQUIPMENT_ITEM_STATUS_IN_USE;
@@ -22,7 +21,7 @@ public class EquipmentItemServiceTest extends AbstractIntegrationTest {
       "/dataset/equipmentGroup/equipmentGroupAll.yml",
       "/dataset/equipmentStatus/equipmentStatusAll.yml",
       "/dataset/equipmentItem/equipmentItemFree.yml"
-  },
+      },
       cleanBefore = true, useSequenceFiltering = false)
   public void setUp() {
   }
@@ -66,8 +65,8 @@ public class EquipmentItemServiceTest extends AbstractIntegrationTest {
   public void shouldGetListOfItemsWithStatus() {
     equipmentItemService.updateEquipmentItemStatus(equipmentModel.getRegistrationNumber(), STATUS_SERVICE);
 
-    var actualFree = equipmentItemService.getAllByStatusCode(STATUS_FREE, 1);
-    var actualService = equipmentItemService.getAllByStatusCode(STATUS_SERVICE, 1);
+    var actualFree = equipmentItemService.getAllByStatusCode(STATUS_FREE,1);
+    var actualService = equipmentItemService.getAllByStatusCode(STATUS_SERVICE,1);
 
     assertEquals(5, actualFree.getNumberOfElements());
     assertEquals(1, actualService.getNumberOfElements());

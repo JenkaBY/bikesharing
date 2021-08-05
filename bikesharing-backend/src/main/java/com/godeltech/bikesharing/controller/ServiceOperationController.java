@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RequestMapping(path = "/v1/bikesharing/service_operation")
 public class ServiceOperationController {
-
   private final EquipmentMaintenanceService service;
   private final ServiceOperationMapper mapper;
 

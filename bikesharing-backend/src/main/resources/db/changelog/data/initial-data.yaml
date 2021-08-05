@@ -1,25 +1,25 @@
 databaseChangeLog:
   - changeSet:
-      id: initial-data for rent_status
-      author: dzmitry_krauchuk
-      changes:
-        - loadData:
-            columns:
-              - column:
-                  header: code
-                  name: code
-                  type: STRING
-              - column:
-                  header: name
-                  name: name
-                  type: STRING
-            commentLineStartsWith: '#'
-            encoding: UTF-8
-            file: data/rent_status.csv
-            quotchar: '"'
-            separator: ','
-            relativeToChangelogFile: true
-            tableName: rent_status
+        id: initial-data for rent_status
+        author: dzmitry_krauchuk
+        changes:
+            - loadData:
+                  columns:
+                      - column:
+                            header: code
+                            name: code
+                            type: STRING
+                      - column:
+                            header: name
+                            name: name
+                            type: STRING
+                  commentLineStartsWith: '#'
+                  encoding: UTF-8
+                  file: data/rent_status.csv
+                  quotchar: '"'
+                  separator: ','
+                  relativeToChangelogFile: true
+                  tableName: rent_status
   - changeSet:
       id: initial-data for equipment_status
       author: dzmitry_krauchuk

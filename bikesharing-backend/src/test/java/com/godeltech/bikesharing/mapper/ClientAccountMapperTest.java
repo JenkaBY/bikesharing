@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = ClientAccountMapperImpl.class)
 class ClientAccountMapperTest {
-
   private static final Long ID = 1L;
   private static final ClientAccountModel clientAccountModel = ClientAccountUtils.getClientAccountModel(ID);
 

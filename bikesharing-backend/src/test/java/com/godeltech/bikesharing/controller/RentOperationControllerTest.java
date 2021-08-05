@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.GeneralErrorMapper;
 import com.godeltech.bikesharing.mapper.RentOperationMapper;
 import com.godeltech.bikesharing.models.RentOperationModel;
@@ -35,14 +36,13 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest({RentOperationController.class, GeneralErrorMapper.class, JsonMapper.class})
 public class RentOperationControllerTest {
-
-  public static final Long TO_BE_REFUND_AMOUNT = RentOperationUtils.TO_BE_REFUND_AMOUNT;
-  public static final Long TO_BE_PAID_AMOUNT = RentOperationUtils.TO_BE_PAID_AMOUNT;
   private static final String URL_TEMPLATE = "/v1/bikesharing/rent_operation";
   private static final String CODE_LASTING = RentStatusModel.RENT_STATUS_LASTING;
   private static final Long ID = 1L;
   private static final RentTimeRequest WRONG_RENT_TIME_REQUEST =
       RentTimeModelUtils.getRentTimeRequest(RentTimeUnit.DAY, 3L);
+  public static final Long TO_BE_REFUND_AMOUNT = RentOperationUtils.TO_BE_REFUND_AMOUNT;
+  public static final Long TO_BE_PAID_AMOUNT = RentOperationUtils.TO_BE_PAID_AMOUNT;
   private static final RentOperationModel model = RentOperationUtils.getRentOperationModel(ID);
 
   @Autowired

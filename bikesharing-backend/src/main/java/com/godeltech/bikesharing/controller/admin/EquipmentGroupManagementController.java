@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RequestMapping(path = "/v1/bikesharing/admin/equipment_group")
 public class EquipmentGroupManagementController {
-
   private final EquipmentGroupManagementService managementService;
   private final EquipmentGroupMapper mapper;
 

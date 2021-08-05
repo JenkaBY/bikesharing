@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TotalCostCalculatorFactory {
-
   private final Map<RentTimeUnit, TotalCostCalculator> calculators;
 
   public TotalCostCalculatorFactory(List<TotalCostCalculator> calculators) {

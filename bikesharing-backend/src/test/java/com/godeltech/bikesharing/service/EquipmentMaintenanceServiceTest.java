@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class EquipmentMaintenanceServiceTest extends AbstractIntegrationTest {
-
   private static final StartEquipmentMaintenanceRequest startRequest =
       ServiceOperationUtils.getStartEquipmentMaintenanceRequest();
   private static final Long ID = 1L;
@@ -25,7 +24,7 @@ public class EquipmentMaintenanceServiceTest extends AbstractIntegrationTest {
       "/dataset/equipmentGroup/equipmentGroupAll.yml",
       "/dataset/equipmentStatus/equipmentStatusAll.yml",
       "/dataset/serviceType/serviceTypeAll.yml",
-  },
+      },
       cleanBefore = true, useSequenceFiltering = false)
   public void setUp() {
   }
@@ -52,11 +51,11 @@ public class EquipmentMaintenanceServiceTest extends AbstractIntegrationTest {
   @DataSet(value = {
       "/dataset/equipmentItem/equipmentItemInService.yml",
       "/dataset/serviceOperation/serviceOperationInitial.yml"
-  },
+      },
       useSequenceFiltering = false)
   @ExpectedDataSet(value = {
       "/dataset/equipmentItem/equipmentItemFree.yml"
-  })
+      })
   public void shouldFinishServiceOperationProperly() {
     var serviceOperationModel = serviceOperationMapper.mapToModel(finishRequest);
     var actualServiceOperation = equipmentMaintenanceService.finishEquipmentServiceOperation(serviceOperationModel, ID);
@@ -72,7 +71,7 @@ public class EquipmentMaintenanceServiceTest extends AbstractIntegrationTest {
   @DataSet(value = {
       "/dataset/equipmentItem/equipmentItemInService.yml",
       "/dataset/serviceOperation/serviceOperationInitial.yml"
-  },
+      },
       useSequenceFiltering = false)
   public void shouldGetListOfUnfinishedMaintenances() {
 

@@ -6,7 +6,6 @@ import com.godeltech.bikesharing.models.response.lookup.EquipmentGroupResponse;
 import com.godeltech.bikesharing.persistence.entity.lookup.EquipmentGroup;
 
 public class EquipmentGroupUtils {
-
   public static final String NAME = "Bicycle";
   public static final String CODE = "BICYCLE";
   public static final Long ID = 1L;

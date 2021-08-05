@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class ServiceOperationModel {
-
   private Long id;
   private EquipmentItemModel equipmentItemModel;
   private ServiceTypeModel serviceTypeModel;

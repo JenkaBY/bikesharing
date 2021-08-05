@@ -45,7 +45,6 @@ public class ValidFinesAndCommentsValidator
   @RequiredArgsConstructor
   @Getter
   static class Violation {
-
     private final String property;
     private final String template;
   }

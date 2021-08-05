@@ -16,7 +16,7 @@ repositories {
 ext {
     mapstructVersion = '1.4.2.Final'
     mockitoJunitJupiterVersion = '3.6.0'
-    junitJupiterApiVersion = '5.7.0'
+    junitJupiterApiVersion='5.7.0'
 }
 
 dependencies {

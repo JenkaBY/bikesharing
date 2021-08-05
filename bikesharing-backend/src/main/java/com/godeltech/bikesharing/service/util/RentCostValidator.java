@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @RequiredArgsConstructor
 public class RentCostValidator {
-
   private final RentCostRepository repository;
 
   public void checkRentCostExists(RentCostModel rentCostModel) {

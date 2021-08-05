@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ValidationError extends GeneralError {
-
   private List<Violation> violations = null;
 
   public ValidationError(String exceptionCode, String message) {

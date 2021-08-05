@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ServiceTypeServiceImpl extends
     LookupEntityServiceImpl<ServiceTypeModel, ServiceType> {
-
   public ServiceTypeServiceImpl(ServiceTypeRepository repository, ServiceTypeMapper mapper) {
     super(repository, mapper);
   }

@@ -11,7 +11,6 @@ import com.godeltech.bikesharing.utils.EquipmentGroupUtils;
 import org.junit.jupiter.api.Test;
 
 class EquipmentGroupManagementServiceTest extends AbstractIntegrationTest {
-
   private static final Long ID = 1L;
   private static final String NEW_NAME = "SuperBicycle";
   private static final EquipmentGroupModel equipmentGroup = EquipmentGroupUtils.getEquipmentGroupModel();

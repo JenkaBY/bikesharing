@@ -7,5 +7,4 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface ServiceTypeMapper extends LookupMapper<ServiceTypeModel, ServiceType> {
-
 }

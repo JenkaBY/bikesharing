@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class ClientAccountResponse {
-
   private Long id;
   private String phoneNumber;
   private String name;

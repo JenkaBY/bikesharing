@@ -13,12 +13,11 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class RentCostTimeCalculator {
-
   private final RentCostService rentCostService;
   private final TotalCostCalculatorFactory costCalculatorFactory;
 
   public CalculatedRentDetailsModel getCalculatedStartRentDetails(String equipmentGroupCode,
-      RentTimeModel rentTimeModel) {
+                                                                  RentTimeModel rentTimeModel) {
     var totalCost = getTotalCost(equipmentGroupCode, rentTimeModel);
     var paidMinutes = getPaidMinutes(rentTimeModel);
 
@@ -37,7 +36,7 @@ public class RentCostTimeCalculator {
 
 
   public CalculatedFinishRentDetailsModel getCalculatedFinishRentDetails(RentOperationModel rentOperation,
-      LocalDateTime actualFinishedAtTime) {
+                                                                         LocalDateTime actualFinishedAtTime) {
     var totalCost = rentOperation.getTotalCost();
     var deposit = rentOperation.getDeposit();
     var startTimeFromBase = rentOperation.getStartTime();

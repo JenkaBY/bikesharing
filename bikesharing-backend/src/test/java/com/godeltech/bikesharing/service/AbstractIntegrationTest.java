@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @IntegrationTest
 public class AbstractIntegrationTest {
-
   @Autowired
   protected ClientService clientService;
   @Autowired

@@ -6,7 +6,6 @@ import com.godeltech.bikesharing.models.response.ClientAccountResponse;
 import com.godeltech.bikesharing.persistence.entity.ClientAccount;
 
 public class ClientAccountUtils {
-
   public static final String NAME = "FelixTheCat";
   public static final String ADDRESS = "London, Downing st. 10";
   public static final Integer RATING = 1;

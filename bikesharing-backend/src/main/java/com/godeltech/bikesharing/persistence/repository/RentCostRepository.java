@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RentCostRepository extends JpaRepository<RentCost, Long> {
-
   Optional<RentCost> findByEquipmentGroupCode(String equipmentGroupCode);
 
 }

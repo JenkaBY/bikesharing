@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = RentTimeMapperImpl.class)
 class RentTimeMapperTest {
-
   private static final RentTimeUnit TIME_UNIT_HOUR = RentTimeUnit.HOUR;
   private static final Long TIME_UNIT_AMOUNT = 1L;
 

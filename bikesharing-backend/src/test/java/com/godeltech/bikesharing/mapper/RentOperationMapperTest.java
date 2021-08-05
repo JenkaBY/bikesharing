@@ -21,7 +21,6 @@ import org.springframework.boot.test.context.SpringBootTest;
     EquipmentStatusMapperImpl.class
 })
 class RentOperationMapperTest {
-
   private static final Long ID = 1L;
   @Autowired
   private RentOperationMapper rentOperationMapper;

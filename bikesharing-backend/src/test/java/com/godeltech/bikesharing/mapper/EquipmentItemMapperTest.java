@@ -2,7 +2,9 @@ package com.godeltech.bikesharing.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.godeltech.bikesharing.mapper.lookup.EquipmentGroupMapper;
 import com.godeltech.bikesharing.mapper.lookup.EquipmentGroupMapperImpl;
+import com.godeltech.bikesharing.mapper.lookup.EquipmentStatusMapper;
 import com.godeltech.bikesharing.mapper.lookup.EquipmentStatusMapperImpl;
 import com.godeltech.bikesharing.utils.EquipmentItemUtils;
 import org.junit.jupiter.api.Test;
@@ -14,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
     EquipmentGroupMapperImpl.class,
     EquipmentStatusMapperImpl.class})
 class EquipmentItemMapperTest {
-
   private static final Long ID = 1L;
   @Autowired
   private EquipmentItemMapper equipmentItemMapper;

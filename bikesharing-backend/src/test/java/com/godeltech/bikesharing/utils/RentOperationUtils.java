@@ -10,7 +10,6 @@ import com.godeltech.bikesharing.persistence.entity.RentOperation;
 import java.time.LocalDateTime;
 
 public class RentOperationUtils {
-
   public static final Long TOTAL_COST = 4L;
   public static final Long DEPOSIT = 4L;
   public static final Long TO_BE_REFUND_AMOUNT = 0L;

@@ -10,7 +10,6 @@ import com.godeltech.bikesharing.utils.ClientAccountUtils;
 import org.junit.jupiter.api.Test;
 
 public class ClientServiceTest extends AbstractIntegrationTest {
-
   private static final Long ID = 1L;
   private static final ClientAccountModel expected = ClientAccountUtils.getClientAccountModel(ID);
   private static final ClientAccountRequest clientAccountToBeCreated = ClientAccountUtils.getClientAccountRequest();

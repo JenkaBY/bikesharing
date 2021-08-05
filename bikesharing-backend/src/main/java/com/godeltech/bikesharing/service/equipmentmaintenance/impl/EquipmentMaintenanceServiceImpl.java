@@ -24,7 +24,6 @@ import org.springframework.util.CollectionUtils;
 @Transactional
 @RequiredArgsConstructor
 public class EquipmentMaintenanceServiceImpl implements EquipmentMaintenanceService {
-
   private final ServiceOperationMapper mapper;
   private final ServiceOperationRepository repository;
   private final RentOperationValidator validator;
@@ -52,7 +51,7 @@ public class EquipmentMaintenanceServiceImpl implements EquipmentMaintenanceServ
 
   @Override
   public ServiceOperationModel finishEquipmentServiceOperation(ServiceOperationModel serviceOperation,
-      Long id) {
+                                                               Long id) {
     log.info("finishEquipmentServiceOperation with model: {} and urlId-variable: {}", serviceOperation, id);
     var serviceOperationFromBase = getById(id);
     var registrationNumber = serviceOperationFromBase.getEquipmentItemModel().getRegistrationNumber();

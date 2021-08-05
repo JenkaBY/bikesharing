@@ -13,7 +13,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class TotalCostDayCalculatorTest {
-
   private static final RentCostModel rentcostmodel = RentCostUtils.getRentCostModel(null);
   private static final RentTimeModel rentTimemodel = RentTimeModelUtils.getRentTimeModel(RentTimeUnit.DAY, 0L);
   private static final Long DAY_PRICE = rentcostmodel.getDayPrice();

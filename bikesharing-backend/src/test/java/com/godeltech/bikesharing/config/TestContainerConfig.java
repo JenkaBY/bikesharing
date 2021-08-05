@@ -11,7 +11,6 @@ import org.testcontainers.utility.DockerImageName;
 
 @TestConfiguration
 public class TestContainerConfig {
-
   private static final String IMAGE_VERSION = "postgres:12.7";
 
   @Bean(initMethod = "start", destroyMethod = "stop")

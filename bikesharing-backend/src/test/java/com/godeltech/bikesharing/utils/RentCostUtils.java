@@ -6,7 +6,6 @@ import com.godeltech.bikesharing.models.response.RentCostResponse;
 import com.godeltech.bikesharing.persistence.entity.RentCost;
 
 public class RentCostUtils {
-
   public static final Long HALF_HOUR_PRICE = 3L;
   public static final Long ONE_HOUR_PRICE = 4L;
   public static final Long DAY_PRICE = 15L;

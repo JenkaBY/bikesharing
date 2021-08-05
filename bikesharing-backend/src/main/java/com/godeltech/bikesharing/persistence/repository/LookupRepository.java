@@ -7,6 +7,5 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
 public interface LookupRepository<T extends LookupEntity> extends JpaRepository<T, Long> {
-
   Optional<T> findByCode(String code);
 }

@@ -10,7 +10,6 @@ import java.time.LocalDate;
 
 
 public class EquipmentItemUtils {
-
   public static final String REGISTRATION_NUMBER = "equipmentNum1";
   public static final String FACTORY_NUMBER = "factoryNum1";
   public static final String NAME = "Aist Classic";
