@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface ClientAccountRepository extends JpaRepository<ClientAccount, Long> {
+
   Optional<ClientAccount> findByPhoneNumber(String phoneNum);
 
   Optional<ClientAccount> findByPhoneNumberEndsWith(String searchPattern);

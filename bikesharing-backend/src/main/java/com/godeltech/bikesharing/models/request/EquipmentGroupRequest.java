@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class EquipmentGroupRequest {
+
   @Pattern(regexp = "^[A-Z(_*)]*$",
       message = "Invalid code! "
           + "Must contain all upperCase-words with '_' between them. Valid example: VALID_CODE_EXAMPLE")

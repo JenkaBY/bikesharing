@@ -20,6 +20,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EqualsAndHashCode(of = "id")
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AuditableEntity {
+
   @CreatedDate
   @Column(name = "created", updatable = false)
   private LocalDateTime createdAt;

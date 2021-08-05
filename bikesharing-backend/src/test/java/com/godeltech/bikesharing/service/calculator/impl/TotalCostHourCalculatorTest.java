@@ -13,6 +13,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class TotalCostHourCalculatorTest {
+
   private static final RentCostModel rentcostmodel = RentCostUtils.getRentCostModel(null);
   private static final RentTimeModel rentTimemodel = RentTimeModelUtils.getRentTimeModel(RentTimeUnit.HOUR, 0L);
 

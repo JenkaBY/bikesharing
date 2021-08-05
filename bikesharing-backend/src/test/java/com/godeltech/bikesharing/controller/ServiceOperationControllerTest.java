@@ -16,7 +16,6 @@ import com.godeltech.bikesharing.mapper.ServiceOperationMapper;
 import com.godeltech.bikesharing.models.ServiceOperationModel;
 import com.godeltech.bikesharing.models.request.FinishEquipmentMaintenanceRequest;
 import com.godeltech.bikesharing.models.request.StartEquipmentMaintenanceRequest;
-import com.godeltech.bikesharing.models.response.EquipmentItemResponse;
 import com.godeltech.bikesharing.models.response.EquipmentMaintenanceResponse;
 import com.godeltech.bikesharing.models.response.FinishEquipmentMaintenanceResponse;
 import com.godeltech.bikesharing.service.equipmentmaintenance.EquipmentMaintenanceService;
@@ -33,6 +32,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest({ServiceOperationController.class, GeneralErrorMapper.class, JsonMapper.class})
 class ServiceOperationControllerTest {
+
   private static final String URL_TEMPLATE = "/v1/bikesharing/service_operation/";
   private static final Long ID = 1L;
   private static final ServiceOperationModel serviceOperationModel = ServiceOperationUtils.getServiceOperationModel(ID);
@@ -99,7 +99,7 @@ class ServiceOperationControllerTest {
   @Test
   public void shouldGetProperFinishResponse() throws Exception {
     when(mapper.mapToModel(finishRequest)).thenReturn(serviceOperationModel);
-    when(service.finishEquipmentServiceOperation(serviceOperationModel,ID))
+    when(service.finishEquipmentServiceOperation(serviceOperationModel, ID))
         .thenReturn(serviceOperationModel);
     when(mapper.mapToFinishResponse(serviceOperationModel))
         .thenReturn(ServiceOperationUtils.getFinishEquipmentMaintenanceResponse(ID));
@@ -114,7 +114,7 @@ class ServiceOperationControllerTest {
         .andReturn();
     var actualResponseFromServer = jsonMapper.getResponse(result, FinishEquipmentMaintenanceResponse.class);
 
-    verify(service).finishEquipmentServiceOperation(serviceOperationModel,ID);
+    verify(service).finishEquipmentServiceOperation(serviceOperationModel, ID);
     assertEquals(expectedFinishResponse, actualResponseFromServer);
   }
 
@@ -145,7 +145,8 @@ class ServiceOperationControllerTest {
         .andDo(print())
         .andExpect(status().isOk())
         .andReturn();
-    var type = new TypeReference<List<EquipmentMaintenanceResponse>>() {};
+    var type = new TypeReference<List<EquipmentMaintenanceResponse>>() {
+    };
     var actualResponseFromServer = jsonMapper.getResponseToList(result, type);
 
     verify(service).getAllUnfinished();

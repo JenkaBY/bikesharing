@@ -4,6 +4,7 @@ import com.godeltech.bikesharing.models.EquipmentItemModel;
 import org.springframework.data.domain.Page;
 
 public interface EquipmentItemService {
+
   int PAGE_SIZE = 10;
 
   EquipmentItemModel getByRegistrationNumber(String registrationNumber);

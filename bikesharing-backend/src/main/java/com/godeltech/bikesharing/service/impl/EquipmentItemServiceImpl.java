@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class EquipmentItemServiceImpl implements EquipmentItemService {
+
   private final EquipmentItemRepository repository;
   private final EquipmentGroupServiceImpl equipmentGroupService;
   private final EquipmentStatusServiceImpl equipmentStatusService;

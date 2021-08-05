@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public abstract class LookupEntityModel {
+
   @JsonIgnore
   private Long id;
   private String code;

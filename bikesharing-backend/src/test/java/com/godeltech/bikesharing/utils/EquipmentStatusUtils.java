@@ -5,6 +5,7 @@ import com.godeltech.bikesharing.models.response.lookup.EquipmentStatusResponse;
 import com.godeltech.bikesharing.persistence.entity.lookup.EquipmentStatus;
 
 public class EquipmentStatusUtils {
+
   public static final Long ID_FOR_SERVICE = 1L;
   public static final Long ID_FOR_BROKEN = 4L;
   public static final Long ID_FOR_FREE = 3L;

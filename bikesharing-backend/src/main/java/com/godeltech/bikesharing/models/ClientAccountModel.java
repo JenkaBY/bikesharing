@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class ClientAccountModel {
+
   private Long id;
   private String phoneNumber;
   private String name;

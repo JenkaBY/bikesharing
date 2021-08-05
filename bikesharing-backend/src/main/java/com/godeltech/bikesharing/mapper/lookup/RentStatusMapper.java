@@ -7,4 +7,5 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface RentStatusMapper extends LookupMapper<RentStatusModel, RentStatus> {
+
 }

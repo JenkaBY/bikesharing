@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 abstract class LookupResponse {
+
   private Long id;
   private String code;
   private String name;

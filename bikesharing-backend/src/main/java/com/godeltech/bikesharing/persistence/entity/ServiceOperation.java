@@ -24,6 +24,7 @@ import lombok.Setter;
 @Table(name = "service_operation")
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class ServiceOperation extends AuditableEntity {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

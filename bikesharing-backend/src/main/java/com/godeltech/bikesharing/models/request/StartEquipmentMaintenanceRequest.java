@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class StartEquipmentMaintenanceRequest {
+
   @NotBlank
   private String equipmentRegistrationNumber;
 

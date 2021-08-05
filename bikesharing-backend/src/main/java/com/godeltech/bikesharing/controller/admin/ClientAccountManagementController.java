@@ -22,10 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RequestMapping(path = "/v1/bikesharing/admin/client")
 public class ClientAccountManagementController {
+
   private final ClientService service;
   private final ClientAccountMapper mapper;
 
-  @PostMapping()
+  @PostMapping
   public ResponseEntity<ClientAccountResponse> create(
       @Valid @RequestBody ClientAccountRequest request) {
     var clientAccountModel = mapper.mapToModel(request);

@@ -16,7 +16,6 @@ import com.godeltech.bikesharing.models.request.EquipmentItemRequest;
 import com.godeltech.bikesharing.models.response.EquipmentItemResponse;
 import com.godeltech.bikesharing.service.admin.EquipmentItemManagementService;
 import com.godeltech.bikesharing.service.util.JsonMapper;
-import com.godeltech.bikesharing.utils.EquipmentGroupUtils;
 import com.godeltech.bikesharing.utils.EquipmentItemUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,6 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest({EquipmentItemManagementController.class, GeneralErrorMapper.class, JsonMapper.class})
 class EquipmentItemManagementControllerTest {
+
   private static final String URL_TEMPLATE = "/v1/bikesharing/admin/equipment_item";
   private static final String UPDATED_NAME = "SuperEquipment";
   private static final Long ID = 1L;

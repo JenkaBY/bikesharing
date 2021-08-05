@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
     EquipmentStatusMapperImpl.class
 })
 class ServiceOperationMapperTest {
+
   private static final Long ID = 1L;
   @Autowired
   private ServiceOperationMapper serviceOperationMapper;

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class EquipmentItemModel {
+
   private Long id;
   private String registrationNumber;
   private String name;

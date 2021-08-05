@@ -1,7 +1,6 @@
 package com.godeltech.bikesharing.mapper;
 
 import com.godeltech.bikesharing.models.LookupEntityModel;
-import com.godeltech.bikesharing.models.lookup.EquipmentGroupModel;
 import com.godeltech.bikesharing.persistence.entity.common.LookupEntity;
 
 

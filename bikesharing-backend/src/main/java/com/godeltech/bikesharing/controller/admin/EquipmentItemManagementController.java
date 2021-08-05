@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RequestMapping(path = "/v1/bikesharing/admin/equipment_item")
 public class EquipmentItemManagementController {
+
   private final EquipmentItemManagementService managementService;
   private final EquipmentItemMapper mapper;
 
