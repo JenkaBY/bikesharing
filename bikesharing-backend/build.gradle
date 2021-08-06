@@ -60,9 +60,17 @@ test {
     useJUnitPlatform()
 }
 
-task runDevBackend {
-    print "Run DEV Backend"
-    bootRun.args("--spring.profiles.active=dev")
-}
+//task runDevBackend {
+//    print "Run DEV Backend"
+//    bootRun.args("--spring.profiles.active=dev")
+//}
+//runDevBackend.dependsOn bootRun
 
-runDevBackend.dependsOn bootRun
+def profiles = 'heroku'
+bootRun {
+    args = ["--spring.profiles.active=" + profiles]
+}
+task runHerokuBackend(dependsOn: bootRun) {
+    print "Run HEROKU Backend"
+    bootRun
+}

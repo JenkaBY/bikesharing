@@ -1,0 +1,25 @@
+server:
+  port: ${PORT:8080}
+spring:
+  datasource:
+    db-name: deal9ir0nfc6d3
+    host: ec2-3-248-103-75.eu-west-1.compute.amazonaws.com
+    port: 5432
+    url: jdbc:postgresql://${spring.datasource.host}:${spring.datasource.port}/${spring.datasource.db-name}?sslmode=require
+    username: drqqlmouxzwevz
+    password: 85f27d9d73a531e5b92744d6e2c421abc3d2376f1910cbed3160f3217891f74b
+    driver-class-name: org.postgresql.Driver
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/changelog-master.yaml
+    contexts: dev
+    drop-first: false
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+
+logging:
+  level:
+    org.hibernate.SQL: debug
