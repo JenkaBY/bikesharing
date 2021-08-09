@@ -1,0 +1,92 @@
+rent_operation:
+  - id: 1
+    rent_status_id: 2
+    equipment_item_id: 1
+    client_account_id: 1
+    total_cost: 4
+    deposit: 4
+    start_time: "2021-01-01 01:00:00"
+    end_time: "2021-01-01 02:00:00"
+    updated: 2021-07-12 01:00:00.000000
+    created: 2021-07-12 01:00:00.000000
+  - id: 2
+    rent_status_id: 1
+    equipment_item_id: 1
+    client_account_id: 1
+    total_cost: 4
+    deposit: 4
+    start_time: "2021-01-05 01:00:00"
+    end_time: "2021-01-05 02:00:00"
+    updated: 2021-07-12 01:00:00.000000
+    created: 2021-07-12 01:00:00.000000
+  - id: 3
+    rent_status_id: 1
+    equipment_item_id: 2
+    client_account_id: 1
+    total_cost: 4
+    deposit: 4
+    start_time: "2021-01-05 01:00:00"
+    end_time: "2021-01-05 02:00:00"
+    updated: 2021-07-12 01:00:00.000000
+    created: 2021-07-12 01:00:00.000000
+  - id: 4
+    rent_status_id: 1
+    equipment_item_id: 2
+    client_account_id: 1
+    total_cost: 4
+    deposit: 4
+    start_time: "2021-01-05 01:00:00"
+    end_time: "2021-01-05 02:00:00"
+    updated: 2021-07-12 01:00:00.000000
+    created: 2021-07-12 01:00:00.000000
+  - id: 5
+    rent_status_id: 1
+    equipment_item_id: 2
+    client_account_id: 1
+    total_cost: 4
+    deposit: 4
+    start_time: "2021-01-01 01:00:00"
+    end_time: "2021-01-01 02:00:00"
+    updated: 2021-07-12 01:00:00.000000
+    created: 2021-07-12 01:00:00.000000
+  - id: 6
+    rent_status_id: 1
+    equipment_item_id: 2
+    client_account_id: 1
+    total_cost: 4
+    deposit: 4
+    start_time: "2021-01-05 01:00:00"
+    end_time: "2021-01-05 02:00:00"
+    updated: 2021-07-12 01:00:00.000000
+    created: 2021-07-12 01:00:00.000000
+  - id: 7
+    rent_status_id: 1
+    equipment_item_id: 1
+    client_account_id: 1
+    total_cost: 4
+    deposit: 4
+    start_time: "2021-01-05 01:00:00"
+    end_time: "2021-01-05 02:00:00"
+    updated: 2021-07-12 01:00:00.000000
+    created: 2021-07-12 01:00:00.000000
+  - id: 8
+    rent_status_id: 1
+    equipment_item_id: 2
+    client_account_id: 1
+    total_cost: 4
+    deposit: 4
+    fines: 4
+    start_time: "2021-01-25 01:00:00"
+    end_time: "2021-01-31 02:00:00"
+    updated: 2021-07-12 01:00:00.000000
+    created: 2021-07-12 01:00:00.000000
+  - id: 9
+    rent_status_id: 1
+    equipment_item_id: 3
+    client_account_id: 1
+    total_cost: 4
+    deposit: 4
+    start_time: "2021-02-05 01:00:00"
+    end_time: "2021-02-05 02:00:00"
+    updated: 2021-07-12 01:00:00.000000
+    created: 2021-07-12 01:00:00.000000

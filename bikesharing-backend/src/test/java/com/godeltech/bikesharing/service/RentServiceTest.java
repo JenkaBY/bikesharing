@@ -35,7 +35,7 @@ public class RentServiceTest extends AbstractIntegrationTest {
   }
 
   @Test
-  @DataSet(value = "/dataset/equipmentItem/equipmentItemFree.yml",
+  @DataSet(value = "/dataset/equipmentItem/equipmentItemAll.yml",
       useSequenceFiltering = false)
   @ExpectedDataSet(value = {"dataset/equipmentItem/equipmentItemInUse.yml",
       "dataset/clientAccount/clientAccountExpected.yml",
@@ -64,7 +64,7 @@ public class RentServiceTest extends AbstractIntegrationTest {
       },
       useSequenceFiltering = false)
   @ExpectedDataSet(value = {
-          "dataset/equipmentItem/equipmentItemFree.yml",
+          "dataset/equipmentItem/equipmentItemAll.yml",
           "dataset/rentOperation/rentOperationClosed.yml"
       })
   public void shouldFinishRentOperationProperly() {

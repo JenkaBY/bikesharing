@@ -6,6 +6,7 @@ import com.godeltech.bikesharing.mapper.RentOperationMapper;
 import com.godeltech.bikesharing.mapper.ServiceOperationMapper;
 import com.godeltech.bikesharing.service.admin.EquipmentGroupManagementService;
 import com.godeltech.bikesharing.service.admin.EquipmentItemManagementService;
+import com.godeltech.bikesharing.service.admin.IncomeDetailsService;
 import com.godeltech.bikesharing.service.admin.RentCostManagementService;
 import com.godeltech.bikesharing.service.equipmentmaintenance.EquipmentMaintenanceService;
 import com.godeltech.bikesharing.support.IntegrationTest;
@@ -37,4 +38,6 @@ public class AbstractIntegrationTest {
   protected RentCostManagementService rentCostManagementService;
   @Autowired
   protected ClientAccountMapper clientAccountMapper;
+  @Autowired
+  protected IncomeDetailsService incomeDetailsService;
 }

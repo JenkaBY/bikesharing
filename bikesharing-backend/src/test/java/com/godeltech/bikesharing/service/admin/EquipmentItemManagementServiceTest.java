@@ -6,7 +6,6 @@ import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.godeltech.bikesharing.models.request.EquipmentItemRequest;
 import com.godeltech.bikesharing.service.AbstractIntegrationTest;
-import com.godeltech.bikesharing.utils.EquipmentGroupUtils;
 import com.godeltech.bikesharing.utils.EquipmentItemUtils;
 import com.godeltech.bikesharing.utils.EquipmentStatusUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 class EquipmentItemManagementServiceTest extends AbstractIntegrationTest {
   private static final Long ID = 1L;
-  private static final String GROUP_CODE = EquipmentGroupUtils.CODE;
   private static final String COMMENT = "Needs to be serviced";
 
   private static EquipmentItemRequest request;

@@ -9,3 +9,53 @@ equipment_item:
     comments: "simple road bike, single speed, 29' wheel"
     updated: 2021-07-12 13:23:01.000000
     created: 2021-07-12 13:23:01.000000
+  - id: 2
+    registration_number: "equipmentNum2"
+    name: "Specialized Hardrock"
+    equipment_group_id: 1
+    equipment_status_id: 3
+    factory_number: "factoryNum2"
+    purchase_date: "2021-01-23"
+    comments: "mountain bike, 21 speed, 26' wheel"
+    updated: 2021-07-12 13:23:01.000000
+    created: 2021-07-12 13:23:01.000000
+  - id: 3
+    registration_number: "equipmentNum3"
+    name: "Micro Urban"
+    equipment_group_id: 2
+    equipment_status_id: 3
+    factory_number: "factoryNum3"
+    purchase_date: "2021-01-23"
+    comments: "scooter, max 100 kg, 200 mm wheel"
+    updated: 2021-07-12 13:23:01.000000
+    created: 2021-07-12 13:23:01.000000
+  - id: 4
+    registration_number: "equipmentNum4"
+    name: "Xiaomi Mijia"
+    equipment_group_id: 4
+    equipment_status_id: 3
+    factory_number: "factoryNum4"
+    purchase_date: "2021-01-23"
+    comments: "e-scooter, max 100 kg, 30 km"
+    updated: 2021-07-12 13:23:01.000000
+    created: 2021-07-12 13:23:01.000000
+  - id: 5
+    registration_number: "equipmentNum5"
+    name: "Kogoo s3"
+    equipment_group_id: 4
+    equipment_status_id: 3
+    factory_number: "factoryNum5"
+    purchase_date: "2021-01-23"
+    comments: "e-scooter, max 100 kg, 25 km"
+    updated: 2021-07-12 13:23:01.000000
+    created: 2021-07-12 13:23:01.000000
+  - id: 6
+    registration_number: "equipmentNum6"
+    name: "Xiaomi MiJia QiCycle"
+    equipment_group_id: 3
+    equipment_status_id: 3
+    factory_number: "factoryNum6"
+    purchase_date: "2021-01-23"
+    comments: "e-bike, 3 speed, 16' wheel"
+    updated: 2021-07-12 13:23:01.000000
+    created: 2021-07-12 13:23:01.000000
