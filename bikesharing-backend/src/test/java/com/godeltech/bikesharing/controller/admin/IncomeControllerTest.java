@@ -25,8 +25,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest({IncomeReportController.class, GeneralErrorMapper.class, JsonMapper.class})
-class IncomeReportControllerTest {
+@WebMvcTest({IncomeController.class, GeneralErrorMapper.class, JsonMapper.class})
+class IncomeControllerTest {
   private static final String URL_TEMPLATE = "/v1/bikesharing/admin/income";
   private static final String INCOME_TIME_UNIT = "day";
   private static final String WRONG_INCOME_TIME_UNIT = "Z-day";

@@ -17,6 +17,8 @@ ext {
     mapstructVersion = '1.4.2.Final'
     mockitoJunitJupiterVersion = '3.6.0'
     junitJupiterApiVersion='5.7.0'
+    swaggerVersion='1.4.6'
+    apachePoiVersion='3.9'
 }
 
 dependencies {
@@ -25,20 +27,24 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testCompileOnly "org.projectlombok:lombok"
     testAnnotationProcessor "org.projectlombok:lombok"
-    //   Spring
+    //      Spring
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    //      MapStruct
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
-    implementation("org.liquibase:liquibase-core")
 
+    //      Apache POI
+    implementation "org.apache.poi:poi-ooxml:${apachePoiVersion}"
+    implementation 'com.opencsv:opencsv:4.5'
 
     //      Swagger
-    implementation("org.springdoc:springdoc-openapi-ui:1.4.6")
+    implementation("org.springdoc:springdoc-openapi-ui:${swaggerVersion}")
 
-
+    //      Liquibase
+    implementation("org.liquibase:liquibase-core")
     //      Database
     runtimeOnly 'org.postgresql:postgresql'
 
