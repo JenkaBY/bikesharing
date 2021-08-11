@@ -1,13 +1,24 @@
-package com.godeltech.bikesharing.service.calculator;
+package com.godeltech.bikesharing.service.util;
 
 import com.godeltech.bikesharing.models.enums.IncomeTimeUnit;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-public class StartDateCalculator {
+public class DateUtils {
+
+  public static String getFormattedDate(LocalDate date) {
+    var formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd");
+    return date.format(formatter);
+  }
+
+  public static LocalDate getDateFromString(String dateString) {
+    var formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd");
+    return LocalDate.parse(dateString, formatter);
+  }
 
   public static LocalDate getStartDate(IncomeTimeUnit timeUnit, LocalDate finishDate) {
     var timeUnitDayMonthNumbers = getMonthAndDay(finishDate);
@@ -15,6 +26,13 @@ public class StartDateCalculator {
     var month = timeUnitDayMonthNumbers.get(timeUnit).getMonthNum();
     var day = timeUnitDayMonthNumbers.get(timeUnit).getDayNum();
     return LocalDate.of(year, month, day);
+  }
+
+  public static LocalDate getFinishDate(LocalDate finishDate) {
+    if (finishDate == null) {
+      finishDate = LocalDate.now();
+    }
+    return finishDate;
   }
 
   private static Map<IncomeTimeUnit, MonthDayHolder> getMonthAndDay(LocalDate finishDate) {

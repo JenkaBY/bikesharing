@@ -1,6 +1,7 @@
 package com.godeltech.bikesharing.controller.admin;
 
 import com.godeltech.bikesharing.mapper.IncomeDetailsItemMapper;
+import com.godeltech.bikesharing.models.enums.IncomeTimeUnit;
 import com.godeltech.bikesharing.models.response.IncomeDetailsItemResponse;
 import com.godeltech.bikesharing.service.admin.IncomeDetailsService;
 import com.godeltech.bikesharing.service.util.StringToEnumConverter;
@@ -31,7 +32,7 @@ public class IncomeController {
   public ResponseEntity<List<IncomeDetailsItemResponse>> getAllByTimeUnitDate(
       @RequestParam @NotBlank String timeUnit,
       @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-    var incomeTimeUnit = StringToEnumConverter.convert(timeUnit);
+    var incomeTimeUnit = StringToEnumConverter.convert(timeUnit, IncomeTimeUnit.class);
     var incomeDetailsItems = service.getAllIncomeDetailsItems(incomeTimeUnit, date);
     var response = incomeDetailsItems.stream()
         .map(mapper::mapToResponse)

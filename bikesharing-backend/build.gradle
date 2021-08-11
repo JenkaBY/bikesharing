@@ -38,7 +38,6 @@ dependencies {
 
     //      Apache POI
     implementation "org.apache.poi:poi-ooxml:${apachePoiVersion}"
-    implementation 'com.opencsv:opencsv:4.5'
 
     //      Swagger
     implementation("org.springdoc:springdoc-openapi-ui:${swaggerVersion}")

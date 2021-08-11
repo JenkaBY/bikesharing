@@ -4,7 +4,13 @@ import lombok.Getter;
 
 @Getter
 public enum IncomeTimeUnit {
-  DAY,
-  MONTH,
-  YEAR;
+  DAY("DAY"),
+  MONTH("MONTH"),
+  YEAR("YEAR");
+
+  private final String name;
+
+  IncomeTimeUnit(String name) {
+    this.name = name;
+  }
 }
