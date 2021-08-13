@@ -24,7 +24,7 @@ public class CreateIncomeReportTask {
   private final Environment env;
   private final EmailService service;
 
-  @Scheduled(cron = "0 00 22 * * ?")
+  @Scheduled(cron = "0 0 22 * * ?")
   public void sendIncomeReport() {
     log.info("Send income report for previous day");
     final String reportType = env.getProperty("spring.mail.report-type");
