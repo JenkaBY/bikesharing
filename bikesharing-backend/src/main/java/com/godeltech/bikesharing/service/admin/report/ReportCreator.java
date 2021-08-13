@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 public interface ReportCreator {
-  StreamingResponseBody createReport(IncomeTimeUnit incomeTimeUnit, LocalDate date);
+  StreamingResponseBody getData(IncomeTimeUnit incomeTimeUnit, LocalDate date);
 
   ReportType getType();
 }

@@ -3,6 +3,7 @@ package com.godeltech.bikesharing.controller.admin;
 import com.godeltech.bikesharing.models.enums.IncomeTimeUnit;
 import com.godeltech.bikesharing.models.enums.ReportType;
 import com.godeltech.bikesharing.service.admin.report.IncomeDetailsReportFactory;
+import com.godeltech.bikesharing.service.admin.report.IncomeReportCreator;
 import com.godeltech.bikesharing.service.util.StringToEnumConverter;
 import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
@@ -25,7 +26,8 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 @RequestMapping(path = "/v1/bikesharing/admin/income/report")
 public class IncomeReportController {
   private final IncomeDetailsReportFactory factory;
-  private static final String HEADER_VALUES = "attachment;filename=\"report.%s\"";
+  private final IncomeReportCreator reportCreator;
+  private static final String HEADER_VALUES = "attachment;filename=\"%s\"";
 
   @GetMapping
   public ResponseEntity<StreamingResponseBody> getReport(
@@ -35,14 +37,13 @@ public class IncomeReportController {
       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
     var reportTypeRequest = StringToEnumConverter.convert(reportType, ReportType.class);
     var incomeTimeUnit = StringToEnumConverter.convert(timeUnit, IncomeTimeUnit.class);
-    var headerValues = String.format(HEADER_VALUES, reportTypeRequest.getSuffix());
 
-    StreamingResponseBody responseBody = factory
-        .getReportCreator(reportTypeRequest)
-        .createReport(incomeTimeUnit, date);
+    var report = reportCreator.createReport(reportTypeRequest, incomeTimeUnit, date);
+    var headerValues = String.format(HEADER_VALUES, report.getFileName());
+
     return ResponseEntity.status(HttpStatus.OK)
         .contentType(MediaType.APPLICATION_OCTET_STREAM)
         .header(HttpHeaders.CONTENT_DISPOSITION, headerValues)
-        .body(responseBody);
+        .body(report.getData());
   }
 }

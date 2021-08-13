@@ -25,7 +25,7 @@ public class XlsxReportCreator implements ReportCreator {
   private final IncomeDetailsService service;
 
   @Override
-  public StreamingResponseBody createReport(IncomeTimeUnit incomeTimeUnit, LocalDate date) {
+  public StreamingResponseBody getData(IncomeTimeUnit incomeTimeUnit, LocalDate date) {
     log.info("Get Income Details Items XLSX-report for timeUnit: {} and finishDate: {} ",
         incomeTimeUnit, date);
     var incomeDetailsItems = service.getAllIncomeDetailsItems(incomeTimeUnit, date);

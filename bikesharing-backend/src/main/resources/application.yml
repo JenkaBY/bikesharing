@@ -20,6 +20,23 @@ spring:
       ddl-auto: none
     open-in-view: false
 
+  mail:
+    host: 127.0.0.1
+    port: 1025 #2525
+    report-type: XLSX
+    sender: application@test.com
+    recipients: admin@test.com,manager@test.com
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          connectiontimeout: 60000
+          timeout: 60000
+          auth: false
+          starttls:
+            enable: false
+
 logging:
   level:
     org.hibernate.SQL: debug

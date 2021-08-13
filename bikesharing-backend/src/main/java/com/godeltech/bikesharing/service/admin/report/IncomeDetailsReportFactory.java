@@ -27,7 +27,7 @@ public class IncomeDetailsReportFactory {
   private ReportCreator getDefaultReportCreator(ReportType type) {
     return new ReportCreator() {
       @Override
-      public StreamingResponseBody createReport(IncomeTimeUnit incomeTimeUnit, LocalDate date) {
+      public StreamingResponseBody getData(IncomeTimeUnit incomeTimeUnit, LocalDate date) {
         var errorMessage = String.format("Income Details Report is not implemented for %s ReportType", type);
         throw new RuntimeException(errorMessage);
       }
