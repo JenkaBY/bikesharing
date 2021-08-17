@@ -41,3 +41,24 @@ databaseChangeLog:
             separator: ','
             relativeToChangelogFile: true
             tableName: equipment_status
+  - changeSet:
+      id: initial-data for service_type
+      author: dzmitry_krauchuk
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: code
+                  name: code
+                  type: STRING
+              - column:
+                  header: name
+                  name: name
+                  type: STRING
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/service_type.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: service_type

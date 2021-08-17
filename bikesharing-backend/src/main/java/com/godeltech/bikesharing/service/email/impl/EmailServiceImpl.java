@@ -51,7 +51,8 @@ public class EmailServiceImpl implements EmailService {
       e.printStackTrace();
     }
 
-  return  message;}
+    return message;
+  }
 
   private void setAttachment(MimeMessageHelper mimeMessageHelper, ReportModel attachment) {
     try {

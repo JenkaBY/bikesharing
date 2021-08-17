@@ -9,17 +9,3 @@ spring:
     username: drqqlmouxzwevz
     password: 85f27d9d73a531e5b92744d6e2c421abc3d2376f1910cbed3160f3217891f74b
     driver-class-name: org.postgresql.Driver
-
-  liquibase:
-    enabled: true
-    change-log: classpath:db/changelog/changelog-master.yaml
-    contexts: dev
-    drop-first: false
-  jpa:
-    hibernate:
-      ddl-auto: none
-    open-in-view: false
-
-logging:
-  level:
-    org.hibernate.SQL: debug

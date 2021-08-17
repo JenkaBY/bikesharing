@@ -11,39 +11,42 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-@PropertySource("classpath:application.yml")
 @Slf4j
 @RequiredArgsConstructor
 public class CreateIncomeReportTask {
-  private final Environment env;
   private final EmailService service;
+
+  @Value("${spring.mail.report-type}")
+  private String REPORT_TYPE;
+
+  @Value("${spring.mail.sender}")
+  private String SENDER;
+
+  @Value("${spring.mail.recipients}")
+  private String RECIPIENTS;
 
   @Scheduled(cron = "0 0 22 * * ?")
   public void sendIncomeReport() {
     log.info("Send income report for previous day");
-    final String reportType = env.getProperty("spring.mail.report-type");
-    final String sender = env.getProperty("spring.mail.sender");
-    final String[] recipients = Objects.requireNonNull(env.getProperty("spring.mail.recipients"))
-        .split(",");
-    var rType = StringToEnumConverter.convert(reportType, ReportType.class);
-    var eMail = prepareEmails(sender, recipients, rType);
-    eMail.forEach(service::sendEmail);
+    final String[] recipients = Objects.requireNonNull(RECIPIENTS).split(",");
+    var type = StringToEnumConverter.convert(REPORT_TYPE, ReportType.class);
+    var emails = prepareEmails(SENDER, recipients, type);
+    emails.forEach(service::sendEmail);
   }
 
-  private List<EmailSendModel> prepareEmails(String sender, String[] recipients, ReportType rType) {
+  private List<EmailSendModel> prepareEmails(String sender, String[] recipients, ReportType type) {
     return Arrays.stream(recipients)
         .map(r -> EmailSendModel.builder()
             .recipient((r))
             .sender(sender)
             .subject("IncomeReport")
             .message("Income report for: " + LocalDate.now())
-            .reportType(rType)
+            .reportType(type)
             .build()).collect(Collectors.toList());
   }
 }

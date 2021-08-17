@@ -1,9 +1,12 @@
 package com.godeltech.bikesharing.service;
 
+import com.godeltech.bikesharing.async.Consumer;
+import com.godeltech.bikesharing.async.Producer;
 import com.godeltech.bikesharing.mapper.ClientAccountMapper;
 import com.godeltech.bikesharing.mapper.EquipmentItemMapper;
 import com.godeltech.bikesharing.mapper.RentOperationMapper;
 import com.godeltech.bikesharing.mapper.ServiceOperationMapper;
+import com.godeltech.bikesharing.mapper.TimeInUseMapper;
 import com.godeltech.bikesharing.service.admin.EquipmentGroupManagementService;
 import com.godeltech.bikesharing.service.admin.EquipmentItemManagementService;
 import com.godeltech.bikesharing.service.admin.IncomeDetailsService;
@@ -29,9 +32,13 @@ public class AbstractIntegrationTest {
   @Autowired
   protected EquipmentMaintenanceService equipmentMaintenanceService;
   @Autowired
+  protected TimeInUseService timeInUseService;
+  @Autowired
   protected RentOperationMapper rentOperationMapper;
   @Autowired
   protected ServiceOperationMapper serviceOperationMapper;
+  @Autowired
+  protected TimeInUseMapper timeInUseMapper;
   @Autowired
   protected RentCostService rentCostService;
   @Autowired
@@ -40,4 +47,8 @@ public class AbstractIntegrationTest {
   protected ClientAccountMapper clientAccountMapper;
   @Autowired
   protected IncomeDetailsService incomeDetailsService;
+  @Autowired
+  protected Consumer consumer;
+  @Autowired
+  protected Producer producer;
 }

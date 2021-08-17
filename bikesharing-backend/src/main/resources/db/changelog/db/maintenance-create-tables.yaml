@@ -1,0 +1,110 @@
+databaseChangeLog:
+  - changeSet:
+      id: addTable time_in_use
+      author: dzmitry_krauchuk
+      changes:
+        - createTable:
+            tableName: time_in_use
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: minutes_in_use
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: equipment_item_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: maintenance_date
+                  type: DATE
+              - column:
+                  name: updated
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: addTable required_maintenance_period
+      author: dzmitry_krauchuk
+      changes:
+        - createTable:
+            tableName: required_maintenance_period
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: interval_in_hours
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: equipment_group_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: addForeignKeyConstraint FK_requiredMaintenancePeriod_equipmentGroup
+      author: dzmitry_krauchuk
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: equipment_group_id
+            baseTableCatalogName: com.godeltech.bikesharing
+            baseTableName: required_maintenance_period
+            baseTableSchemaName: public
+            constraintName: FK_requiredMaintenancePeriod_equipmentGroup
+            deferrable: true
+            initiallyDeferred: true
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableCatalogName: com.godeltech.bikesharing
+            referencedTableName: equipment_group
+            referencedTableSchemaName: public
+            validate: true
+  - changeSet:
+      id: addForeignKeyConstraint FK_timeInUse_equipmentItem
+      author: dzmitry_krauchuk
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: equipment_item_id
+            baseTableCatalogName: com.godeltech.bikesharing
+            baseTableName: time_in_use
+            baseTableSchemaName: public
+            constraintName: FK_timeInUse_equipmentItem
+            deferrable: true
+            initiallyDeferred: true
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableCatalogName: com.godeltech.bikesharing
+            referencedTableName: equipment_item
+            referencedTableSchemaName: public
+            validate: true

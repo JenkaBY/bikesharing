@@ -1,5 +1,6 @@
 server:
   port: ${PORT:8080}
+---
 spring:
   datasource:
     db-name: bikesharing
@@ -9,7 +10,6 @@ spring:
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
-
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/changelog-master.yaml
@@ -19,7 +19,6 @@ spring:
     hibernate:
       ddl-auto: none
     open-in-view: false
-
   mail:
     host: 127.0.0.1
     port: 1025 #2525
@@ -36,7 +35,15 @@ spring:
           auth: false
           starttls:
             enable: false
-
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    queue-name: queue
+    exchange-name: exchange
+    routing-key: key
+---
 logging:
   level:
     org.hibernate.SQL: debug
