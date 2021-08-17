@@ -21,8 +21,7 @@ class ProducerTest extends AbstractIntegrationTest {
   @DataSet(value = {
       "/dataset/equipmentGroup/equipmentGroupAll.yml",
       "/dataset/equipmentStatus/equipmentStatusAll.yml",
-      "/dataset/equipmentItem/equipmentItemAll.yml",
-  },
+      "/dataset/equipmentItem/equipmentItemAll.yml",},
       cleanBefore = true, useSequenceFiltering = false)
   public void setUp() {
     expected = TimeInUseUtils.getTimeInUseModel(ID);

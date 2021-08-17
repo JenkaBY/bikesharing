@@ -22,20 +22,20 @@ public class CreateIncomeReportTask {
   private final EmailService service;
 
   @Value("${spring.mail.report-type}")
-  private String REPORT_TYPE;
+  private String reportType;
 
   @Value("${spring.mail.sender}")
-  private String SENDER;
+  private String sender;
 
   @Value("${spring.mail.recipients}")
-  private String RECIPIENTS;
+  private String recipients;
 
   @Scheduled(cron = "0 0 22 * * ?")
   public void sendIncomeReport() {
     log.info("Send income report for previous day");
-    final String[] recipients = Objects.requireNonNull(RECIPIENTS).split(",");
-    var type = StringToEnumConverter.convert(REPORT_TYPE, ReportType.class);
-    var emails = prepareEmails(SENDER, recipients, type);
+    final String[] recipients = Objects.requireNonNull(this.recipients).split(",");
+    var type = StringToEnumConverter.convert(reportType, ReportType.class);
+    var emails = prepareEmails(sender, recipients, type);
     emails.forEach(service::sendEmail);
   }
 

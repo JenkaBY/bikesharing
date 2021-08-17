@@ -17,7 +17,7 @@ public class AsyncRabbitMqController {
   private final Producer producer;
 
   @PostMapping()
-  public ResponseEntity<String> postMessage(@RequestBody EquipmentTimeInUseModel model){
+  public ResponseEntity<String> postMessage(@RequestBody EquipmentTimeInUseModel model) {
     producer.sendMessage(model);
     return new ResponseEntity<>("EquipmentTimeInUseModel pushed to RabbitMQ", HttpStatus.CREATED);
   }

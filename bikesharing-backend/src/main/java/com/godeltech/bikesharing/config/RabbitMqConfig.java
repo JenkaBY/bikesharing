@@ -19,27 +19,27 @@ import org.springframework.context.annotation.PropertySource;
 @RequiredArgsConstructor
 public class RabbitMqConfig {
   @Value("${spring.rabbitmq.queue-name}")
-  private String QUEUE;
+  private String queue;
   @Value("${spring.rabbitmq.exchange-name}")
-  private String EXCHANGE;
+  private String exchange;
   @Value("${spring.rabbitmq.routing-key}")
-  private String ROUTING_KEY;
+  private String routingKey;
 
   @Bean
   Queue queue() {
-    return new Queue(QUEUE, true);
+    return new Queue(queue, true);
   }
 
   @Bean
   DirectExchange exchange() {
-    return new DirectExchange(EXCHANGE);
+    return new DirectExchange(exchange);
   }
 
   @Bean
   Binding binding(Queue queue, DirectExchange exchange) {
     return BindingBuilder.bind(queue)
         .to(exchange)
-        .with(ROUTING_KEY);
+        .with(routingKey);
   }
 
   @Bean

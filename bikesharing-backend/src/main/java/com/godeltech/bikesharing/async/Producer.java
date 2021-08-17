@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class Producer {
   @Value("${spring.rabbitmq.exchange-name}")
-  private String EXCHANGE;
+  private String exchange;
   @Value("${spring.rabbitmq.routing-key}")
-  private String ROUTING_KEY;
+  private String routingKey;
 
   private final AmqpTemplate amqpTemplate;
 
   public void sendMessage(EquipmentTimeInUseModel item) {
 
-    amqpTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, item);
+    amqpTemplate.convertAndSend(exchange, routingKey, item);
   }
 }

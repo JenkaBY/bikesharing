@@ -13,6 +13,7 @@ import com.godeltech.bikesharing.models.IncomeDetailsItemModel;
 import com.godeltech.bikesharing.models.enums.IncomeTimeUnit;
 import com.godeltech.bikesharing.service.admin.IncomeDetailsService;
 import com.godeltech.bikesharing.service.admin.report.IncomeDetailsReportFactory;
+import com.godeltech.bikesharing.service.admin.report.IncomeReportCreator;
 import com.godeltech.bikesharing.service.admin.report.impl.XlsxReportCreator;
 import com.godeltech.bikesharing.service.util.DateUtils;
 import com.godeltech.bikesharing.utils.IncomeDetailsItemUtils;
@@ -32,6 +33,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @WebMvcTest({IncomeReportController.class,
+    IncomeReportCreator.class,
     IncomeDetailsReportFactory.class,
     XlsxReportCreator.class,
     GeneralErrorMapper.class})

@@ -25,7 +25,6 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 @Validated
 @RequestMapping(path = "/v1/bikesharing/admin/income/report")
 public class IncomeReportController {
-  private final IncomeDetailsReportFactory factory;
   private final IncomeReportCreator reportCreator;
   private static final String HEADER_VALUES = "attachment;filename=\"%s\"";
 
