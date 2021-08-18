@@ -43,6 +43,12 @@ spring:
     queue-name: queue
     exchange-name: exchange
     routing-key: key
+    listener:
+      simple:
+        concurrency: 4
+        max-concurrency: 8
+        retry:
+          initial-interval: 5000
 ---
 logging:
   level:

@@ -9,5 +9,5 @@ public interface TimeInUseService {
 
   TimeInUseModel getOrCreateByEquipmentItemId(Long equipmentItemId);
 
-  void setToZeroTime(Long timeInUseId, LocalDate maintenanceDate);
+  void setToZeroTimeInUse(Long timeInUseId, LocalDate maintenanceDate);
 }

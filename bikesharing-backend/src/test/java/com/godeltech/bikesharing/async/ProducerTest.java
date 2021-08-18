@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
-import com.godeltech.bikesharing.models.EquipmentTimeInUseModel;
+import com.godeltech.bikesharing.models.request.EquipmentTimeInUseModel;
 import com.godeltech.bikesharing.models.TimeInUseModel;
 import com.godeltech.bikesharing.service.AbstractIntegrationTest;
 import com.godeltech.bikesharing.utils.TimeInUseUtils;
@@ -36,19 +36,20 @@ class ProducerTest extends AbstractIntegrationTest {
 
     var actual = timeInUseService.getOrCreateByEquipmentItemId(ID);
 
-    assertEquals(expected, actual);
+    assertEquals(expected.getEquipmentItem(), actual.getEquipmentItem());
+    assertEquals(expected.getMinutesInUse(), actual.getMinutesInUse());
   }
 
   @Test
   @DataSet(value = "/dataset/timeInUse/timeInUseInitial.yml")
   @ExpectedDataSet(value = "/dataset/timeInUse/timeInUseUpdated.yml")
   public void shouldAddTimeInUse() throws InterruptedException {
-    expected.setMinutesInUse(240);
     producer.sendMessage(EQUIPMENT_TIME_IN_USE_MODEL);
     Thread.sleep(500);
 
     var actual = timeInUseService.getOrCreateByEquipmentItemId(ID);
 
-    assertEquals(expected, actual);
+    assertEquals(expected.getEquipmentItem(), actual.getEquipmentItem());
+    assertEquals(expected.getMinutesInUse(), actual.getMinutesInUse());
   }
 }

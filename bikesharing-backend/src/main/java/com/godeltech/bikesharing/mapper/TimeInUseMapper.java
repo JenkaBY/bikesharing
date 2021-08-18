@@ -1,15 +1,13 @@
 package com.godeltech.bikesharing.mapper;
 
 import com.godeltech.bikesharing.models.EquipmentItemModel;
-import com.godeltech.bikesharing.models.EquipmentTimeInUseModel;
 import com.godeltech.bikesharing.models.TimeInUseModel;
+import com.godeltech.bikesharing.models.request.EquipmentTimeInUseModel;
 import com.godeltech.bikesharing.persistence.entity.TimeInUse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(uses = {
-    EquipmentItemMapper.class
-})
+@Mapper(uses = EquipmentItemMapper.class)
 public interface TimeInUseMapper {
 
   TimeInUseModel mapToModel(TimeInUse entity);

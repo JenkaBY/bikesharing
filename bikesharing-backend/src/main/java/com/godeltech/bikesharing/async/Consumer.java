@@ -1,7 +1,7 @@
 package com.godeltech.bikesharing.async;
 
 import com.godeltech.bikesharing.mapper.TimeInUseMapper;
-import com.godeltech.bikesharing.models.EquipmentTimeInUseModel;
+import com.godeltech.bikesharing.models.request.EquipmentTimeInUseModel;
 import com.godeltech.bikesharing.service.TimeInUseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

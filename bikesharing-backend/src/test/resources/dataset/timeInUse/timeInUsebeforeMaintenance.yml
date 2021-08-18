@@ -1,7 +1,7 @@
 time_in_use:
   - id: 1
-    minutes_in_use: 0
+    minutes_in_use: 1000
     equipment_item_id: 1
-    maintenance_date: '2021-01-02'
+    maintenance_date: '2021-01-01'
     updated: 2021-07-12 13:23:01.000000
     created: 2021-07-12 13:23:01.000000

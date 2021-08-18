@@ -1,6 +1,6 @@
 package com.godeltech.bikesharing.async;
 
-import com.godeltech.bikesharing.models.EquipmentTimeInUseModel;
+import com.godeltech.bikesharing.models.request.EquipmentTimeInUseModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;

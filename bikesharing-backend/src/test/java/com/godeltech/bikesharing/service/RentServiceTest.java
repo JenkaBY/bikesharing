@@ -64,10 +64,11 @@ public class RentServiceTest extends AbstractIntegrationTest {
       },
       useSequenceFiltering = false)
   @ExpectedDataSet(value = {
-          "dataset/equipmentItem/equipmentItemAll.yml",
-          "dataset/rentOperation/rentOperationClosed.yml"
+      "dataset/equipmentItem/equipmentItemAll.yml",
+      "dataset/rentOperation/rentOperationClosed.yml",
+      "/dataset/timeInUse/timeInUseCreated.yml"
       })
-  public void shouldFinishRentOperationProperly() {
+  public void shouldFinishRentOperationProperly() throws InterruptedException {
     var finishRentOperationRequest = RentOperationUtils.getFinishRentOperationRequest();
     finishRentOperationRequest.setFinishedAtTime(rentOperationModel.getStartTime().plusMinutes(MINUTES_PASSED));
     var rentOperationModel = rentOperationMapper.mapToModel(finishRentOperationRequest);
@@ -77,6 +78,8 @@ public class RentServiceTest extends AbstractIntegrationTest {
     var expectedRentOperation = rentService.getById(actualRentOperation.getId());
     expectedRentOperation.setToBePaidAmount(4L);
     expectedRentOperation.setToBeRefundAmount(0L);
+    Thread.sleep(500);
+
     assertEquals(expectedRentOperation, actualRentOperation);
   }
 

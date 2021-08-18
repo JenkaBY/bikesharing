@@ -23,6 +23,7 @@ databaseChangeLog:
                   type: int
                   constraints:
                     nullable: false
+                    unique: true
               - column:
                   name: maintenance_date
                   type: DATE

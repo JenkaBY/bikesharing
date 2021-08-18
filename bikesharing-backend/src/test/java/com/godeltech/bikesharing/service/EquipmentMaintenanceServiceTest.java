@@ -50,11 +50,13 @@ public class EquipmentMaintenanceServiceTest extends AbstractIntegrationTest {
   @Test
   @DataSet(value = {
       "/dataset/equipmentItem/equipmentItemInService.yml",
-      "/dataset/serviceOperation/serviceOperationInitial.yml"
+      "/dataset/serviceOperation/serviceOperationInitial.yml",
+      "/dataset/timeInUse/timeInUseBeforeMaintenance.yml"
       },
       useSequenceFiltering = false)
   @ExpectedDataSet(value = {
-      "/dataset/equipmentItem/equipmentItemFree.yml"
+      "/dataset/equipmentItem/equipmentItemFree.yml",
+      "/dataset/timeInUse/timeInUseAfterMaintenance.yml"
       })
   public void shouldFinishServiceOperationProperly() {
     var serviceOperationModel = serviceOperationMapper.mapToModel(finishRequest);

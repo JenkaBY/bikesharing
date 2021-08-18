@@ -94,7 +94,7 @@ public class RentCostTimeCalculator {
     return actualDuration > 10;
   }
 
-  private Long getRentDurationInMinutes(LocalDateTime from, LocalDateTime to) {
+  public Long getRentDurationInMinutes(LocalDateTime from, LocalDateTime to) {
     Duration duration = Duration.between(from, to);
     return duration.toMinutes();
   }

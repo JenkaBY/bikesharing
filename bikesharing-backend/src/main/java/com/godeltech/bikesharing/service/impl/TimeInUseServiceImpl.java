@@ -25,20 +25,15 @@ public class TimeInUseServiceImpl implements TimeInUseService {
   @Override
   public TimeInUseModel getOrCreateByEquipmentItemId(Long equipmentItemId) {
     log.info("Get existing timeInUse or create new with equipmentItemId: {}", equipmentItemId);
+    var equipmentItemModel = equipmentItemService.getById(equipmentItemId);
     var timeInUse = repository.findByEquipmentItemId(equipmentItemId)
-        .orElseGet(() -> createByEquipmentItemId(equipmentItemId));
+        .orElseGet(() -> repository.save(mapper.mapToEntity(equipmentItemModel,0L)));
     return mapper.mapToModel(timeInUse);
   }
 
   private TimeInUse getById(Long id) {
     return repository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException(TimeInUse.class.getSimpleName(), "id", id));
-  }
-
-  private TimeInUse createByEquipmentItemId(Long equipmentItemId) {
-    log.info("Create timeInUse equipmentItemId: {}", equipmentItemId);
-    var equipmentItemModel = equipmentItemService.getById(equipmentItemId);
-    return repository.save(mapper.mapToEntity(equipmentItemModel,0L));
   }
 
   @Override
@@ -50,7 +45,7 @@ public class TimeInUseServiceImpl implements TimeInUseService {
   }
 
   @Override
-  public void setToZeroTime(Long timeInUseId, LocalDate maintenanceDate) {
+  public void setToZeroTimeInUse(Long timeInUseId, LocalDate maintenanceDate) {
     log.info("Set to zero minutes in use, "
         + " set maintenanceDate: {}, for timeInUseId: {}", maintenanceDate, timeInUseId);
     var timeInUse = getById(timeInUseId);

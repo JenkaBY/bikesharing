@@ -1,12 +1,12 @@
 package com.godeltech.bikesharing.utils;
 
-import com.godeltech.bikesharing.models.EquipmentTimeInUseModel;
+import com.godeltech.bikesharing.models.request.EquipmentTimeInUseModel;
 import com.godeltech.bikesharing.models.TimeInUseModel;
 import java.time.LocalDate;
 
 public class TimeInUseUtils {
   public static final Long MINUTES_IN_USE = 120L;
-  public static final LocalDate DATE = LocalDate.of(2021, 1, 1);
+  public static final LocalDate DATE = LocalDate.of(2021, 1, 2);
 
   public static TimeInUseModel getTimeInUseModel(Long id) {
     var model = new TimeInUseModel();

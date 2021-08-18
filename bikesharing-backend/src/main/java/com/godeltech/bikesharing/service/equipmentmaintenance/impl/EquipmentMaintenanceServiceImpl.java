@@ -4,13 +4,16 @@ import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.ServiceOperationMapper;
 import com.godeltech.bikesharing.models.ServiceOperationModel;
 import com.godeltech.bikesharing.models.lookup.EquipmentStatusModel;
+import com.godeltech.bikesharing.models.lookup.ServiceTypeModel;
 import com.godeltech.bikesharing.persistence.entity.ServiceOperation;
 import com.godeltech.bikesharing.persistence.repository.ServiceOperationRepository;
 import com.godeltech.bikesharing.service.EquipmentItemService;
+import com.godeltech.bikesharing.service.TimeInUseService;
 import com.godeltech.bikesharing.service.equipmentmaintenance.EquipmentMaintenanceService;
 import com.godeltech.bikesharing.service.impl.lookup.EquipmentStatusServiceImpl;
 import com.godeltech.bikesharing.service.impl.lookup.ServiceTypeServiceImpl;
 import com.godeltech.bikesharing.service.util.RentOperationValidator;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +33,7 @@ public class EquipmentMaintenanceServiceImpl implements EquipmentMaintenanceServ
   private final ServiceTypeServiceImpl serviceTypeService;
   private final EquipmentStatusServiceImpl equipmentStatusService;
   private final EquipmentItemService equipmentItemService;
+  private final TimeInUseService timeInUseService;
 
 
   @Override
@@ -67,7 +71,18 @@ public class EquipmentMaintenanceServiceImpl implements EquipmentMaintenanceServ
         .mapToEntity(serviceOperationFromBase, equipmentItemModel);
     var finishedServiceOperation = repository.save(toBeSavedServiceOperation);
 
+    doIfServiceTypeIsRequired(serviceOperationFromBase.getServiceTypeModel().getCode(),
+        equipmentItemModel.getId(), serviceOperationFromBase.getFinishedOnDate());
+
     return mapper.mapToModel(finishedServiceOperation);
+  }
+
+  private void doIfServiceTypeIsRequired(String serviceTypeCode, Long equipmentItemId,
+                                         LocalDate finishedOnDate) {
+    if (serviceTypeCode.equals(ServiceTypeModel.SERVICE_TYPE_REQUIRED)) {
+      var timeInUse = timeInUseService.getOrCreateByEquipmentItemId(equipmentItemId);
+      timeInUseService.setToZeroTimeInUse(timeInUse.getId(), finishedOnDate);
+    }
   }
 
   @Override

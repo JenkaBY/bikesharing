@@ -1,4 +1,3 @@
 time_in_use:
-  - id: 1
-    minutes_in_use: 120
+  - minutes_in_use: 120
     equipment_item_id: 1

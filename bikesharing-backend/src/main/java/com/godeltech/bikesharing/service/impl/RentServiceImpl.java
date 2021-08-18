@@ -1,10 +1,12 @@
 package com.godeltech.bikesharing.service.impl;
 
+import com.godeltech.bikesharing.async.Producer;
 import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.RentOperationMapper;
 import com.godeltech.bikesharing.models.RentOperationModel;
 import com.godeltech.bikesharing.models.lookup.EquipmentStatusModel;
 import com.godeltech.bikesharing.models.lookup.RentStatusModel;
+import com.godeltech.bikesharing.models.request.EquipmentTimeInUseModel;
 import com.godeltech.bikesharing.persistence.entity.RentOperation;
 import com.godeltech.bikesharing.persistence.repository.RentOperationRepository;
 import com.godeltech.bikesharing.service.ClientService;
@@ -20,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 @Slf4j
 @Service
@@ -35,6 +36,7 @@ public class RentServiceImpl implements RentService {
   private final ClientService clientService;
   private final RentOperationMapper mapper;
   private final RentStatusServiceImpl rentStatusService;
+  private final Producer producer;
 
   @Override
   public RentOperationModel startRentOperation(RentOperationModel rentOperation) {
@@ -95,7 +97,19 @@ public class RentServiceImpl implements RentService {
         .mapToEntity(rentOperationModelFromBase, equipmentItemModel, calculatedFinishRentDetails);
     var finishedRentOperation = repository.save(toBeSavedRentOperation);
 
+    addTimeInUse(finishedRentOperation);
+
     return mapper.mapToModel(finishedRentOperation, calculatedFinishRentDetails);
+  }
+
+  private void addTimeInUse(RentOperation finishedRentOperation) {
+    var minutesInUse = calculator.getRentDurationInMinutes(finishedRentOperation.getStartTime(),
+        finishedRentOperation.getFinishedAtTime());
+    var equipmentItemId = finishedRentOperation.getEquipmentItem().getId();
+    var equipmentTimeInUse = new EquipmentTimeInUseModel();
+    equipmentTimeInUse.setEquipmentItemId(equipmentItemId);
+    equipmentTimeInUse.setMinutesInUse(minutesInUse);
+    producer.sendMessage(equipmentTimeInUse);
   }
 
   @Override
