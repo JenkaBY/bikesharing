@@ -1,7 +1,7 @@
 package com.godeltech.bikesharing.service.admin.report.income;
 
 import com.godeltech.bikesharing.models.enums.IncomeTimeUnit;
-import com.godeltech.bikesharing.models.enums.ReportType;
+import com.godeltech.bikesharing.models.enums.ReportFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -12,20 +12,20 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 
 @Component
 public class IncomeDetailsReportFactory {
-  private final Map<ReportType, TypeReportCreator> reports;
+  private final Map<ReportFormat, FormatReportCreator> reports;
 
   public IncomeDetailsReportFactory(
-      List<TypeReportCreator> reports) {
+      List<FormatReportCreator> reports) {
     this.reports = reports.stream()
-        .collect(Collectors.toMap(TypeReportCreator::getType, Function.identity()));
+        .collect(Collectors.toMap(FormatReportCreator::getFormat, Function.identity()));
   }
 
-  public TypeReportCreator getReportCreator(ReportType type) {
+  public FormatReportCreator getFormatReportCreator(ReportFormat type) {
     return reports.getOrDefault(type, getDefaultReportCreator(type));
   }
 
-  private TypeReportCreator getDefaultReportCreator(ReportType type) {
-    return new TypeReportCreator() {
+  private FormatReportCreator getDefaultReportCreator(ReportFormat type) {
+    return new FormatReportCreator() {
       @Override
       public StreamingResponseBody getData(IncomeTimeUnit incomeTimeUnit, LocalDate date) {
         var errorMessage = String.format("Income Details Report is not implemented for %s ReportType", type);
@@ -33,7 +33,7 @@ public class IncomeDetailsReportFactory {
       }
 
       @Override
-      public ReportType getType() {
+      public ReportFormat getFormat() {
         return null;
       }
     };

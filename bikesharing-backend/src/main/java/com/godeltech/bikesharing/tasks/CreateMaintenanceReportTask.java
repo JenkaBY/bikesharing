@@ -13,22 +13,21 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class CreateIncomeReportTask {
+public class CreateMaintenanceReportTask {
   private final EmailService service;
 
   @Value("${spring.mail.sender}")
   private String sender;
 
-  @Value("${spring.mail.income-recipients}")
+  @Value("${spring.mail.maintenance-recipients}")
   private String recipients;
 
   @Scheduled(cron = "0 0 22 * * ?")
-  public void sendIncomeReport() {
-    log.info("Send income report for previous day");
+  public void sendMaintenanceReport() {
+    log.info("Send required-maintenance report");
     final String[] recipients = Objects.requireNonNull(this.recipients).split(",");
-    var type = ReportType.INCOME;
+    var type = ReportType.MAINTENANCE;
     var emails = EmailUtils.prepareEmails(sender, recipients, type);
     emails.forEach(service::sendEmail);
   }
-
 }

@@ -22,9 +22,9 @@ spring:
   mail:
     host: 127.0.0.1
     port: 1025 #2525
-    report-type: XLSX
     sender: application@test.com
-    recipients: admin@test.com,manager@test.com
+    income-recipients: admin@test.com,manager@test.com
+    maintenance-recipients: service.man@test.com
     username:
     password:
     properties:

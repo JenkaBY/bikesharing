@@ -2,11 +2,11 @@ package com.godeltech.bikesharing.service.admin.report.income.impl;
 
 import com.godeltech.bikesharing.models.IncomeDetailsItemModel;
 import com.godeltech.bikesharing.models.enums.IncomeTimeUnit;
-import com.godeltech.bikesharing.models.enums.ReportType;
+import com.godeltech.bikesharing.models.enums.ReportFormat;
 import com.godeltech.bikesharing.service.admin.IncomeDetailsService;
-import com.godeltech.bikesharing.service.admin.report.income.TypeReportCreator;
+import com.godeltech.bikesharing.service.admin.report.income.FormatReportCreator;
 import com.godeltech.bikesharing.service.util.DateUtils;
-import com.godeltech.bikesharing.service.util.OutputStreamConverter;
+import com.godeltech.bikesharing.service.util.IoStreamConverter;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CsvReportCreator implements TypeReportCreator {
+public class CsvReportCreator implements FormatReportCreator {
   private final IncomeDetailsService service;
   private static final String CSV_SEPARATOR = ",";
 
@@ -28,7 +28,7 @@ public class CsvReportCreator implements TypeReportCreator {
     var incomeDetailsItems = service.getAllIncomeDetailsItems(incomeTimeUnit, date);
     var stringReport = getStringReport(incomeDetailsItems);
 
-    return OutputStreamConverter.convertStringToStream(stringReport);
+    return IoStreamConverter.convertStringToStream(stringReport);
   }
 
   private String getStringReport(List<IncomeDetailsItemModel> incomeDetailsItems) {
@@ -72,7 +72,7 @@ public class CsvReportCreator implements TypeReportCreator {
   }
 
   @Override
-  public ReportType getType() {
-    return ReportType.CSV;
+  public ReportFormat getFormat() {
+    return ReportFormat.CSV;
   }
 }

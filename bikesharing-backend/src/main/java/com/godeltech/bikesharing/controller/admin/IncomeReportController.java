@@ -1,7 +1,7 @@
 package com.godeltech.bikesharing.controller.admin;
 
 import com.godeltech.bikesharing.models.enums.IncomeTimeUnit;
-import com.godeltech.bikesharing.models.enums.ReportType;
+import com.godeltech.bikesharing.models.enums.ReportFormat;
 import com.godeltech.bikesharing.service.admin.report.income.IncomeReportCreator;
 import com.godeltech.bikesharing.service.util.StringToEnumConverter;
 import java.time.LocalDate;
@@ -29,14 +29,14 @@ public class IncomeReportController {
 
   @GetMapping
   public ResponseEntity<StreamingResponseBody> getReport(
-      @RequestParam @NotBlank String reportType,
+      @RequestParam @NotBlank String reportFormat,
       @RequestParam @NotBlank String timeUnit,
       @RequestParam(required = false)
       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-    var reportTypeRequest = StringToEnumConverter.convert(reportType, ReportType.class);
+    var reportFormatRequest = StringToEnumConverter.convert(reportFormat, ReportFormat.class);
     var incomeTimeUnit = StringToEnumConverter.convert(timeUnit, IncomeTimeUnit.class);
 
-    var report = reportCreator.createReport(reportTypeRequest, incomeTimeUnit, date);
+    var report = reportCreator.createIncomeReport(reportFormatRequest, incomeTimeUnit, date);
     var headerValues = String.format(HEADER_VALUES, report.getFileName());
 
     return ResponseEntity.status(HttpStatus.OK)

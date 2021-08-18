@@ -2,11 +2,11 @@ package com.godeltech.bikesharing.service.admin.report.income.impl;
 
 import com.godeltech.bikesharing.models.IncomeDetailsItemModel;
 import com.godeltech.bikesharing.models.enums.IncomeTimeUnit;
-import com.godeltech.bikesharing.models.enums.ReportType;
+import com.godeltech.bikesharing.models.enums.ReportFormat;
 import com.godeltech.bikesharing.service.admin.IncomeDetailsService;
-import com.godeltech.bikesharing.service.admin.report.income.TypeReportCreator;
+import com.godeltech.bikesharing.service.admin.report.income.FormatReportCreator;
 import com.godeltech.bikesharing.service.util.DateUtils;
-import com.godeltech.bikesharing.service.util.OutputStreamConverter;
+import com.godeltech.bikesharing.service.util.IoStreamConverter;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class XlsxReportCreator implements TypeReportCreator {
+public class XlsxReportCreator implements FormatReportCreator {
   private final IncomeDetailsService service;
 
   @Override
@@ -31,7 +31,7 @@ public class XlsxReportCreator implements TypeReportCreator {
     var incomeDetailsItems = service.getAllIncomeDetailsItems(incomeTimeUnit, date);
     var workBook = getWorkBook(incomeDetailsItems);
 
-    return OutputStreamConverter.convertBookToStream(workBook);
+    return IoStreamConverter.convertBookToStream(workBook);
   }
 
   private Workbook getWorkBook(List<IncomeDetailsItemModel> incomeDetailsItems) {
@@ -80,7 +80,7 @@ public class XlsxReportCreator implements TypeReportCreator {
 
 
   @Override
-  public ReportType getType() {
-    return ReportType.XLSX;
+  public ReportFormat getFormat() {
+    return ReportFormat.XLSX;
   }
 }

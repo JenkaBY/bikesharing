@@ -2,9 +2,11 @@ package com.godeltech.bikesharing.service.admin.report.maintenance;
 
 import com.godeltech.bikesharing.models.ReportModel;
 import com.godeltech.bikesharing.models.RequiredMaintenanceDetailsModel;
+import com.godeltech.bikesharing.models.enums.ReportType;
+import com.godeltech.bikesharing.service.admin.report.ReportService;
 import com.godeltech.bikesharing.service.maintenance.RequiredMaintenanceDetailsService;
 import com.godeltech.bikesharing.service.util.DateUtils;
-import com.godeltech.bikesharing.service.util.OutputStreamConverter;
+import com.godeltech.bikesharing.service.util.IoStreamConverter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,13 +26,19 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class MaintenanceReportCreator {
+public class MaintenanceReportCreator implements ReportService {
   private static final String DEFAULT = "DEFAULT";
   private static final String DANGER = "DANGER";
   private static final String WARNING = "WARNING";
   private static final String FILE_NAME = "maintenance-report.xlsx";
   private final RequiredMaintenanceDetailsService service;
 
+  @Override
+  public ReportType getType() {
+    return ReportType.MAINTENANCE;
+  }
+
+  @Override
   public ReportModel createReport() {
     var report = new ReportModel();
     report.setFileName(FILE_NAME);
@@ -44,7 +52,7 @@ public class MaintenanceReportCreator {
     var maintenanceDetailsItems = service.getAllRequiredMaintenanceDetailsItems();
     var workBook = getWorkBook(maintenanceDetailsItems);
 
-    return OutputStreamConverter.convertBookToStream(workBook);
+    return IoStreamConverter.convertBookToStream(workBook);
   }
 
   private Workbook getWorkBook(List<RequiredMaintenanceDetailsModel> maintenanceDetailsModels) {
