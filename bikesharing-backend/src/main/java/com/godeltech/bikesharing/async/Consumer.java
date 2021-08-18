@@ -1,7 +1,7 @@
 package com.godeltech.bikesharing.async;
 
 import com.godeltech.bikesharing.mapper.TimeInUseMapper;
-import com.godeltech.bikesharing.models.request.EquipmentTimeInUseModel;
+import com.godeltech.bikesharing.models.request.EquipmentTimeInUseRequest;
 import com.godeltech.bikesharing.service.TimeInUseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ public class Consumer {
   private final TimeInUseMapper mapper;
 
   @RabbitListener(queues = "${spring.rabbitmq.queue-name}")
-  public void receiveMessage(EquipmentTimeInUseModel modelFromMessage) {
+  public void receiveMessage(EquipmentTimeInUseRequest modelFromMessage) {
     log.info("RabbitListener received message: {}", modelFromMessage.toString());
     var timeInUseModel = mapper.mapToModel(modelFromMessage);
     timeInUseService.addTimeInUse(timeInUseModel);

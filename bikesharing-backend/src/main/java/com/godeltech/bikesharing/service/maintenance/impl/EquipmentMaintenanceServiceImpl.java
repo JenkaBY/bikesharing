@@ -1,4 +1,4 @@
-package com.godeltech.bikesharing.service.equipmentmaintenance.impl;
+package com.godeltech.bikesharing.service.maintenance.impl;
 
 import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.ServiceOperationMapper;
@@ -9,9 +9,9 @@ import com.godeltech.bikesharing.persistence.entity.ServiceOperation;
 import com.godeltech.bikesharing.persistence.repository.ServiceOperationRepository;
 import com.godeltech.bikesharing.service.EquipmentItemService;
 import com.godeltech.bikesharing.service.TimeInUseService;
-import com.godeltech.bikesharing.service.equipmentmaintenance.EquipmentMaintenanceService;
 import com.godeltech.bikesharing.service.impl.lookup.EquipmentStatusServiceImpl;
 import com.godeltech.bikesharing.service.impl.lookup.ServiceTypeServiceImpl;
+import com.godeltech.bikesharing.service.maintenance.EquipmentMaintenanceService;
 import com.godeltech.bikesharing.service.util.RentOperationValidator;
 import java.time.LocalDate;
 import java.util.List;

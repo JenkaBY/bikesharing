@@ -2,8 +2,7 @@ package com.godeltech.bikesharing.controller.admin;
 
 import com.godeltech.bikesharing.models.enums.IncomeTimeUnit;
 import com.godeltech.bikesharing.models.enums.ReportType;
-import com.godeltech.bikesharing.service.admin.report.IncomeDetailsReportFactory;
-import com.godeltech.bikesharing.service.admin.report.IncomeReportCreator;
+import com.godeltech.bikesharing.service.admin.report.income.IncomeReportCreator;
 import com.godeltech.bikesharing.service.util.StringToEnumConverter;
 import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;

@@ -6,7 +6,7 @@ import com.godeltech.bikesharing.mapper.RentOperationMapper;
 import com.godeltech.bikesharing.models.RentOperationModel;
 import com.godeltech.bikesharing.models.lookup.EquipmentStatusModel;
 import com.godeltech.bikesharing.models.lookup.RentStatusModel;
-import com.godeltech.bikesharing.models.request.EquipmentTimeInUseModel;
+import com.godeltech.bikesharing.models.request.EquipmentTimeInUseRequest;
 import com.godeltech.bikesharing.persistence.entity.RentOperation;
 import com.godeltech.bikesharing.persistence.repository.RentOperationRepository;
 import com.godeltech.bikesharing.service.ClientService;
@@ -106,7 +106,7 @@ public class RentServiceImpl implements RentService {
     var minutesInUse = calculator.getRentDurationInMinutes(finishedRentOperation.getStartTime(),
         finishedRentOperation.getFinishedAtTime());
     var equipmentItemId = finishedRentOperation.getEquipmentItem().getId();
-    var equipmentTimeInUse = new EquipmentTimeInUseModel();
+    var equipmentTimeInUse = new EquipmentTimeInUseRequest();
     equipmentTimeInUse.setEquipmentItemId(equipmentItemId);
     equipmentTimeInUse.setMinutesInUse(minutesInUse);
     producer.sendMessage(equipmentTimeInUse);

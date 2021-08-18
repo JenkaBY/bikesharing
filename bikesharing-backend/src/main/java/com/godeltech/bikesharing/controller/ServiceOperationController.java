@@ -5,7 +5,7 @@ import com.godeltech.bikesharing.models.request.FinishEquipmentMaintenanceReques
 import com.godeltech.bikesharing.models.request.StartEquipmentMaintenanceRequest;
 import com.godeltech.bikesharing.models.response.EquipmentMaintenanceResponse;
 import com.godeltech.bikesharing.models.response.FinishEquipmentMaintenanceResponse;
-import com.godeltech.bikesharing.service.equipmentmaintenance.EquipmentMaintenanceService;
+import com.godeltech.bikesharing.service.maintenance.EquipmentMaintenanceService;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;

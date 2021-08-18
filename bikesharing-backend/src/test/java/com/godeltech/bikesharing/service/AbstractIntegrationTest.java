@@ -11,7 +11,7 @@ import com.godeltech.bikesharing.service.admin.EquipmentGroupManagementService;
 import com.godeltech.bikesharing.service.admin.EquipmentItemManagementService;
 import com.godeltech.bikesharing.service.admin.IncomeDetailsService;
 import com.godeltech.bikesharing.service.admin.RentCostManagementService;
-import com.godeltech.bikesharing.service.equipmentmaintenance.EquipmentMaintenanceService;
+import com.godeltech.bikesharing.service.maintenance.EquipmentMaintenanceService;
 import com.godeltech.bikesharing.support.IntegrationTest;
 import org.springframework.beans.factory.annotation.Autowired;
 

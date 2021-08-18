@@ -5,8 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-
-public class EquipmentTimeInUseModel {
+public class EquipmentTimeInUseRequest {
   private Long equipmentItemId;
   private Long minutesInUse;
 }

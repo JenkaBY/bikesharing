@@ -1,10 +1,10 @@
-package com.godeltech.bikesharing.service.admin.report.impl;
+package com.godeltech.bikesharing.service.admin.report.income.impl;
 
 import com.godeltech.bikesharing.models.IncomeDetailsItemModel;
 import com.godeltech.bikesharing.models.enums.IncomeTimeUnit;
 import com.godeltech.bikesharing.models.enums.ReportType;
 import com.godeltech.bikesharing.service.admin.IncomeDetailsService;
-import com.godeltech.bikesharing.service.admin.report.ReportCreator;
+import com.godeltech.bikesharing.service.admin.report.income.TypeReportCreator;
 import com.godeltech.bikesharing.service.util.DateUtils;
 import com.godeltech.bikesharing.service.util.OutputStreamConverter;
 import java.time.LocalDate;
@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CsvReportCreator implements ReportCreator {
+public class CsvReportCreator implements TypeReportCreator {
   private final IncomeDetailsService service;
   private static final String CSV_SEPARATOR = ",";
 

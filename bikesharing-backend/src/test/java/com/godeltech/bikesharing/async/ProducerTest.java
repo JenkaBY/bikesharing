@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
-import com.godeltech.bikesharing.models.request.EquipmentTimeInUseModel;
 import com.godeltech.bikesharing.models.TimeInUseModel;
+import com.godeltech.bikesharing.models.request.EquipmentTimeInUseRequest;
 import com.godeltech.bikesharing.service.AbstractIntegrationTest;
 import com.godeltech.bikesharing.utils.TimeInUseUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Test;
 
 class ProducerTest extends AbstractIntegrationTest {
   private static final Long ID = 1L;
-  private static final EquipmentTimeInUseModel EQUIPMENT_TIME_IN_USE_MODEL = TimeInUseUtils
-      .getEquipmentTimeInUseModel(ID);
+  private static final EquipmentTimeInUseRequest EQUIPMENT_TIME_IN_USE_MODEL = TimeInUseUtils
+      .getEquipmentTimeInUseRequest(ID);
   private static TimeInUseModel expected;
 
   @BeforeEach

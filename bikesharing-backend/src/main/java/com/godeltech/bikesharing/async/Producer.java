@@ -1,6 +1,6 @@
 package com.godeltech.bikesharing.async;
 
-import com.godeltech.bikesharing.models.request.EquipmentTimeInUseModel;
+import com.godeltech.bikesharing.models.request.EquipmentTimeInUseRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -18,7 +18,7 @@ public class Producer {
 
   private final AmqpTemplate amqpTemplate;
 
-  public void sendMessage(EquipmentTimeInUseModel item) {
+  public void sendMessage(EquipmentTimeInUseRequest item) {
 
     amqpTemplate.convertAndSend(exchange, routingKey, item);
   }

@@ -11,8 +11,11 @@ import lombok.Getter;
 public class DateUtils {
 
   public static String getFormattedDate(LocalDate date) {
-    var formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd");
-    return date.format(formatter);
+    if (!(date == null)) {
+      var formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd");
+      return date.format(formatter);
+    }
+    return null;
   }
 
   public static LocalDate getDateFromString(String dateString) {

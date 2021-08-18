@@ -1,7 +1,7 @@
 package com.godeltech.bikesharing.controller;
 
 import com.godeltech.bikesharing.async.Producer;
-import com.godeltech.bikesharing.models.request.EquipmentTimeInUseModel;
+import com.godeltech.bikesharing.models.request.EquipmentTimeInUseRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ public class AsyncRabbitMqController {
   private final Producer producer;
 
   @PostMapping()
-  public ResponseEntity<String> postMessage(@RequestBody EquipmentTimeInUseModel model) {
+  public ResponseEntity<String> postMessage(@RequestBody EquipmentTimeInUseRequest model) {
     producer.sendMessage(model);
     return new ResponseEntity<>("EquipmentTimeInUseModel pushed to RabbitMQ", HttpStatus.CREATED);
   }

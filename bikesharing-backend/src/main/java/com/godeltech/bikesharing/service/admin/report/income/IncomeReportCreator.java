@@ -1,4 +1,4 @@
-package com.godeltech.bikesharing.service.admin.report;
+package com.godeltech.bikesharing.service.admin.report.income;
 
 import com.godeltech.bikesharing.models.ReportModel;
 import com.godeltech.bikesharing.models.enums.IncomeTimeUnit;

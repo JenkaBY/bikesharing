@@ -1,7 +1,7 @@
 package com.godeltech.bikesharing.utils;
 
-import com.godeltech.bikesharing.models.request.EquipmentTimeInUseModel;
 import com.godeltech.bikesharing.models.TimeInUseModel;
+import com.godeltech.bikesharing.models.request.EquipmentTimeInUseRequest;
 import java.time.LocalDate;
 
 public class TimeInUseUtils {
@@ -17,8 +17,8 @@ public class TimeInUseUtils {
     return model;
   }
 
-  public static EquipmentTimeInUseModel getEquipmentTimeInUseModel(Long id) {
-    var model = new EquipmentTimeInUseModel();
+  public static EquipmentTimeInUseRequest getEquipmentTimeInUseRequest(Long id) {
+    var model = new EquipmentTimeInUseRequest();
     model.setEquipmentItemId(id);
     model.setMinutesInUse(MINUTES_IN_USE);
     return model;

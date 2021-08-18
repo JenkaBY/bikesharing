@@ -4,7 +4,7 @@ import com.godeltech.bikesharing.models.EmailSendModel;
 import com.godeltech.bikesharing.models.ReportModel;
 import com.godeltech.bikesharing.models.enums.IncomeTimeUnit;
 import com.godeltech.bikesharing.models.enums.ReportType;
-import com.godeltech.bikesharing.service.admin.report.IncomeReportCreator;
+import com.godeltech.bikesharing.service.admin.report.income.IncomeReportCreator;
 import com.godeltech.bikesharing.service.email.EmailService;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
