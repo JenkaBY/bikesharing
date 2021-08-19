@@ -1,6 +1,7 @@
 package com.godeltech.bikesharing.service.impl;
 
 import com.godeltech.bikesharing.async.Producer;
+import com.godeltech.bikesharing.async.springevent.Publisher;
 import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.RentOperationMapper;
 import com.godeltech.bikesharing.models.RentOperationModel;
@@ -36,7 +37,8 @@ public class RentServiceImpl implements RentService {
   private final ClientService clientService;
   private final RentOperationMapper mapper;
   private final RentStatusServiceImpl rentStatusService;
-  private final Producer producer;
+  private final Producer producer; //RabbitMQ
+  private final Publisher publisher; //SpringEvent
 
   @Override
   public RentOperationModel startRentOperation(RentOperationModel rentOperation) {
@@ -106,10 +108,9 @@ public class RentServiceImpl implements RentService {
     var minutesInUse = calculator.getRentDurationInMinutes(finishedRentOperation.getStartTime(),
         finishedRentOperation.getFinishedAtTime());
     var equipmentItemId = finishedRentOperation.getEquipmentItem().getId();
-    var equipmentTimeInUse = new EquipmentTimeInUseRequest();
-    equipmentTimeInUse.setEquipmentItemId(equipmentItemId);
-    equipmentTimeInUse.setMinutesInUse(minutesInUse);
-    producer.sendMessage(equipmentTimeInUse);
+    var equipmentTimeInUse = new EquipmentTimeInUseRequest(equipmentItemId, minutesInUse);
+    producer.sendMessage(equipmentTimeInUse); // RabbitMQ
+    //publisher.publishEvent(equipmentItemId, minutesInUse); //SpringEvent
   }
 
   @Override

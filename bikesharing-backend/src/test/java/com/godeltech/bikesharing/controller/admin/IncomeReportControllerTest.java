@@ -57,7 +57,7 @@ class IncomeReportControllerTest {
     MvcResult mvcResult = mockMvc.perform(
         MockMvcRequestBuilders.get(URL_TEMPLATE
             + "?timeUnit=" + INCOME_TIME_UNIT
-            + "&reportType=" + REPORT_TYPE
+            + "&reportFormat=" + REPORT_TYPE
             + "&date=" + FINISH_DATE)
     )
         .andDo(print())
