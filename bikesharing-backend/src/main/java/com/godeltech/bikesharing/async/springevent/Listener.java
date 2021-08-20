@@ -18,7 +18,7 @@ public class Listener {
 
   @Async
   @EventListener
-  public void handleEquipmentTimeInUseRequest(EquipmentTimeInUseRequest event){
+  public void handleEquipmentTimeInUseRequest(EquipmentTimeInUseRequest event) {
     log.info("SpringEventListener received event: {}", event.toString());
     var timeInUseModel = mapper.mapToModel(event);
     timeInUseService.addTimeInUse(timeInUseModel);

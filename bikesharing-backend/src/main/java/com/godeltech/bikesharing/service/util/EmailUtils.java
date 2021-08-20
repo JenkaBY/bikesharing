@@ -13,7 +13,7 @@ public class EmailUtils {
         .map(r -> EmailSendModel.builder()
             .recipient((r))
             .sender(sender)
-            .subject(type.name()+"-report")
+            .subject(type.name() + "-report")
             .message("report created for: " + LocalDate.now())
             .reportType(type)
             .build()).collect(Collectors.toList());
