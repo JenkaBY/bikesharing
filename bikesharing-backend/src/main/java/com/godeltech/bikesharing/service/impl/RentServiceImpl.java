@@ -1,6 +1,6 @@
 package com.godeltech.bikesharing.service.impl;
 
-import com.godeltech.bikesharing.async.Producer;
+import com.godeltech.bikesharing.async.rabbitmq.Producer;
 import com.godeltech.bikesharing.async.springevent.Publisher;
 import com.godeltech.bikesharing.exception.ResourceNotFoundException;
 import com.godeltech.bikesharing.mapper.RentOperationMapper;
