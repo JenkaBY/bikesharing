@@ -1,6 +1,7 @@
 package com.godeltech.bikesharing.controller.admin;
 
 import com.godeltech.bikesharing.service.admin.report.maintenance.MaintenanceReportCreator;
+import com.godeltech.bikesharing.service.util.IoStreamConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,12 +24,13 @@ public class MaintenanceReportController {
   @GetMapping
   public ResponseEntity<StreamingResponseBody> getReport() {
 
-    var report = reportCreator.createReport();
+    var report = reportCreator.createPeriodicalReport();
     var headerValues = String.format(HEADER_VALUES, report.getFileName());
+    var content = IoStreamConverter.convertFileToStream(report.getFileContent());
 
     return ResponseEntity.status(HttpStatus.OK)
         .contentType(MediaType.APPLICATION_OCTET_STREAM)
         .header(HttpHeaders.CONTENT_DISPOSITION, headerValues)
-        .body(report.getData());
+        .body(content);
   }
 }

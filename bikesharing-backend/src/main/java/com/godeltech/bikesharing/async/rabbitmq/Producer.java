@@ -1,4 +1,4 @@
-package com.godeltech.bikesharing.async;
+package com.godeltech.bikesharing.async.rabbitmq;
 
 import com.godeltech.bikesharing.models.request.EquipmentTimeInUseRequest;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class Producer {
   private final AmqpTemplate amqpTemplate;
 
   public void sendMessage(EquipmentTimeInUseRequest item) {
-
+    log.info("AmqpTemplate send message: {}", item.toString());
     amqpTemplate.convertAndSend(exchange, routingKey, item);
   }
 }

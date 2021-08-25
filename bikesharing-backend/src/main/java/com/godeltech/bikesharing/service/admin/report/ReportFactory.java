@@ -25,7 +25,7 @@ public class ReportFactory {
   private ReportService getDefaultReportCreator(ReportType type) {
     return new ReportService() {
       @Override
-      public ReportModel createReport() {
+      public ReportModel createPeriodicalReport() {
         var errorMessage = String.format("Report service is not implemented for %s ReportType", type);
         throw new RuntimeException(errorMessage);
       }

@@ -1,6 +1,6 @@
 package com.godeltech.bikesharing.controller;
 
-import com.godeltech.bikesharing.async.Producer;
+import com.godeltech.bikesharing.async.rabbitmq.Producer;
 import com.godeltech.bikesharing.models.request.EquipmentTimeInUseRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

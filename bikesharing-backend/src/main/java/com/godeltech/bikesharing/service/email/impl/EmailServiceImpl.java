@@ -45,7 +45,7 @@ public class EmailServiceImpl implements EmailService {
       mimeMessageHelper.setSubject(emailSendModel.getSubject());
       mimeMessageHelper.setText(emailSendModel.getMessage());
       mimeMessageHelper.addAttachment(attachment.getFileName(),
-          IoStreamConverter.convertToInputStream(attachment.getData()),
+          IoStreamConverter.convertToInputStream(attachment.getFileContent()),
           attachment.getContentType());
     } catch (MessagingException | IOException e) {
       e.printStackTrace();

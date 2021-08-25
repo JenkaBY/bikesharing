@@ -1,7 +1,7 @@
 package com.godeltech.bikesharing.service;
 
-import com.godeltech.bikesharing.async.Consumer;
-import com.godeltech.bikesharing.async.Producer;
+import com.godeltech.bikesharing.async.rabbitmq.Consumer;
+import com.godeltech.bikesharing.async.rabbitmq.Producer;
 import com.godeltech.bikesharing.mapper.ClientAccountMapper;
 import com.godeltech.bikesharing.mapper.EquipmentItemMapper;
 import com.godeltech.bikesharing.mapper.RentOperationMapper;

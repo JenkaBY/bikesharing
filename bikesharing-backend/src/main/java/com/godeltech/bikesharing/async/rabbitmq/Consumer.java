@@ -1,4 +1,4 @@
-package com.godeltech.bikesharing.async;
+package com.godeltech.bikesharing.async.rabbitmq;
 
 import com.godeltech.bikesharing.mapper.TimeInUseMapper;
 import com.godeltech.bikesharing.models.request.EquipmentTimeInUseRequest;

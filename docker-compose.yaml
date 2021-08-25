@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   postgres:
-    image: postgres:12-alpine
+    image: postgres:latest
     restart: always
     container_name: postgres
     ports:
@@ -13,7 +13,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
-      - "db-data:/var/lib/postgresql/data"
+      - "d-base:/var/lib/postgresql/data"
 
   mailhog:
     image: mailhog/mailhog
@@ -51,6 +51,9 @@ services:
     depends_on:
       - postgres
       - rabbitmq
+    volumes:
+      - bike-sharing:/data
 
 volumes:
-  db-data:
+  d-base:
+  bike-sharing:

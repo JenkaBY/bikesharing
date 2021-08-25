@@ -74,11 +74,7 @@ task runDevBackend {
 }
 runDevBackend.dependsOn bootRun
 
-//def profiles = 'heroku'
-//bootRun {
-//    args = ["--spring.profiles.active=" + profiles]
-//}
 //task runHerokuBackend(dependsOn: bootRun) {
 //    print "Run HEROKU Backend"
-//    bootRun
+//    bootRun.args("--spring.profiles.active=heroku")
 //}

@@ -45,7 +45,7 @@ class ProducerTest extends AbstractIntegrationTest {
   @ExpectedDataSet(value = "/dataset/timeInUse/timeInUseUpdated.yml")
   public void shouldAddTimeInUse() throws InterruptedException {
     producer.sendMessage(EQUIPMENT_TIME_IN_USE_MODEL);
-    Thread.sleep(500);
+    Thread.sleep(5000);
 
     var actual = timeInUseService.getOrCreateByEquipmentItemId(ID);
 

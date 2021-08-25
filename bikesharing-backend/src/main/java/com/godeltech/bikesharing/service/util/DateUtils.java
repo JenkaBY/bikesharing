@@ -9,17 +9,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 public class DateUtils {
+  private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
   public static String getFormattedDate(LocalDate date) {
-    if (!(date == null)) {
-      var formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd");
+    if (date != null) {
       return date.format(formatter);
     }
     return null;
   }
 
   public static LocalDate getDateFromString(String dateString) {
-    var formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd");
     return LocalDate.parse(dateString, formatter);
   }
 

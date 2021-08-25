@@ -3,6 +3,7 @@ package com.godeltech.bikesharing.controller.admin;
 import com.godeltech.bikesharing.models.enums.IncomeTimeUnit;
 import com.godeltech.bikesharing.models.enums.ReportFormat;
 import com.godeltech.bikesharing.service.admin.report.income.IncomeReportCreator;
+import com.godeltech.bikesharing.service.util.IoStreamConverter;
 import com.godeltech.bikesharing.service.util.StringToEnumConverter;
 import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
@@ -38,10 +39,11 @@ public class IncomeReportController {
 
     var report = reportCreator.createIncomeReport(reportFormatRequest, incomeTimeUnit, date);
     var headerValues = String.format(HEADER_VALUES, report.getFileName());
+    var content = IoStreamConverter.convertFileToStream(report.getFileContent());
 
     return ResponseEntity.status(HttpStatus.OK)
         .contentType(MediaType.APPLICATION_OCTET_STREAM)
         .header(HttpHeaders.CONTENT_DISPOSITION, headerValues)
-        .body(report.getData());
+        .body(content);
   }
 }

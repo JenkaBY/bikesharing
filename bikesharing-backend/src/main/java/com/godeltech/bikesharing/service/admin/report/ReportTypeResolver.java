@@ -13,6 +13,6 @@ public class ReportTypeResolver {
   private final ReportFactory factory;
 
   public ReportModel getReport(ReportType type) {
-    return factory.getReportService(type).createReport();
+    return factory.getReportService(type).createPeriodicalReport();
   }
 }

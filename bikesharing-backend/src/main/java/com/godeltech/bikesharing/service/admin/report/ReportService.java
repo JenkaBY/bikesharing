@@ -7,5 +7,5 @@ public interface ReportService {
 
   ReportType getType();
 
-  ReportModel createReport();
+  ReportModel createPeriodicalReport();
 }
