@@ -94,17 +94,17 @@ public class XlsxMaintenanceDetailsReport extends XlsxReport {
   private Map<String, CellStyle> getCustomCellStyles() {
     var customStyles = new HashMap<String, CellStyle>();
     var styleDanger = workbook.createCellStyle();
-    styleDanger.setFillBackgroundColor(IndexedColors.RED.getIndex());
+    styleDanger.setFillForegroundColor(IndexedColors.RED.getIndex());
     styleDanger.setFillPattern(CellStyle.SOLID_FOREGROUND);
     customStyles.put(DANGER, styleDanger);
 
     var styleWarning = workbook.createCellStyle();
-    styleWarning.setFillBackgroundColor(IndexedColors.YELLOW.getIndex());
+    styleWarning.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
     styleWarning.setFillPattern(CellStyle.SOLID_FOREGROUND);
     customStyles.put(WARNING, styleWarning);
 
     var styleDefault = workbook.createCellStyle();
-    styleDefault.setFillBackgroundColor(CellStyle.NO_FILL);
+    styleDefault.setFillForegroundColor(CellStyle.NO_FILL);
     customStyles.put(DEFAULT, styleDefault);
 
     return customStyles;
