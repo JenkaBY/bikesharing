@@ -6,7 +6,7 @@
 * MailHog available at: http://localhost:8025/
 
 
-* Start application with docker: $> docker-compose up --build
+* Start application with docker: $> gradle composeUp
 
 
 * Connection to dataBase in container:
