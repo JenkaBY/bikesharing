@@ -15,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class RentServiceTest extends AbstractIntegrationTest {
+
   private static final RentTimeUnit TIME_UNIT_HOUR = RentTimeUnit.HOUR;
   private static final Long TIME_UNIT_AMOUNT = 1L;
   private static final Long MINUTES_PASSED = 120L;
@@ -22,13 +23,14 @@ public class RentServiceTest extends AbstractIntegrationTest {
   private static final String STATUS_LASTING = RentStatusModel.RENT_STATUS_LASTING;
   private final RentOperationModel rentOperationModel = RentOperationUtils.getRentOperationModel(null);
 
+
   @BeforeEach
   @DataSet(value = {
-          "/dataset/clientAccount/clientAccountInitial.yml",
-          "/dataset/equipmentGroup/equipmentGroupAll.yml",
-          "/dataset/equipmentStatus/equipmentStatusAll.yml",
-          "/dataset/rentStatus/rentStatusAll.yml",
-          "/dataset/rentCost/rentCostAll.yml",
+      "/dataset/clientAccount/clientAccountInitial.yml",
+      "/dataset/equipmentGroup/equipmentGroupAll.yml",
+      "/dataset/equipmentStatus/equipmentStatusAll.yml",
+      "/dataset/rentStatus/rentStatusAll.yml",
+      "/dataset/rentCost/rentCostAll.yml",
       },
       cleanBefore = true, useSequenceFiltering = false)
   public void setUp() {

@@ -1,6 +1,12 @@
 plugins {
     id 'base'
     id 'checkstyle'
+    // Docker
+    id 'com.avast.gradle.docker-compose' version '0.14.9'
+}
+
+dockerCompose {
+    useComposeFiles = ['docker-compose.yaml']
 }
 
 allprojects {
@@ -12,6 +18,7 @@ allprojects {
         maxWarnings = 0
         configDirectory = file("$rootProject.projectDir/config/checkstyle")
     }
+
 }
 
 subprojects {

@@ -3,6 +3,7 @@ package com.godeltech.bikesharing.support;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 
 import com.github.database.rider.junit5.api.DBRider;
+import com.godeltech.bikesharing.config.RabbitMqTestConfig;
 import com.godeltech.bikesharing.config.TestContainerConfig;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -21,7 +22,8 @@ import org.springframework.test.context.ContextConfiguration;
 @SpringBootTest
 //@Transactional(propagation = Propagation.NOT_SUPPORTED) //test results will not disappear
 @AutoConfigureTestDatabase(replace = NONE)
-@ContextConfiguration(classes = TestContainerConfig.class)
+@ContextConfiguration(classes = {TestContainerConfig.class,
+    RabbitMqTestConfig.class})
 @DBRider
 
 public @interface IntegrationTest {

@@ -1,55 +1,34 @@
 package com.godeltech.bikesharing.async;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.mockito.ArgumentMatchers.eq;
 
-import com.github.database.rider.core.api.dataset.DataSet;
-import com.github.database.rider.core.api.dataset.ExpectedDataSet;
-import com.godeltech.bikesharing.models.TimeInUseModel;
+import com.godeltech.bikesharing.async.rabbitmq.Producer;
 import com.godeltech.bikesharing.models.request.EquipmentTimeInUseRequest;
-import com.godeltech.bikesharing.service.AbstractIntegrationTest;
 import com.godeltech.bikesharing.utils.TimeInUseUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
-class ProducerTest extends AbstractIntegrationTest {
+class ProducerTest {
   private static final Long ID = 1L;
   private static final EquipmentTimeInUseRequest EQUIPMENT_TIME_IN_USE_MODEL = TimeInUseUtils
       .getEquipmentTimeInUseRequest(ID);
-  private static TimeInUseModel expected;
+  private Producer subject;
+  private RabbitTemplate rabbitTemplateMock;
 
   @BeforeEach
-  @DataSet(value = {
-      "/dataset/equipmentGroup/equipmentGroupAll.yml",
-      "/dataset/equipmentStatus/equipmentStatusAll.yml",
-      "/dataset/equipmentItem/equipmentItemAll.yml",},
-      cleanBefore = true, useSequenceFiltering = false)
   public void setUp() {
-    expected = TimeInUseUtils.getTimeInUseModel(ID);
+    this.rabbitTemplateMock = Mockito.mock(RabbitTemplate.class);
+    this.subject = new Producer(this.rabbitTemplateMock);
   }
 
   @Test
-  @ExpectedDataSet(value = "/dataset/timeInUse/timeInUseCreated.yml")
-  public void shouldCreateTimeInUse() throws InterruptedException {
-    expected.setMaintenanceDate(null);
-    producer.sendMessage(EQUIPMENT_TIME_IN_USE_MODEL);
-    Thread.sleep(500);
-
-    var actual = timeInUseService.getOrCreateByEquipmentItemId(ID);
-
-    assertEquals(expected.getEquipmentItem(), actual.getEquipmentItem());
-    assertEquals(expected.getMinutesInUse(), actual.getMinutesInUse());
+  public void shouldSendMessage() {
+    assertThatCode(() -> this.subject.sendMessage(EQUIPMENT_TIME_IN_USE_MODEL)).doesNotThrowAnyException();
+    Mockito.verify(this.rabbitTemplateMock)
+        .convertAndSend(eq(null), eq(null), eq(EQUIPMENT_TIME_IN_USE_MODEL));
   }
 
-  @Test
-  @DataSet(value = "/dataset/timeInUse/timeInUseInitial.yml")
-  @ExpectedDataSet(value = "/dataset/timeInUse/timeInUseUpdated.yml")
-  public void shouldAddTimeInUse() throws InterruptedException {
-    producer.sendMessage(EQUIPMENT_TIME_IN_USE_MODEL);
-    Thread.sleep(500);
-
-    var actual = timeInUseService.getOrCreateByEquipmentItemId(ID);
-
-    assertEquals(expected.getEquipmentItem(), actual.getEquipmentItem());
-    assertEquals(expected.getMinutesInUse(), actual.getMinutesInUse());
-  }
 }
