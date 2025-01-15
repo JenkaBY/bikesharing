@@ -1,4 +1,4 @@
-FROM openjdk:11-jdk-slim
+FROM amazoncorretto:17-alpine-jdk
 WORKDIR /usr/local/app
 ARG REVISION
 COPY ./com.godeltech.bikesharing-backend/build/libs/com.godeltech.bikesharing-0.0.1-SNAPSHOT.jar /app.jar
