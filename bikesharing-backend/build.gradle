@@ -17,6 +17,7 @@ ext {
     mapstructVersion = '1.4.2.Final'
     mockitoJunitJupiterVersion = '3.6.0'
     junitJupiterApiVersion='5.7.0'
+    specArgResolverVersion='2.19.0'
 }
 
 dependencies {
@@ -33,6 +34,7 @@ dependencies {
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     implementation("org.liquibase:liquibase-core")
+    implementation "net.kaczmarzyk:specification-arg-resolver:$specArgResolverVersion"
 
 
     //      Swagger
@@ -44,6 +46,9 @@ dependencies {
 
     //      Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+// FIXME remove versions
+    testImplementation 'com.jayway.jsonpath:json-path:2.9.0'
+    testImplementation 'org.hamcrest:hamcrest-library:2.2'
     testImplementation "org.mockito:mockito-junit-jupiter:${mockitoJunitJupiterVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitJupiterApiVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitJupiterApiVersion}"

@@ -5,11 +5,18 @@ import com.godeltech.bikesharing.mapper.ClientAccountMapper;
 import com.godeltech.bikesharing.models.ClientAccountModel;
 import com.godeltech.bikesharing.persistence.entity.ClientAccount;
 import com.godeltech.bikesharing.persistence.repository.ClientAccountRepository;
+import com.godeltech.bikesharing.persistence.speicification.ClientAccountSearchCriteria;
+import com.godeltech.bikesharing.persistence.speicification.SpecConstant;
 import com.godeltech.bikesharing.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.kaczmarzyk.spring.data.jpa.utils.SpecificationBuilder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
 
 @Slf4j
 @Service
@@ -56,6 +63,16 @@ public class ClientServiceImpl implements ClientService {
     log.info("getById: {}", id);
     return repository.findById(id).map(mapper::mapToModel)
         .orElseThrow(() -> new ResourceNotFoundException(ClientAccount.class.getSimpleName(), "id", id));
+  }
+
+  @Override
+  public Page<ClientAccountModel> findBySearchCriteria(String lookup, Pageable pageable) {
+    if (StringUtils.trimAllWhitespace(lookup).length() < 3) {
+      return Page.empty();
+    }
+    return repository.findAll(SpecificationBuilder.specification(ClientAccountSearchCriteria.class)
+            .withParam(SpecConstant.FieldName.LOOKUP, lookup).build(), pageable)
+            .map(mapper::mapToModel);
   }
 
   private ClientAccount createAccountByPhoneNumber(String clientPhoneNumber) {

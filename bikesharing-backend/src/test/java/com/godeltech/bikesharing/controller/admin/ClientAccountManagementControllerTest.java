@@ -1,13 +1,5 @@
 package com.godeltech.bikesharing.controller.admin;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.godeltech.bikesharing.mapper.ClientAccountMapper;
 import com.godeltech.bikesharing.mapper.GeneralErrorMapper;
 import com.godeltech.bikesharing.models.ClientAccountModel;
@@ -16,13 +8,34 @@ import com.godeltech.bikesharing.models.response.ClientAccountResponse;
 import com.godeltech.bikesharing.service.ClientService;
 import com.godeltech.bikesharing.service.util.JsonMapper;
 import com.godeltech.bikesharing.utils.ClientAccountUtils;
+import lombok.SneakyThrows;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest({ClientAccountManagementController.class, GeneralErrorMapper.class, JsonMapper.class})
 class ClientAccountManagementControllerTest {
@@ -109,5 +122,41 @@ class ClientAccountManagementControllerTest {
 
     verify(service).update(clientAccount, ID);
     assertEquals(expectedResponse, actualResponseFromServer);
+  }
+
+  @Nested
+  class GetAllShouldReturnByLookup {
+
+    @Test
+    @SneakyThrows
+    void shouldReturnListOfClients() {
+      MultiValueMap<String, String> queryParams = new LinkedMultiValueMap();
+      queryParams.put("lookup", List.of("lookupValue"));
+      queryParams.put("page", List.of("1"));
+      queryParams.put("size", List.of("10"));
+      queryParams.put("sort", List.of("name"));
+
+      Pageable pageable = PageRequest.of(1, 10, Sort.by("name"));
+      when(service.findBySearchCriteria("lookupValue", pageable))
+              .thenReturn(new PageImpl<ClientAccountModel>(List.of(mock(ClientAccountModel.class))));
+       performRequest(URL_TEMPLATE, queryParams)
+              .andExpect(status().isOk())
+              .andExpectAll(
+                      jsonPath("$.size", Matchers.is(1)),
+                      jsonPath("$.totalElements", Matchers.is(1)),
+                      jsonPath("$.number", Matchers.is(0)),
+                      jsonPath("$.content", Matchers.hasSize(1))
+              );
+    }
+
+    @SneakyThrows
+    private ResultActions performRequest(String url, MultiValueMap<String, String> params) {
+      return mockMvc.perform(MockMvcRequestBuilders.get(url)
+                      .contentType(MediaType.APPLICATION_JSON)
+                      .accept(MediaType.APPLICATION_JSON)
+                      .queryParams(params))
+              .andDo(print());
+    }
+
   }
 }

@@ -1,11 +1,13 @@
 package com.godeltech.bikesharing.persistence.repository;
 
 import com.godeltech.bikesharing.persistence.entity.ClientAccount;
-import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
-public interface ClientAccountRepository extends JpaRepository<ClientAccount, Long> {
+import java.util.Optional;
+
+public interface ClientAccountRepository extends JpaSpecificationExecutor<ClientAccount>, JpaRepository<ClientAccount, Long> {
   Optional<ClientAccount> findByPhoneNumber(String phoneNum);
 
   Optional<ClientAccount> findByPhoneNumberEndsWith(String searchPattern);

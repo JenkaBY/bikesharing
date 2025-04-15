@@ -4,19 +4,21 @@ import com.godeltech.bikesharing.mapper.ClientAccountMapper;
 import com.godeltech.bikesharing.models.request.ClientAccountRequest;
 import com.godeltech.bikesharing.models.response.ClientAccountResponse;
 import com.godeltech.bikesharing.service.ClientService;
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springdoc.api.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @Validated
@@ -41,5 +43,16 @@ public class ClientAccountManagementController {
     var updatedAccount = service.update(clientAccountModel, id);
     var response = mapper.mapToResponse(updatedAccount);
     return ResponseEntity.status(HttpStatus.OK).body(response);
+  }
+
+  @ApiResponse(responseCode = "200",
+          description = "Return pageable list of clients gor given substring of phone number or name. The endpoint returns empty list if the lookup search less then 3 characters or for blank string")
+  @GetMapping
+  public Page<ClientAccountResponse> findAllBySearchCriteria(
+          @RequestParam(name = "lookup") String lookup,
+          @ParameterObject Pageable pageableRequest) {
+    log.info("Find clients by criteria '{}' and page {}", lookup, pageableRequest);
+    return service.findBySearchCriteria(lookup, pageableRequest)
+            .map(mapper::mapToResponse);
   }
 }
